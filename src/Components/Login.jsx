@@ -29,7 +29,7 @@ function Login() {
                     </div>
                     <div className="full-name">
                         <input className="rounded-xl" type="text" required/>
-                        <label className="labelling">Enter Your Email</label>
+                        <label className="labelling w-[40%]">Enter Your Email</label>
                         <p className="Error-message"></p>
                     </div>
                     <div className="full-name">
