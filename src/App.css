@@ -1,0 +1,44 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.text span:nth-child(1){
+    color: purple;
+    text-shadow: 3px 3px black;
+    font-style: italic;
+}
+
+.text span:nth-child(2){
+    color: rgb(188, 187, 196);
+    text-shadow: 3px 3px black;
+    font-style: italic;
+}
+
+.auth-container{
+    box-shadow: 5px 5px black;
+}
+
+label::before{
+    content: "";
+    top: 50%;
+    height: 2px;
+    position: absolute;
+    width: 5%;
+    left: -10%;
+    background-color: #FFB200;
+    margin: 4% 15%;
+    
+}
+label::after{
+    content: "";
+    top: 50%;
+    height: 2px;
+    position: absolute;
+    width: 200%;
+    left: 100%;
+    background-color: #FFB200;
+    margin: 4% 15%;
+    
+}
