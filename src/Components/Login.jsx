@@ -2,7 +2,7 @@ import React from "react";
 
 function Login() {
     return ( 
-        <div className="h-[100vh] w-full py-16 ">
+        <div className="h-[100vh] w-full md:py-16 ">
             <div className="auth-container h-full m-auto w-full md:w-[45%] md:h-[70vh] bg-[#3E5879]">
                 <div className="flex w-full h-10 justify-center items-center app-name">
                     {/* <img src="/HiChat.png" alt="app logo" /> */}
