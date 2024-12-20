@@ -17,12 +17,16 @@
 }
 
 @media(max-width: 768px){
+    .text{
+        padding-top: 5%;
+    }
+
     .auth-area{
         display: flex;
         flex-direction: column;
         justify-content: start;
         width: 100%;
-        padding: 7% 7%;
+        padding: 10% 7%;
     }
 
     .full-name{
@@ -35,16 +39,44 @@
     .full-name input{
         position: absolute;
         height: 6vh;
-        width: 50%;
+        width: 80%;
         outline: none;
         background-color: transparent;
-        border: 1px solid #FFB200;
+        border: 2px solid #FFB200;
         padding: 0 0.5rem;
+        font-weight: 400;
+        font-family: Arial, Helvetica, sans-serif ;
+        
     }
 
     .labelling{
         font-size: 15px;
+        width: 30%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 500;
+        padding: 2%;
+        background-color: #3E5879;
+        transition: 0.2s ease;
     }
+
+    .full-name input:focus,
+    .full-name input:valid{
+        color: #fff;
+        border: 2px solid#66ff00;
+        font-size: 15px;
+        font-weight: 300;
+    }
+
+    .full-name input:focus + .labelling,
+    .full-name input:valid + .labelling{
+        color: #66ff00;
+        height: 4vh;
+        font-size: 15px;
+        transform: translate(-2%, -70%) scale(0.88);
+        z-index: 1111;
+    }
+
+    
 
 
 

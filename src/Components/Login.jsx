@@ -18,8 +18,8 @@ function Login() {
                 </div>
                 <div className="auth-area">
                     <div className="full-name">
-                        <input type="text" required/>
-                        <label className="labelling">Full Name</label>
+                        <input className="rounded-xl" type="text" required/>
+                        <label className="labelling">Enter full name</label>
                     </div>
                 </div>
             </div>
