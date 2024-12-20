@@ -1,4 +1,4 @@
-body{
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -16,44 +16,36 @@ body{
     font-style: italic;
 }
 
-.auth-container{
-    box-shadow: 5px 5px black;
-}
-
-label::before{
-    content: "";
-    top: 50%;
-    height: 2px;
-    position: absolute;
-    width: 5%;
-    left: -10%;
-    background-color: #FFB200;
-    margin: 4% 15%;
-    
-}
-
-
-
 @media(max-width: 768px){
-    .auth-container h2{
-        font-size: 25px;
-    }
-    .full-name input{
+    .auth-area{
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
         width: 100%;
-        height: 7vh;
+        padding: 7% 7%;
     }
 
-    label::after{
-        content: "";
-        top: 50%;
-        height: 2px;
+    .full-name{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        color: #fff;
+    }
+
+    .full-name input{
         position: absolute;
-        width: 260%;
-        background-color: #FFB200;
-        margin: 4% 6%;
+        height: 6vh;
+        width: 50%;
+        outline: none;
+        background-color: transparent;
+        border: 1px solid #FFB200;
+        padding: 0 0.5rem;
     }
-}
 
-@media(min-width: 768px){
+    .labelling{
+        font-size: 15px;
+    }
+
+
 
 }

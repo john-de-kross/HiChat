@@ -16,12 +16,10 @@ function Login() {
                         <span>t</span>
                     </h2>
                 </div>
-                <div className="flex-col justify-center place-items-center input-field w-full mt-14">
-                    <div className="flex flex-col justify-start px-6 w-full md:justify-center relative md:w-[70%] full-name">
-                        <label className="absolute top-[-13px] text-sm  font-[300] text-white px-3" htmlFor="">Full Name</label>
-                        <input className="bg-transparent w-[70%] h-[45px] px-0.5 font-[500]
-                         border-t-0 outline-none rounded-md text-gray-200 border-2 border-x-[#FFB200] border-y-[#FFB200]"
-                          type="text" placeholder=""/>
+                <div className="auth-area">
+                    <div className="full-name">
+                        <input type="text" required/>
+                        <label className="labelling">Full Name</label>
                     </div>
                 </div>
             </div>
