@@ -7,7 +7,8 @@ function Login() {
                 <div className="flex w-full h-10 justify-center items-center app-name">
                     {/* <img src="/HiChat.png" alt="app logo" /> */}
                     <h2 className="font-[900] text text-2xl md:text-3xl">
-                        <span className="">H</span>
+                    Welcome to 
+                        <span className=""> H</span>
                         <span>i</span>
                         <span>C</span>
                         <span>h</span>

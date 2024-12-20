@@ -36,7 +36,7 @@ label::before{
 
 @media(max-width: 768px){
     .auth-container h2{
-        font-size: 35px;
+        font-size: 25px;
     }
     .full-name input{
         width: 100%;
@@ -48,7 +48,7 @@ label::before{
         top: 50%;
         height: 2px;
         position: absolute;
-        width: 285%;
+        width: 260%;
         background-color: #FFB200;
         margin: 4% 6%;
     }
