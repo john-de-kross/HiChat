@@ -27,6 +27,7 @@
         justify-content: start;
         width: 100%;
         padding: 10% 7%;
+        
     }
 
     .full-name{
@@ -34,6 +35,7 @@
         display: flex;
         flex-direction: column;
         color: #fff;
+        margin: 3% 0;
     }
 
     .full-name input{
@@ -74,6 +76,15 @@
         font-size: 15px;
         transform: translate(-2%, -70%) scale(0.88);
         z-index: 1111;
+    }
+
+    .Error-message{
+        display: flex;
+        justify-content: start;
+        justify-items: center;
+        padding: 0.8rem 0.5rem;
+        color: red;
+        font-weight: 500;
     }
 
     
