@@ -31,14 +31,29 @@ label::before{
     margin: 4% 15%;
     
 }
-label::after{
-    content: "";
-    top: 50%;
-    height: 2px;
-    position: absolute;
-    width: 200%;
-    left: 100%;
-    background-color: #FFB200;
-    margin: 4% 15%;
-    
+
+
+
+@media(max-width: 768px){
+    .auth-container h2{
+        font-size: 35px;
+    }
+    .full-name input{
+        width: 100%;
+        height: 7vh;
+    }
+
+    label::after{
+        content: "";
+        top: 50%;
+        height: 2px;
+        position: absolute;
+        width: 450%;
+        background-color: #FFB200;
+        margin: 4% 6%;
+    }
+}
+
+@media(min-width: 768px){
+
 }
