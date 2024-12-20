@@ -48,7 +48,7 @@ label::before{
         top: 50%;
         height: 2px;
         position: absolute;
-        width: 300%;
+        width: 285%;
         background-color: #FFB200;
         margin: 4% 6%;
     }
