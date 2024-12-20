@@ -19,7 +19,7 @@ function Login() {
                 <div className="auth-area">
                     <div className="full-name">
                         <input className="rounded-xl" type="text" required/>
-                        <label className="labelling">Enter Full Name</label>
+                        <label className="labelling full_name">Enter Full Name</label>
                         <p className="Error-message "></p>
                     </div>
                     <div className="full-name">
@@ -37,8 +37,8 @@ function Login() {
                         <label className="labelling">Enter Your Password</label>
                         <p className="Error-message"></p>
                     </div>
-                    <div className="full-name">
-                        <button className="bg-orange-400 font-[500] h-10 rounded-xl">Sign Up</button>
+                    <div className="full-name sign-in">
+                        <button className="bg-orange-400 sign-btn rounded-xl">Sign Up</button>
 
                     </div>
                 </div>
