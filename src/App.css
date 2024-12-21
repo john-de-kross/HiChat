@@ -173,13 +173,17 @@
     }
 
     .sign-btn{
-        width: 94%;
+        width: 100%;
         height: 6vh;
         background: linear-gradient(75deg, #FFB200, #66ff00, #fff); 
     }
 
     .sign-btn:hover{
         background: #7ca064;
+    }
+
+    .full_name, .email{
+        width: 50%;
     }
 
    
