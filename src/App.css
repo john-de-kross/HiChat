@@ -4,6 +4,12 @@
     box-sizing: border-box;
 }
 
+
+.auth-container h2{
+    color: #fff;
+    font-size: 22px;
+}
+
 .text span:nth-child(1){
     color: purple;
     text-shadow: 3px 3px black;
@@ -15,6 +21,76 @@
     text-shadow: 3px 3px black;
     font-style: italic;
 }
+
+.auth-area{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 7% 0;
+}
+
+.full-name{
+    display: flex;
+    flex-direction: column;
+    margin: 5% 2%;
+    padding: 0 1rem;
+}
+
+.full-name input{
+    position: absolute;
+    height: 8vh;
+    width: 25%;
+    background-color: transparent;
+    border: 2px solid #FFB200;
+    outline: none;
+    color: #fff;
+    padding: 0.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+}
+
+.labelling{
+    background-color: #3E5879;
+    width: 50%;
+    padding: 3% 3%;
+    color: #fff;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: 0.2s ease-out;
+    
+}
+
+.full-name input:focus,
+.full-name input:valid{
+    border: 2px solid #66ff00;
+    padding-top: 1%;
+}
+
+.full-name input:focus + .labelling,
+.full-name input:valid + .labelling{
+    transform: translate(8%, -50%) scale(0.88);
+    z-index: 1000; 
+}
+
+.full_name, .email{
+    width: 40%;
+}
+
+.sign-btn{
+    height: 7vh;
+    width: 95%;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(75deg, #FFB200, #66ff00, #fff);
+}
+
+.sign-btn:hover{
+    background: #7ca064;
+}
+
+
+
 
 @media(max-width: 768px){
     .text{
@@ -58,7 +134,7 @@
         font-weight: 500;
         padding: 2%;
         background-color: #3E5879;
-        transition: 0.2s ease;
+        transition: 0.2s ease-out;
     }
 
     .full-name input:focus,
@@ -93,11 +169,17 @@
         height: 6vh;
         justify-content: center;
         justify-items: center;
+
     }
 
     .sign-btn{
         width: 94%;
         height: 6vh;
+        background: linear-gradient(75deg, #FFB200, #66ff00, #fff); 
+    }
+
+    .sign-btn:hover{
+        background: #7ca064;
     }
 
     .email{
