@@ -129,10 +129,10 @@
 
     .labelling{
         font-size: 15px;
-        width: 55%;
+        width: 60%;
         font-family: Arial, Helvetica, sans-serif;
         font-weight: 500;
-        padding: 2%;
+        padding: 3%;
         background-color: #3E5879;
         transition: 0.2s ease-out;
     }
@@ -182,13 +182,7 @@
         background: #7ca064;
     }
 
-    .email{
-        width: 40%;
-    }
-
-    .full_name{
-        width: 40%;
-    }
+   
 
     
 
