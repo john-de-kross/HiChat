@@ -5,191 +5,97 @@
 }
 
 
-.auth-container h2{
-    color: #fff;
-    font-size: 22px;
+.form-container{
+    height: 75vh;
+    width: 30%;
+    background-color: #3E5879;
+    margin: auto;
+    margin-top: 5%;
 }
 
-.text span:nth-child(1){
-    color: purple;
-    text-shadow: 3px 3px black;
-    font-style: italic;
+.text-heading{
+    padding: 2% 0;
 }
 
-.text span:nth-child(2){
-    color: rgb(188, 187, 196);
-    text-shadow: 3px 3px black;
-    font-style: italic;
-}
-
-.auth-area{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    padding: 7% 0;
-}
-
-.full-name{
-    display: flex;
-    flex-direction: column;
-    margin: 5% 2%;
-    padding: 0 1rem;
-}
-
-.full-name input{
-    position: absolute;
-    height: 8vh;
-    width: 25%;
-    background-color: transparent;
-    border: 2px solid #FFB200;
-    outline: none;
-    color: #fff;
-    padding: 0.5rem;
+.text-heading h2{
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color: #fff;
     font-weight: 500;
+}
+
+.full_name{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding: 5%;
+}
+
+.full_name input{
+    position: absolute;
+    width: 90%;
+    height: 7vh;
+    background-color: transparent;
+    border: 2px solid rgb(233, 169, 51);
+    outline: none;
+    padding: 0 0.5rem;
+    color: #fff;
 }
 
 .labelling{
-    background-color: #3E5879;
-    width: 50%;
+    color: #fff;
     padding: 3% 3%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 300;
+    background-color: #3E5879;
+    width: 25%;
+    transition: 0.2s ease-out;
+    font-size: 14px;
+    
+}
+
+.full_name input:focus,
+.full_name input:valid{
+    border-color: greenyellow;
+}
+
+.full_name input:focus + .labelling,
+.full_name input:valid + .labelling{
+    transform: translate(20%, -50%) scale(0.88);
+}
+
+.email{
+    width: 18%;
+}
+
+.full_name img{
+    position: absolute;
+    width: 6%;
+    right: 10%;
+    padding: 2% 0;
+    cursor: pointer;
+}
+
+
+.full_name p{
+    color: rgb(212, 25, 25);
+    padding: 1% 2%;
+    height: 1vh;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
     color: #fff;
     font-weight: 500;
-    font-family: Arial, Helvetica, sans-serif;
-    transition: 0.2s ease-out;
-    
 }
 
-.full-name input:focus,
-.full-name input:valid{
-    border: 2px solid #66ff00;
-    padding-top: 1%;
-}
-
-.full-name input:focus + .labelling,
-.full-name input:valid + .labelling{
-    transform: translate(8%, -50%) scale(0.88);
-    z-index: 1000; 
-}
-
-.full_name, .email{
+.btn button{
+    background: linear-gradient(45deg, orange, blue, white);
     width: 40%;
-}
-
-.sign-btn{
-    height: 7vh;
-    width: 94%;
-    font-weight: 600;
-    color: #fff;
-    background: linear-gradient(75deg, #FFB200, #66ff00, #fff);
-}
-
-.sign-btn:hover{
-    background: #7ca064;
-}
-
-
-
-
-@media(max-width: 768px){
-    .text{
-        padding-top: 5%;
-    }
-
-    .auth-area{
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        width: 100%;
-        padding: 10% 7%;
-        
-    }
-
-    .full-name{
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        color: #fff;
-        margin: 2% 0;
-    }
-
-    .full-name input{
-        position: absolute;
-        height: 7vh;
-        width: 80%;
-        outline: none;
-        background-color: transparent;
-        border: 2px solid #FFB200;
-        padding: 0 0.5rem;
-        font-weight: 400;
-        font-family: Arial, Helvetica, sans-serif ;
-        
-    }
-
-    .labelling{
-        font-size: 15px;
-        width: 60%;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: 500;
-        padding: 3%;
-        background-color: #3E5879;
-        transition: 0.2s ease-out;
-    }
-
-    .full-name input:focus,
-    .full-name input:valid{
-        color: #fff;
-        border: 2px solid#66ff00;
-        font-size: 15px;
-        font-weight: 300;
-    }
-
-    .full-name input:focus + .labelling,
-    .full-name input:valid + .labelling{
-        color: #66ff00;
-        height: 4vh;
-        font-size: 15px;
-        transform: translate(-2%, -70%) scale(0.88);
-        z-index: 1111;
-    }
-
-    .Error-message{
-        display: flex;
-        justify-content: start;
-        justify-items: center;
-        padding: 0.8rem 0.5rem;
-        color: red;
-        font-weight: 500;
-    }
-
-    .sign-in{
-        display: flex;
-        width: 100%;
-        height: 6vh;
-        justify-content: center;
-        justify-items: center;
-
-    }
-
-    .sign-btn{
-        width: 100%;
-        height: 6vh;
-        background: linear-gradient(75deg, #FFB200, #66ff00, #fff); 
-    }
-
-    .sign-btn:hover{
-        background: #7ca064;
-    }
-
-    .full_name, .email{
-        width: 50%;
-    }
-
-   
-
+    height: 6vh;
     
-
-
-
 }
+
