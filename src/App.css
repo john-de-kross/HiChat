@@ -6,7 +6,8 @@
 
 
 .form-container{
-    height: 75vh;
+    max-height: 75vh;
+    height: auto;
     max-width: 400px;
     width: 90%;
     background-color: #3E5879;
