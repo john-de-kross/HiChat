@@ -99,3 +99,10 @@
     
 }
 
+@media(max-width: 768px){
+    .form-container{
+        height: 100vh;
+        width: 100%;
+    }
+}
+
