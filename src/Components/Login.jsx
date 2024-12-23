@@ -9,7 +9,7 @@ function Login() {
                     <h2>Welcome to HiChat</h2>
                 </div>
                 <div className="textArea flex flex-col px-3">
-                    <input className="w-[80%] h-[6vh]" type="text" required/>
+                    <input className="w-[1000%] h-[5vh]" type="text" required/>
                     <label className="labelling">Full Name</label>
 
                 </div>
