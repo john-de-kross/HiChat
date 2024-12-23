@@ -3,3 +3,11 @@ body{
     padding: 0;
     box-sizing: border-box;
 }
+
+.textArea input{
+    position: absolute;
+    background-color: transparent;
+    border: 2px solid orange;
+    outline: none;
+    color: #fff;
+}
