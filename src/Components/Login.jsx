@@ -2,8 +2,8 @@ import React from "react";
 import hide from './hide.png'
 function Login() {
     return ( 
-        <div className="w-full h-full">
-            <div className="form-container">
+        <div className="w-full h-full md:flex md:justify-center md:items-center md:py-10">
+            <div className="form-container h-full w-full bg-[#3E5879] md:h-[80vh] md:w-[50%] lg:w-[30%] lg:h-[70vh]">
                 <div className="text-heading flex justify-center items-center">
                     <h2>Welcome to HiChat</h2>
                 </div>
