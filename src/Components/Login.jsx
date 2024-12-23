@@ -2,42 +2,18 @@ import React from "react";
 import hide from './hide.png'
 function Login() {
     return ( 
-        <div className="w-full h-full md:flex md:justify-center md:items-center md:py-10">
-            <div className="form-container h-full w-full bg-[#3E5879] md:h-[80vh] md:w-[50%] lg:w-[30%] lg:h-[70vh]">
-                <div className="text-heading flex justify-center items-center">
+      <div>
+        <div className="flex justify-center h-screen w-full items-center">
+            <div className="form-container w-full h-full bg-[#3E5879] md:w-[35%] md:h-[80vh]">
+                <div className="form-header flex justify-center items-center py-3 text-[#fff] font-[500] md:font-bold md:text-lg">
                     <h2>Welcome to HiChat</h2>
-                </div>
-                <div className="textArea"> 
-                    <div className="full_name py-2">
-                        <input className="rounded-md" type="text" required/>
-                        <label className="labelling full-name">Full Name </label>
-                        <p className="error"></p>
-
-                    </div>
-                    <div className="full_name py-2">
-                        <input className="rounded-md" type="text" required/>
-                        <label className="labelling">Username </label>
-                        <p className="error"></p>
-                    </div>
-                    <div className="full_name py-2">
-                        <input className="rounded-md" type="text" required/>
-                        <label className="labelling email">Email</label>
-                        <p className="error"></p>
-                    </div>
-                    <div className="full_name py-2">
-                        <input className="rounded-md" type="password" required/>
-                        <label className="labelling">Password</label>
-                        <img className="" src={hide} alt="hide password" />
-                        <p className="error"></p>
-                    </div>
-                    <div className="btn">
-                        <button className="rounded-lg">Sign Up</button>
-                    </div>
+                    
                 </div>
 
             </div>
-            
+
         </div>
+      </div>
     )
 }
 
