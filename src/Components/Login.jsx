@@ -10,7 +10,7 @@ function Login() {
                 <div className="textArea"> 
                     <div className="full_name py-2">
                         <input className="rounded-md" type="text" required/>
-                        <label className="labelling">Full Name </label>
+                        <label className="labelling full-name">Full Name </label>
                         <p className="error"></p>
 
                     </div>
