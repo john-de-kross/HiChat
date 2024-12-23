@@ -109,12 +109,12 @@ body{
         height: 100vh;
         width: 100%;
         margin-top: 0;
+        padding: 20%;
           
     }
     .btn{
         display: flex;
-        justify-content: flex-start;
-        
+        justify-content: center;
         padding: 1% 4%;
 
     }
