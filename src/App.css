@@ -18,6 +18,7 @@ span{
 .full_name{
     display: flex;
     flex-direction: column;
+    margin: 8% 0;
 }
 
 
@@ -52,7 +53,8 @@ span{
     z-index: 2000;
 }
 
-@media(orientation:landscape){
+
+@media(orientation: landscape){
     .labelling{
         width: 20%;
     }

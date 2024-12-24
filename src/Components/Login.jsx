@@ -13,6 +13,21 @@ function Login() {
                         <label className="labelling">Full Name</label>
                         <p className="error"></p>
                     </div>
+                    <div className="full_name inputs pl-2 relative w-full h-[60px]">
+                        <input className="w-[98%] bg-transparent rounded-3xl h-full md:w-[50%]" type="text" required/>
+                        <label className="labelling">Username</label>
+                        <p className="error"></p>
+                    </div>
+                    <div className="full_name inputs pl-2 relative w-full h-[60px]">
+                        <input className="w-[98%] bg-transparent rounded-3xl h-full md:w-[50%]" type="text" required/>
+                        <label className="labelling">Email</label>
+                        <p className="error"></p>
+                    </div>
+                    <div className="full_name inputs pl-2 relative w-full h-[60px]">
+                        <input className="w-[98%] bg-transparent rounded-3xl h-full md:w-[50%]" type="password" required/>
+                        <label className="labelling">Password</label>
+                        <p className="error"></p>
+                    </div>
 
                 </div>
                 
