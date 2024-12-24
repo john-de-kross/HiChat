@@ -54,11 +54,7 @@ span{
 }
 
 
-@media(orientation: landscape){
-    .form-container{
-        height: 100vh;
-    }
-}
+
 
 
 
