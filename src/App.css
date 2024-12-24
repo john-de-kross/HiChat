@@ -42,6 +42,10 @@ span{
     transition: 0.2 ease-out; 
 }
 
+.email{
+    width: 15%;
+}
+
 .full_name input:focus,
 .full_name input:valid{
     border: 2px solid yellowgreen;
