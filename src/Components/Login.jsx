@@ -10,7 +10,7 @@ function Login() {
                 <div className="input-area w-full">
                     <div className="full_name inputs pl-2 relative w-full h-[50px]">
                         <input className="w-[98%] bg-transparent rounded-xl h-full md:w-[50%]" type="text" required/>
-                        <label className="labelling">Full Name</label>
+                        <label className="labelling full">Full Name</label>
                         <p className="error"></p>
                     </div>
                     <div className="full_name inputs pl-2 relative w-full h-[50px]">
