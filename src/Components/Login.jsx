@@ -7,8 +7,8 @@ function Login() {
                 <div className="heading-text flex justify-center text-white text-xl py-4 md:text-lg">
                     <h2>Welcome to <span>H</span>iChat</h2>
                 </div>
-                <div className="input-area w-full">
-                    <div className="full_name inputs pl-7 relative w-full h-[50px]">
+                <div className="input-area w-full py-6">
+                    <div className="full_name inputs pl-7 relative w-full h-[70px]">
                         <input className="w-[90%] bg-transparent rounded-lg h-full md:w-[50%]" type="text" required/>
                         <label className="labelling">Full Name</label>
                         <p className="error"></p>

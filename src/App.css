@@ -30,12 +30,25 @@ span{
 
 .labelling{
     position: absolute;
+    font-size: 16px;
     color: #fff;
+    width: 20%;
     background-color: #608BC1;
-    padding: 3% 3%;
-    width: 30%;
-    font-weight: 400;
-    transition:  0.2s ease-out;
+    /* padding: 2%; */
+    margin: 4% 4%;
+    transition: 0.2 ease-out; 
 }
+
+.full_name input:focus,
+.full_name input:valid{
+    border: 2px solid yellowgreen;
+}
+
+.full_name input:focus + .labelling,
+.full_name input:valid + .labelling{
+    transform: translate(20%, -120%);
+}
+
+
 
 
