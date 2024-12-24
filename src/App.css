@@ -26,16 +26,20 @@ span{
     outline: none;
     color: #fff;
     padding: 0 3%;
+    transition: 0.2s ease;
+    line-height: 20%;
+    z-index: 1111;
 }
 
 .labelling{
     position: absolute;
     font-size: 16px;
     color: #fff;
-    width: 20%;
+    width: 30%;
     background-color: #608BC1;
-    /* padding: 2%; */
-    margin: 4% 4%;
+    padding: 3% 3%;
+    
+    
     transition: 0.2 ease-out; 
 }
 
@@ -46,7 +50,8 @@ span{
 
 .full_name input:focus + .labelling,
 .full_name input:valid + .labelling{
-    transform: translate(20%, -115%);
+    transform: translate(20%, -50%);
+    z-index: 2000;
 }
 
 
