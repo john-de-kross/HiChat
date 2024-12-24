@@ -13,7 +13,7 @@ function Login() {
                         <label className="labelling">Full Name</label>
                         <p className="error"></p>
                     </div>
-                    <div className="full_name inputs pl-2 relative w-full h-[60px]">
+                    <div className="full_name inputs pl-2 relative w-full h-[50px]">
                         <input className="w-[98%] bg-transparent rounded-3xl h-full md:w-[50%]" type="text" required/>
                         <label className="labelling">Username</label>
                         <p className="error"></p>
