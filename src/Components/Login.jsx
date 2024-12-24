@@ -1,21 +1,28 @@
 import React from "react";
 import hide from './hide.png'
 function Login() {
-    return ( 
-      <div>
-        <div className="flex justify-center h-screen w-full items-center">
-            <div className="form-container w-full h-full bg-[#3E5879] md:w-[35%] md:h-[80vh]">
-                <div className="form-header flex justify-center items-center py-3 text-[#fff] font-[500] md:font-bold md:text-lg">
-                    <h2>Welcome to HiChat</h2>
+    return(
+        <div className="flex justify-center w-full h-full md:h-screen items-center">
+            <div className="form-container w-full h-screen bg-[#608BC1] md:w-[30%] md:h-[80vh]">
+                <div className="heading-text flex justify-center text-white text-xl py-4 md:text-lg">
+                    <h2>Welcome to <span>H</span>iChat</h2>
                 </div>
-                <div className="textArea w-full flex flex-col px-3 md:place-items-center">
-                    <input className="w-[95%] h-[50px] px-2 md:w-[30%] md:h-[50px]" type="text" required/>
-                    <label className="labelling">Full Name</label>
+                <div className="input-area w-full">
+                    <div className="full_name inputs pl-7 relative w-full h-[50px]">
+                        <input className="w-[90%] bg-transparent rounded-lg h-full md:w-[50%]" type="text" required/>
+                        <label className="labelling">Full Name</label>
+                        <p className="error"></p>
+                    </div>
+
                 </div>
+                
             </div>
+        
+
+
         </div>
-      </div>
     )
+   
 }
 
 export default Login;

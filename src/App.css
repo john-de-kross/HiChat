@@ -4,10 +4,38 @@ body{
     box-sizing: border-box;
 }
 
-.textArea input{
-    position: absolute;
-    background-color: transparent;
+
+span{
+    font-size: larger;
+    font-weight: 800;
+    color: purple;
+    text-shadow: 2px 2px black;
+    font-style: italic;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.full_name{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.full_name input {
     border: 2px solid orange;
     outline: none;
     color: #fff;
+    padding: 0 3%;
 }
+
+.labelling{
+    position: absolute;
+    color: #fff;
+    background-color: #608BC1;
+    padding: 3% 3%;
+    width: 30%;
+    font-weight: 400;
+    transition:  0.2s ease-out;
+}
+
+
