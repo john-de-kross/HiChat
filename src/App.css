@@ -52,6 +52,12 @@ span{
     z-index: 2000;
 }
 
+@media(orientation:landscape){
+    .labelling{
+        width: 20%;
+    }
+}
+
 
 
 
