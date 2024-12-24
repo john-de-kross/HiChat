@@ -46,7 +46,7 @@ span{
 
 .full_name input:focus + .labelling,
 .full_name input:valid + .labelling{
-    transform: translate(20%, -120%);
+    transform: translate(20%, -115%);
 }
 
 
