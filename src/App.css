@@ -55,8 +55,8 @@ span{
 
 
 @media(orientation: landscape){
-    .labelling{
-        width: 20%;
+    .form-container{
+        height: 100vh;
     }
 }
 
