@@ -30,15 +30,8 @@ function Login() {
                         <h3>Don't have an account?</h3>
                         <a className="log-link text-blue-700" href="">Sign up</a>
                     </div>
-
-
                 </form>
-
-
-
             </div>
-               
-
         </div>
     )
 }
