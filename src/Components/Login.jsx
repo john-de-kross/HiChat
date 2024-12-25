@@ -2,42 +2,45 @@ import React from "react";
 import hide from './hide.png'
 function Login() {
     return(
-        <div className="flex justify-center w-full h-full md:h-screen items-center">
-            <div className="form-container w-full min-h-screen bg-[#608BC1] md:w-[30%] md:h-[80vh]">
-                <div className="heading-text flex justify-center text-white text-xl py-4 md:text-lg">
-                    <h2>Welcome to <span>H</span>iChat</h2>
+        <div className="flex justify-center md:items-center w-full min-h-screen bg-slate-900">
+            <div className="log-form w-full md:max-w-md md:bg-slate-700 md:h-80 md:w-80 md:shadow-md md:rounded">
+                <div className="flex justify-center  items-center font-medium text-white text-lg md:text-slate-950">
+                    <h1>ChatGoons Login</h1>
                 </div>
-                <div className="input-area w-full">
-                    <div className="full_name inputs pl-2 relative w-full h-[50px]">
-                        <input className="w-[98%] bg-transparent rounded-xl h-full md:w-[50%]" type="text" required/>
-                        <label className="labelling full">Full Name</label>
-                        <p className="error"></p>
+                <form className="space-y-4 py-6 px-4">
+                    <div className="input-field">
+                        <input className="email input h-[45px] outline-none rounded" type="email" required placeholder="Email"/>
+                        <div className="err">
+                            <p></p>
+                        </div>
                     </div>
-                    <div className="full_name inputs pl-2 relative w-full h-[50px]">
-                        <input className="w-[98%] bg-transparent rounded-xl h-full md:w-[50%]" type="text" required/>
-                        <label className="labelling">Username</label>
-                        <p className="error"></p>
+                    <div className="input-field">
+                        <input className="password input h-[45px] outline-none rounded" type="password" required placeholder="Password"/>
+                        <div className="err">
+                            <p></p>
+                        </div>
                     </div>
-                    <div className="full_name inputs pl-2 relative w-full h-[50px]">
-                        <input className="w-[98%] bg-transparent rounded-xl h-full md:w-[50%]" type="text" required/>
-                        <label className="labelling email">Email</label>
-                        <p className="error"></p>
+                    <div>
+                        <a className="text-white" href="">Forgot password?</a>
                     </div>
-                    <div className="full_name inputs pl-2 relative w-full h-[50px]">
-                        <input className="w-[98%] bg-transparent rounded-xl h-full md:w-[50%]" type="password" required/>
-                        <label className="labelling">Password</label>
-                        <p className="error"></p>
+                    <div>
+                        <button className="bg-blue-700 h-12 w-full text-white font-[500] md:rounded">Login</button>
+                    </div>
+                    <div className="flex text-white gap-1">
+                        <h3>Don't have an account?</h3>
+                        <a className="log-link text-blue-700" href="">Sign up</a>
                     </div>
 
-                </div>
-                
+
+                </form>
+
+
+
             </div>
-        
-
+               
 
         </div>
     )
-   
 }
 
 export default Login;
