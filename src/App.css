@@ -69,6 +69,12 @@ body{
     }
 }
 
+@media(orientation:landscape){
+    .labelling{
+        width: 15%;
+    }
+}
+
 
 
 
