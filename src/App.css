@@ -81,6 +81,11 @@ body{
     .email{
         width: 10%;
     }
+    .input-fieldy input:focus + .labelling,
+    .input-fieldy input:valid + .labelling{
+        transform: translate(10%, -45%) scale(0.70);
+        
+    }
     
 }
 
