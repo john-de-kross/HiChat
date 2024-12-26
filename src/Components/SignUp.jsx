@@ -7,7 +7,7 @@ function SignUp() {
             <div>
                 <h1 className="text-white text-xl md:text-2xl">ChatGoons</h1>
             </div>
-            <div className="con w-full md:w-96 md:h-[76vh] md:bg-slate-700">
+            <div className="con w-full md:w-96 md:h-[65vh] md:bg-slate-700">
                 <form className="space-y-4 py-9 md:pl-7">
                     <div className="input-fieldy">
                         <input className="w-full rounded-xl md:rounded outline-none h-[50px] md:w-[90%]" type="text" required />
@@ -28,7 +28,7 @@ function SignUp() {
                         <input className="w-full rounded-xl md:rounded outline-none h-[50px] md:w-[90%]" type="text" required />
                         <label className="labelling email">Email</label>
                         <div className="error">
-                            <p></p>
+                            <p>red</p>
                         </div>
                     </div>
                     <div className="input-fieldy relative">
@@ -40,7 +40,10 @@ function SignUp() {
                         </div>
 
                     </div>
+                    <div className="btn text-white font-[500]">
+                        <button className="bg-blue-800 rounded w-full md:w-[90%] md:rounded-2xl h-[50px]">Sign Up</button>
 
+                    </div>
                 </form>
 
             </div>

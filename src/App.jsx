@@ -4,6 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Login from './Components/Login'
 import SignUp from './Components/SignUp';
+import Initialize from './Components/Initializing'
+
 
 function App() {
  
@@ -11,7 +13,8 @@ function App() {
   return (
     <>
      {/* <Login /> */}
-     <SignUp />
+     {/* <SignUp /> */}
+     <Initialize />
       
     </>
   )
