@@ -92,32 +92,35 @@ body{
     height: 7px;
     border-radius: 50%;
     background-color: #fff;
-    animation: appear 1.5s infinite;
+    animation: appear 1.5s infinite ease-in-out;
 
 }
 
 .dot span:nth-child(1){
-    animation-duration: 1s;
+    animation-delay: 0s;
 }
 .dot span:nth-child(2){
-    animation-duration: 1.5s;
+    animation-delay: 0.3s;
 }
 .dot span:nth-child(3){
-    animation-duration: 2s;
+    animation-delay: 0.9s;
 }
 
 @keyframes appear{
     0% {
         opacity: 0.5;
         transform: scale(0);
+        -webkit-transform: scale(0);
     }
     50% {
         opacity: 1;
         transform: scale(1);
+        -webkit-transform: scale(1);
     }
     100% {
         opacity: 0.5;
         transform: scale(0);
+        -webkit-transform: scale(0);
     }
 }
 
