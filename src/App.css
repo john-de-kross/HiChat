@@ -71,18 +71,6 @@ body{
     z-index: 1111;
     
 }
-
-@media(max-width:768px){
-    .labelling{
-        background-color: #0f172a;
-    }
-    .input-fieldy input:focus + .labelling,
-    .input-fieldy input:valid + .labelling{
-        transform: translate(10%, -40%) scale(0.78);
-        
-    }
-}
-
 .dot{
     display: flex;
 }
@@ -92,7 +80,7 @@ body{
     height: 7px;
     border-radius: 50%;
     background-color: #fff;
-    animation: appear 1s infinite ease-in-out;
+    animation: appear 1s infinite ;
 
 }
 
@@ -105,6 +93,7 @@ body{
 .dot span:nth-child(3){
     animation-delay: 0.9s;
 }
+
 
 @keyframes appear{
     0% {
@@ -123,6 +112,33 @@ body{
         -webkit-transform: scale(0);
     }
 }
+
+
+.srch-input{
+    background-color: transparent;
+    border: 1px solid gray;
+    padding: 0% 6%;
+}
+
+
+@media(max-width:768px){
+    .labelling{
+        background-color: #0f172a;
+    }
+    .input-fieldy input:focus + .labelling,
+    .input-fieldy input:valid + .labelling{
+        transform: translate(10%, -40%) scale(0.78);
+        
+    }
+
+}
+
+@media(min-width:768px){
+    .srch-input{
+        padding: 0% 1%;
+    }
+}
+
 
 
 @media(max-width:768px) and (orientation:landscape){

@@ -5,6 +5,8 @@ import './App.css'
 import Login from './Components/Login'
 import SignUp from './Components/SignUp';
 import Initialize from './Components/Initializing'
+import Chats from './Components/Chats'
+
 
 
 function App() {
@@ -14,7 +16,8 @@ function App() {
     <>
      {/* <Login /> */}
      {/* <SignUp /> */}
-     <Initialize />
+     {/* <Initialize /> */}
+     <Chats />
       
     </>
   )
