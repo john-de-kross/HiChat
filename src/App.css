@@ -78,7 +78,7 @@ body{
     }
     .input-fieldy input:focus + .labelling,
     .input-fieldy input:valid + .labelling{
-        transform: translate(10%, -30%) scale(0.85);
+        transform: translate(10%, -30%) scale(0.88);
     }
 }
 
