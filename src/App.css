@@ -17,3 +17,60 @@ body{
     z-index: 1111;
     transition: 0.2s ease;
 }
+
+.input-fieldy{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.input-fieldy input{
+    background-color: transparent;
+    border: 2px solid gray;
+    transition: 0.2s ease;
+    color: #fff;
+    font-weight: 400;
+    font-size: 0.8em;
+    padding: 0 2%;
+    z-index: 50;
+
+}
+
+.labelling{
+    position: absolute;
+    width:25%;
+    color: #fff;
+    padding: 3% 2%;
+    background-color: #334155;
+    transition: 0.2s ease;
+   
+}
+
+.email{
+    width: 15%;
+}
+
+.input-fieldy input:focus,
+.input-fieldy input:valid{
+    border: 2px solid yellowgreen;
+}
+
+.input-fieldy input:focus + .labelling,
+.input-fieldy input:valid + .labelling{
+    transform: translate(10%, -39%) scale(0.85);
+    padding: 0 0 4% 0;
+    z-index: 1111;
+    
+}
+
+@media(max-width:768px){
+    .labelling{
+        background-color: #0f172a;
+    }
+}
+
+
+
+
+
+
