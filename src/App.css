@@ -67,19 +67,21 @@ body{
     .labelling{
         background-color: #0f172a;
     }
+    .input-fieldy input:focus + .labelling,
+    .input-fieldy input:valid + .labelling{
+        transform: translate(10%, -40%) scale(0.78);
+        
+    }
 }
 
-@media(orientation:landscape){
+@media(orientation:landscape) and (max-width:768px){
     .labelling{
         width: 15%;
     }
     .email{
         width: 10%;
     }
-    .input-fieldy input:focus + .labelling,
-    .input-fieldy input:valid + .labelling{
-        transform: translate(10%, -35%) scale(0.88);
-    }
+    
 }
 
 
