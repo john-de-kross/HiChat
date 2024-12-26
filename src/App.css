@@ -29,6 +29,7 @@ body{
     border: 2px solid gray;
     transition: 0.2s ease;
     color: #fff;
+    cursor: pointer;
     font-weight: 400;
     font-size: 0.8em;
     padding: 0 2%;
@@ -74,13 +75,20 @@ body{
     }
 }
 
-@media(orientation:landscape) and (max-width:768px){
+@media(max-width:768px) and (orientation:landscape){
     .labelling{
         width: 15%;
     }
     .email{
         width: 10%;
     }
+
+    .input-fieldy input{
+        height: 55px;
+    }
+
+
+
     .input-fieldy input:focus + .labelling,
     .input-fieldy input:valid + .labelling{
         transform: translate(10%, -45%) scale(0.70);
