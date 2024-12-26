@@ -117,7 +117,7 @@ body{
 .srch-input{
     background-color: transparent;
     border: 1px solid gray;
-    padding: 0% 6%;
+    outline: none;
 }
 
 
