@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
     return ( 
-        <footer className="w-full mt-auto h-16 bg-slate-200">
+        <footer className="w-full mt-auto bg-slate-200">
                 <div className="flex w-full justify-between py-2 px-3">
                     <div className="flex flex-col font-[500]">
                         <div className="chat-logo flex justify-center items-center">
