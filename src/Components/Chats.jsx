@@ -1,8 +1,9 @@
 import React from "react";
+import Footer from "./Footer";
 
 function Chats() {
     return ( 
-        <div className="w-full min-h-screen bg-white">
+        <div className="w-full min-h-screen bg-white flex flex-col">
             <div className="flex justify-between app-name px-4 text-xl py-2 font-medium md:text-2xl">
                 <h1>ChatGoons</h1>
                 <svg xmlns="http://www.w3.org/2000/svg" 
@@ -17,6 +18,11 @@ function Chats() {
                 <input className="w-[95%] srch-input rounded-3xl md:w-[80%] px-1 h-14" type="text" placeholder="Search..."/>
                
             </div>
+            <div className="flex-1 flex h-full text-xl font[600] justify-center items-center no-chat">
+                <h2>No chats yet. Start a new conversation</h2>
+
+            </div>
+            <Footer />
            
 
         </div>
