@@ -6,6 +6,7 @@ import Login from './Components/Login'
 import SignUp from './Components/SignUp';
 import Initialize from './Components/Initializing'
 import Chats from './Components/Chats'
+import {Routes, Route} from 'react-router-dom'
 
 
 
@@ -13,13 +14,10 @@ function App() {
  
 
   return (
-    <>
-     {/* <Login /> */}
-     {/* <SignUp /> */}
-     {/* <Initialize /> */}
-     <Chats />
-      
-    </>
+    <Routes>
+      <Route path='/' element={<Login />}/>
+      <Route path='signup' element={<SignUp />}/>
+    </Routes>
   )
 }
 

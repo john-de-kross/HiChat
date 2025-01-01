@@ -18,7 +18,7 @@ function Chats() {
                 <input className="w-[95%] srch-input rounded-3xl md:w-[80%] px-1 h-14" type="text" placeholder="Search..."/>
                
             </div>
-            <div className="flex-1 flex text-xl font[600] justify-center items-center no-chat">
+            <div className="flex-1 flex text-lg md:text-xl font[600] justify-center items-center no-chat">
                 <h2>No chats yet. Start a new conversation</h2>
 
             </div>
