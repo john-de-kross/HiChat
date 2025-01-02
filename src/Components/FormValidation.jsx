@@ -2,10 +2,6 @@
 const constraints = {
     fullName: {
         presence: {allowEmpty: false, message: "required"},
-        length: {
-            minimum: 3,
-            message: "is too short"
-        },
     },
     username: {
         presence:{allowEmpty: false, message: 'required'},

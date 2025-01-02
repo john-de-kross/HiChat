@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import hide from './hide.png'
 import validate from 'validate.js'
 import constraints from './FormValidation'
@@ -7,6 +7,7 @@ import supabase from "./supabaseClient";
 function SignUp() {
     
     const [errors, setErrors] = useState({})
+    const [showMessage, setShowMessage] = useState(false)
     const [emailError, setEmailError] = useState('')
     const [formData, setFormData] = useState({
         fullName: '',
@@ -62,20 +63,55 @@ function SignUp() {
                 console.log('An error occurred:', error.message)
                 return
             }
+            
             if (data?.user) {
                 console.log("user signed up successfully:", data.user)
+                setShowMessage(true)
                 
             }else{
                 console.warn("sign up succeeded but no user data returned")
             }
             
 
-        }
-         
+            
+            const { data:tableData, error: tableError } = await supabase
+            .from('chatTable')
+            .insert([
+            { username: formData.username, email: formData.email, password:formData.password},
+            ])
+            .select()
+
+            if (tableError) {
+                console.log("An error occurred:", tableError.message)
+                return
+                
+            }
+
+            if (tableData) {
+                console.log('your data', tableData)
+                
+            }
         
+
+        }
     }
+
+    useEffect(() => {
+        if (setShowMessage) {
+            const timeout = setTimeout(() =>{
+                setShowMessage(false)
+            }, 8000)
+            return () => {clearTimeout(timeout)} 
+        }
+       
+
+    }, [showMessage])
     return ( 
-        <div className="flex flex-col place-items-center md:gap-4 md:justify-center w-full min-h-screen bg-slate-900">
+        <div className="flex flex-col place-items-center justify-center md:gap-4 md:justify-center w-full min-h-screen bg-slate-900">
+            <div className={`${showMessage ? 'flex' : 'hidden'}
+             justify-center items-center absolute w-full h-14 bg-white top-10 md:top-8 font-[500] rounded-xl md:w-[50%] md:h-14 md:px-4`}>
+                <h3>An email has been sent to your inbox. Please click the confirmation link to complete your registration.</h3>
+            </div>
             <div>
                 <h1 className="text-white text-xl md:text-2xl">ChatGoons</h1>
             </div>
