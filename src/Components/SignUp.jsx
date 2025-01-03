@@ -29,32 +29,14 @@ function SignUp() {
         e.preventDefault()
         const validateError = validate(formData, constraints);
         setErrors(validateError || {})
-        let { data: chatTable, error } = await supabase
-        .from('chatTable')
-        .select('email')
-
-        
-        if (error) {
-            console.log("error fetching data", error)
-            isValid = false
-            return
-            
-        } 
-        const emailExist = chatTable.some(user => user.email === formData.email) 
 
         if (validateError) {
             isValid = false
         }
-        if (emailExist) {
-            setEmailError('email already exist')
-            isValid = false 
-        }
-        else{
-            setEmailError('')
-        }
+        
 
         if (isValid) {
-            let { data, error } = await supabase.auth.signUp({
+            const { data, error } = await supabase.auth.signUp({
             email: formData.email,
             password: formData.password
             })
@@ -67,32 +49,25 @@ function SignUp() {
             if (data?.user) {
                 console.log("user signed up successfully:", data.user)
                 setShowMessage(true)
+                const {error:insertError} = await supabase
+                .from('users')
+                .insert([
+                    {
+                        id: data.user.id,
+                        email:formData.email,
+                        username:formData.username
+                    }
+                ])
+                if (insertError) {
+                    console.log("Error inserting user:", insertError.message)
+                    
+                }
+
                 
             }else{
                 console.warn("sign up succeeded but no user data returned")
             }
-            
-
-            
-            const { data:tableData, error: tableError } = await supabase
-            .from('chatTable')
-            .insert([
-            { username: formData.username, email: formData.email, password:formData.password},
-            ])
-            .select()
-
-            if (tableError) {
-                console.log("An error occurred:", tableError.message)
-                return
-                
-            }
-
-            if (tableData) {
-                console.log('your data', tableData)
-                
-            }
         
-
         }
     }
 
