@@ -58,6 +58,7 @@ function SignUp() {
                         username:formData.username
                     }
                 ])
+                .select()
                 if (insertError) {
                     console.log("Error inserting user:", insertError.message)
                     console.log('user id', data.user.id)
