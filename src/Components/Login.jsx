@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Await, Link } from "react-router-dom";
 import { auth } from "./Firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
  
 function Login() {
+    const navigate = useNavigate()
     const [loginData, setLoginData] = useState({
         email: '',
         password: ''
@@ -23,7 +25,8 @@ function Login() {
        signInWithEmailAndPassword(auth, loginData.email, loginData.password)
        .then((userCredentials) => {
         console.log("Successfully logged in", userCredentials.user)
-        alert("successfully logged in")
+        navigate('initializing')
+        
        })
        .catch((error) => {
         alert("Invalid password or email")
