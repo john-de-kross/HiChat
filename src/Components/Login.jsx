@@ -25,7 +25,6 @@ function Login() {
        signInWithEmailAndPassword(auth, loginData.email, loginData.password)
        .then((userCredentials) => {
         console.log("Successfully logged in", userCredentials.user)
-        navigate('initializing')
         
        })
        .catch((error) => {

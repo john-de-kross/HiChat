@@ -48,7 +48,7 @@ function SignUp() {
             const userCredentials = createUserWithEmailAndPassword(auth, formData.email, formData.password)
             console.log('user created successfully', (await userCredentials).user)
             alert('signed up successfully');
-            navigate('/')
+            navigate('inializing')
             
         }
         catch (err) {

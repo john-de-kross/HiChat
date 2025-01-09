@@ -5,7 +5,7 @@ import {getAuth} from 'firebase/auth'
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCJcXlSrIY1tc2bK5owbKhLCIOPJuVP2fo",
+    apiKey: import.meta.env.VITE_API_KEY,
     authDomain: "chat-app-554b4.firebaseapp.com",
     projectId: "chat-app-554b4",
     storageBucket: "chat-app-554b4.firebasestorage.app",
@@ -17,4 +17,5 @@ const firebaseConfig = {
   // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app)
+console.log(firebaseConfig.apiKey)
 export {auth}
