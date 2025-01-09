@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import hide from './hide.png'
+import view from './view.png'
 import validate from 'validate.js'
 import constraints from './FormValidation'
-import supabase from "./supabaseClient";
+import { auth } from "./Firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 function SignUp() {
-    
+    const emailRef = useRef(null)
+    const [show, setShow] = useState(false)
+    const navigate = useNavigate()
     const [errors, setErrors] = useState({})
     const [showMessage, setShowMessage] = useState(false)
     const [emailError, setEmailError] = useState('')
@@ -24,55 +31,32 @@ function SignUp() {
         })
     }
 
+    function handlePasswordVisibility(){
+        setShow(prev => !prev)
+    }
+
     async function submitfunctions(e){
         let isValid = true
         e.preventDefault()
         const validateError = validate(formData, constraints);
         setErrors(validateError || {})
-
         if (validateError) {
-            isValid = false
+            return
+
         }
-        
-
-        if (isValid) {
-            const { data, error } = await supabase.auth.signUp({
-            email: formData.email,
-            password: formData.password
-            })
-  
-            if (error) {
-                console.log('An error occurred:', error.message)
-                return
-            }
+        try{
+            const userCredentials = createUserWithEmailAndPassword(auth, formData.email, formData.password)
+            console.log('user created successfully', (await userCredentials).user)
+            alert('signed up successfully');
+            navigate('/')
             
-            if (data?.user) {
-                console.log("user signed up successfully:", data.user)
-                setShowMessage(true)
-                const {error:insertError} = await supabase
-                .from('users')
-                .insert([
-                    {
-                        id: data.user.id,
-                        email:formData.email,
-                        username:formData.username
-                    }
-                ])
-                .select()
-                if (insertError) {
-                    console.log("Error inserting user:", insertError.message)
-                    console.log('user id', data.user.id)
-                    
-                }
-
-                
-            }else{
-                console.warn("sign up succeeded but no user data returned")
-            }
-        
+        }
+        catch (err) {
+            console.log('Failed to sign up', err)
+            setEmailError('Email already exist')
         }
     }
-
+    
     useEffect(() => {
         if (setShowMessage) {
             const timeout = setTimeout(() =>{
@@ -80,15 +64,10 @@ function SignUp() {
             }, 8000)
             return () => {clearTimeout(timeout)} 
         }
-       
-
     }, [showMessage])
+
     return ( 
-        <div className="flex flex-col place-items-center justify-center md:gap-4 md:justify-center w-full min-h-screen bg-slate-900">
-            <div className={`${showMessage ? 'flex' : 'hidden'}
-             justify-center items-center absolute w-full h-14 bg-white top-10 md:top-8 font-[500] rounded-xl md:w-[50%] md:h-14 md:px-4`}>
-                <h3>An email has been sent to your inbox. Please click the confirmation link to complete your registration.</h3>
-            </div>
+        <div className="flex flex-col place-items-center md:gap-4 md:justify-center w-full min-h-screen bg-slate-900">
             <div>
                 <h1 className="text-white text-xl md:text-2xl">ChatGoons</h1>
             </div>
@@ -124,28 +103,31 @@ function SignUp() {
                         </div>
                     </div>
                     <div className="input-fieldy">
-                        <input className="w-full rounded-xl md:rounded outline-none h-[50px] md:w-[90%]" 
+                        <input className="w-full  rounded-xl md:rounded outline-none h-[50px] md:w-[90%]" 
                         type="text" 
                         name="email"
                         onChange={handleForm}
                         value={formData.email}
-                        required style={errors.email && {border: "2px solid red"}}/>
+                        required style={errors.email && {border: "2px solid red"}} ref={emailRef}/>
                         <label className="labelling email  md:text-sm md:font-[300]">Email</label>
                         <div className="error">
                         {errors.email && (
                                 <p>{errors.email.join(", ")}</p>
+                            )|| emailError && (
+                                <p>{emailError}</p>
                             )}
+
                         </div>
                     </div>
                     <div className="input-fieldy relative">
                         <input className="w-full outline-none rounded-xl md:rounded h-[50px] md:w-[90%]"
-                        type="password" 
+                        type={show ? 'text' : 'password'}
                         name="password"
                         onChange={handleForm}
                         value={formData.password}
                         required style={errors.password && {border: "2px solid red"}}/>
                         <label className="labelling md:text-sm md:font-[300]">Password</label>
-                        <img className="absolute w-6 h-6 right-12 mt-3 cursor-pointer" src={hide} alt="" />
+                        <img onClick={handlePasswordVisibility} className="absolute eye w-6 h-6 right-12 mt-3" src={show ? view : hide} alt="password visibility" />
                         <div className="error">
                         {errors.password && (
                                 <p>{errors.password.join(", ")}</p>
@@ -154,6 +136,11 @@ function SignUp() {
                     </div>
                     <div className="btn text-white font-[500]">
                         <button onClick={submitfunctions} className="bg-blue-800 rounded w-full md:w-[90%] md:rounded-2xl h-[50px]">Sign Up</button>
+
+                    </div>
+                    <div className="flex justify-center gap-1 text-white font-[600]">
+                        <h2>Already have an Account?</h2>
+                        <Link to={'/'} className="underline text-blue-400 md:hover:text-gray-400">Log in</Link>
 
                     </div>
                 </form>

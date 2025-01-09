@@ -37,6 +37,10 @@ body{
 
 }
 
+.eye{
+    z-index: 1111;
+}
+
 .labelling{
     position: absolute;
     width:25%;
