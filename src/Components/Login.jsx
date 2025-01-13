@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Await, Link } from "react-router-dom";
 import { auth } from "./Firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { authContext } from "./UsersState";
  
 function Login() {
     const navigate = useNavigate()
+    const {currentUser} = useContext(authContext)
     const [loginData, setLoginData] = useState({
         email: '',
         password: ''
@@ -24,7 +26,8 @@ function Login() {
         e.preventDefault()
        signInWithEmailAndPassword(auth, loginData.email, loginData.password)
        .then((userCredentials) => {
-        console.log("Successfully logged in", userCredentials.user)
+        alert("sucessful")
+        navigate('/')
         
        })
        .catch((error) => {
@@ -71,7 +74,7 @@ function Login() {
                     </div>
                     <div className="flex text-white gap-1">
                         <h3>Don't have an account?</h3>
-                        <Link to={"signup"} className="log-link text-blue-700">Sign up</Link>
+                        <Link to={"/signup"} className="log-link text-blue-700">Sign up</Link>
                     </div>
                 </form>
             </div>
