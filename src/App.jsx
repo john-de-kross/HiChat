@@ -24,6 +24,7 @@ function App() {
       <Route path='/' element={currentUser ? <Chats /> : <Navigate to='/login' />} />
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<SignUp />}/>
+      <Route path='/initialize' element={<Initialize />}/>
     </Routes>
     
   )

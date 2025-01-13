@@ -26,7 +26,6 @@ function Login() {
         e.preventDefault()
        signInWithEmailAndPassword(auth, loginData.email, loginData.password)
        .then((userCredentials) => {
-        alert("sucessful")
         navigate('/')
         
        })
