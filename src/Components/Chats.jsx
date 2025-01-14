@@ -16,15 +16,15 @@ function Chats() {
                     <h2>ChatFam</h2>
                 </div>
             </div>
-            <div className="flex py-6 gap-32 px-10 border border-t-0 border-x-0 pb-3">
-              <Link className="flex gap-1" to={'chats'}>
+            <div className="flex py-6 justify-between px-10 border border-t-0 border-x-0 pb-3">
+              <Link className="flex gap-2" to={'chats'}>
                 <img
                 className="w-6 h-6" 
                 src="/chat.png" 
                 alt="" />
                 <p className="text-lg font-[500]">chats</p>
               </Link>
-              <Link className="flex gap-1">
+              <Link className="flex gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" 
                 fill="none" 
                 viewBox="0 0 24 24" 
