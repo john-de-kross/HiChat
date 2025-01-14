@@ -19,7 +19,7 @@ function Chats() {
             <div className="flex py-6 gap-32 px-10">
               <Link className="flex gap-1" to={'chats'}>
                 <img
-                className="w-5 h-5" 
+                className="w-6 h-6" 
                 src="/chat.png" 
                 alt="" />
                 <p className="text-lg font-[500]">chats</p>
@@ -29,7 +29,7 @@ function Chats() {
                 fill="none" 
                 viewBox="0 0 24 24" 
                 strokeWidth={1.5} stroke="currentColor" 
-                className="size-6 w-5 h-5">
+                className="size-6 w-6 h-6">
                 <path 
                 strokeLinecap="round" 
                 strokeLinejoin="round" 
