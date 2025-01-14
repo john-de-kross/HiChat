@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Search from "./Search";
 
 
 
@@ -38,7 +39,9 @@ function Chats() {
                 <p className="text-lg font-[500]">call</p>
               </Link>
             </div>
-
+            <div>
+                <Search />
+            </div>
         </div>
      
 

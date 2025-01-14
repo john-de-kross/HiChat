@@ -98,6 +98,13 @@ body{
     animation-delay: 0.9s;
 }
 
+.search{
+    font-family: "Montserrat", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
 
 @keyframes appear{
     0% {
