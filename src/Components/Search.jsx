@@ -2,7 +2,7 @@ import React from "react";
 
 function Search() {
     return ( 
-        <div className="flex w-full justify-center py-4">
+        <div className="flex relative w-full justify-center py-4">
             <div className="absolute left-10 py-3">
                 <svg xmlns="http://www.w3.org/2000/svg"
                 fill="none" 
