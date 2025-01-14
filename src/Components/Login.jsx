@@ -38,7 +38,7 @@ function Login() {
         <div className="flex justify-center md:items-center w-full min-h-screen bg-slate-900">
             <div className="log-form w-full md:max-w-md md:bg-slate-700 md:h-auto md:w-80 md:shadow-md md:rounded">
                 <div className="flex justify-center  items-center font-medium text-white text-lg md:text-slate-950">
-                    <h1>ChatGoons Login</h1>
+                    <h1>ChatFam Login</h1>
                 </div>
                 <form className="space-y-4 mt- py-6 md:px-4">
                     <div className="input-field">

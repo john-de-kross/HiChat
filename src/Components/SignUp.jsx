@@ -73,7 +73,7 @@ function SignUp() {
     return ( 
         <div className="flex flex-col place-items-center md:gap-4 md:justify-center w-full min-h-screen bg-slate-900">
             <div>
-                <h1 className="text-white text-xl md:text-2xl">ChatGoons</h1>
+                <h1 className="text-white text-xl md:text-2xl">ChatFam</h1>
             </div>
             <div className="con w-full md:w-96 md:h-auto md:bg-slate-700">
                 <form className="space-y-4 py-9 md:pl-7">
