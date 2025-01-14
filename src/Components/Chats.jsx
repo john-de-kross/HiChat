@@ -16,7 +16,7 @@ function Chats() {
                     <h2>ChatFam</h2>
                 </div>
             </div>
-            <div className="flex py-6 gap-32 px-10">
+            <div className="flex py-6 gap-32 px-10 border border-t-0 border-x-0">
               <Link className="flex gap-1" to={'chats'}>
                 <img
                 className="w-6 h-6" 
