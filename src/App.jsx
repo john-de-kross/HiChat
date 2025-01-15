@@ -15,7 +15,12 @@ function App() {
   const {currentUser, loading} = authState()
   console.log('this is users', currentUser)
   if (loading) {
-    return <p>Loading...</p>
+    return(
+      <div className='flex justify-center items-center w-full h-screen'>
+        <div className='animate-spin h-8 w-8 rounded-full bg-white border-4 border-blue-400 border-t-transparent'>
+        </div>
+      </div>
+    )  
     
   }
 
