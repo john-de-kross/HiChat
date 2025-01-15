@@ -40,7 +40,7 @@ function Chats() {
             <div>
               <Search />
             </div>
-            <div className="chats text-lg font-[500] flex flex-1 justify-center items-center w-full h-full">
+            <div className="chats text-lg font-[500] flex flex-1 justify-center items-center w-full h-72">
               <h2>No chats yet. Start a new conversation</h2>
             </div>
             <div className="fixed bottom-10 right-4"> 
