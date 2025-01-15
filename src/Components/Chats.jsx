@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 function Chats() {
   const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef(null)
   const searchFocus = () => {
     setIsFocused(true)
   }
@@ -9,6 +10,13 @@ function Chats() {
   const removeSearch = () => {
     setIsFocused(false)
   }
+
+  useEffect(() => {
+    if (isFocused && inputRef.current) {
+      inputRef.current.focus()
+    }
+
+  }, [isFocused])
   
   return (
     <div className="w-full min-h-screen">
@@ -93,7 +101,8 @@ function Chats() {
             d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
             </svg>
             <input 
-            className="w-[80%] h-12 rounded-2xl bg-slate-100 outline-none px-12"
+            ref={inputRef}
+            className="w-[80%] h-12 rounded-2xl bg-slate-100 outline-none px-14"
             type="text" 
             placeholder="search messages"
             />
