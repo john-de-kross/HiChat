@@ -5,7 +5,7 @@ import Search from "./Search";
 function Chats() {
     return (
         <div className="w-full min-h-screen">
-            <div className="flex justify-between py-2 px-6"> 
+            <div className="flex fixed w-full justify-between py-2 px-6"> 
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -15,7 +15,7 @@ function Chats() {
                     <h2>ChatFam</h2>
                 </div>
             </div>
-            <div className="flex py-6 justify-between px-14 border border-t-0 border-x-0 pb-2">
+            <div className="flex py-16 justify-between px-14 border border-t-0 border-x-0 pb-2">
               <Link className="flex gap-2" to={'chats'}>
                 <img
                 className="w-6 h-6" 
@@ -37,8 +37,10 @@ function Chats() {
                 <p className="text-lg font-[500]">call</p>
               </Link>
             </div>
-            <Search />
-            <div className="chats text-lg font-[500] flex justify-center items-center w-full h-full">
+            <div>
+              <Search />
+            </div>
+            <div className="chats text-lg font-[500] flex flex-1 justify-center items-center w-full h-full">
               <h2>No chats yet. Start a new conversation</h2>
             </div>
             <div className="fixed bottom-10 right-4"> 
