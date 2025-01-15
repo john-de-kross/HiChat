@@ -6,7 +6,7 @@ import Search from "./Search";
 
 function Chats() {
     return (
-        <div className="w-full h-screen">
+        <div className="w-full h-full">
             <div className="flex justify-between py-2 px-6"> 
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -40,7 +40,7 @@ function Chats() {
               </Link>
             </div>
             <Search />
-            <div className="chats text-lg font-[500] flex justify-center items-center w-full h-full">
+            <div className="chats text-lg font-[500] flex justify-center items-center py-9 w-full h-full">
               <h2>No chats yet. Start a new conversation</h2>
             </div>
         </div>
