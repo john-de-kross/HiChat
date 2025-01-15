@@ -6,9 +6,10 @@ import Login from './Components/Login'
 import SignUp from './Components/SignUp';
 import Initialize from './Components/Initializing'
 import Chats from './Components/Chats'
-import {Routes, Route, Navigate} from 'react-router-dom'
+import {Routes, Route, Navigate, Outlet} from 'react-router-dom'
 import UsersState from './Components/UsersState'
 import { authState } from './Components/UsersState'
+import Sidebar from './Components/Sidebar'
 
 
 function App() {
@@ -26,13 +27,24 @@ function App() {
 
   return (
     <Routes>
-      <Route path='/' element={currentUser ? <Chats /> : <Navigate to='/login' />} />
+      <Route path='/' element={currentUser ? <ChatsOutlets /> : <Navigate to='/login' />} />
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<SignUp />}/>
       <Route path='/initialize' element={<Initialize />}/>
     </Routes>
     
   )
+
+  function ChatsOutlets(){
+    return(
+      <>
+       <Sidebar />
+       <Chats />
+       <Outlet />
+      </>
+      
+    )
+  }
 }
 
 export default App
