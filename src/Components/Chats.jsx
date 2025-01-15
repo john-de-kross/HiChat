@@ -2,11 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search";
 
-
-
 function Chats() {
     return (
-        <div className="w-full h-full">
+        <div className="w-full min-h-screen">
             <div className="flex justify-between py-2 px-6"> 
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -40,8 +38,15 @@ function Chats() {
               </Link>
             </div>
             <Search />
-            <div className="chats text-lg font-[500] flex justify-center items-center py-9 w-full h-full">
+            <div className="chats text-lg font-[500] flex justify-center items-center w-full h-full">
               <h2>No chats yet. Start a new conversation</h2>
+            </div>
+            <div className="fixed bottom-8 right-4"> 
+              <div className="flex justify-center items-center font-[500] text-white content w-10 h-10 bg-blue-600 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+              </div>
             </div>
         </div>
      
