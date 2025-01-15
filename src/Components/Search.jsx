@@ -21,8 +21,6 @@ function Search() {
             type="text" 
             placeholder="search messages"
             />
-
-
         </div>
      );
 }

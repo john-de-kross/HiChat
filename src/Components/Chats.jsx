@@ -39,8 +39,9 @@ function Chats() {
                 <p className="text-lg font-[500]">call</p>
               </Link>
             </div>
-            <div>
-                <Search />
+            <Search />
+            <div className="chats text-lg font-[500] flex justify-center items-center w-full h-full">
+              <h2>No chats yet. Start a new conversation</h2>
             </div>
         </div>
      
