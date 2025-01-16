@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { mode } from "./UserMode";
 function Chats() {
-  const {handleSidebar} = mode()
+  const {isDarkMode, handleSidebar} = mode()
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef(null)
   const searchFocus = () => {
@@ -21,10 +21,10 @@ function Chats() {
   }, [isFocused])
   
   return (
-    <div className="w-full min-h-screen">
+    <div className={`w-full min-h-screen ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white'}`}>
       {!isFocused ? (
       <>
-        <div className="flex fixed w-full h-16 z-[1111] justify-between py-2 px-6"> 
+        <div className={`flex fixed w-full h-16 z-[1111] justify-between py-2 px-6 ${isDarkMode ? 'text-white' : 'text-black'}`}> 
         <div>
             <svg
             onClick={handleSidebar}
@@ -78,7 +78,7 @@ function Chats() {
           </div>
 
           <input  
-          className="search w-[80%] h-12 bg-slate-200 rounded-2xl outline-none px-8"
+          className={`search w-[80%] h-12 ${isDarkMode ? 'bg-slate-600' : 'bg-slate-200'} rounded-2xl outline-none px-8`}
           type="text" 
           placeholder="search messages"
           onFocus={searchFocus}
@@ -111,7 +111,7 @@ function Chats() {
             </svg>
             <input 
             ref={inputRef}
-            className="w-[80%] h-12 rounded-2xl bg-slate-100 outline-none px-14"
+            className={`w-[80%] h-12 rounded-2xl ${isDarkMode ? 'bg-slate-600' : 'bg-slate-100'} outline-none px-14`}
             type="text" 
             placeholder="search messages"
             />

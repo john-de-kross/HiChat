@@ -15,15 +15,14 @@ function Sidebar() {
         window.addEventListener('click', removeSidebar) 
         return () => window.removeEventListener('click', removeSidebar)
     }, [isSidebar])
-
     return ( 
-        <div ref={sideRef} className={`w-[80%] sidebar h-screen absolute z-[2000] bg-slate-100 transition delay-300 duration-200 ${isSidebar ? 'translate-x-0' : '-translate-x-full'}`}>
-            <div className="header h-40 bg-[#474E93]">
+        <div ref={sideRef} className={`w-[80%] sidebar h-screen absolute z-[2000] ${isDarkMode ? 'bg-slate-800 text-white' : 'bg-slate-100'} transition  ${isSidebar ? 'translate-x-0' : '-translate-x-full'}`}>
+            <div className={`header h-40 ${isDarkMode ? 'bg-slate-700' : 'bg-[#474E93]'}`}>
                 <div className="flex justify-between py-2 px-2">
-                    <div className="username flex justify-center items-center text-lg font-[600] w-16 h-16 bg-slate-300 rounded-full">
+                    <div className={`username flex justify-center items-center text-lg font-[600] w-16 h-16 ${isDarkMode ? 'bg-slate-400': 'bg-slate-300'} rounded-full`}>
                         Jj
                     </div>
-                    <div className="flex w-16 h-10 text-lg gap-1 font-[500] justify-center items-center bg-slate-300 rounded-3xl ">
+                    <div className={`flex w-16 h-10 text-lg gap-1 font-[500] justify-center items-center ${isDarkMode ? 'bg-slate-400' : 'bg-slate-300'} rounded-3xl`}>
                         <img
                         className="w-7 h-7" 
                         src="/out.png" 
@@ -32,7 +31,7 @@ function Sidebar() {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col gap-6 border-4 border-x-0 py-4 px-4">
+            <div className={`flex flex-col gap-6 border-4 border-x-0 ${isDarkMode ? 'border-y-slate-600': 'border-y-slate-100'} py-4 px-4`}>
                 <div className="flex justify-start gap-4 text-lg font-[500]">
                     <svg 
                     xmlns="http://www.w3.org/2000/svg" 
