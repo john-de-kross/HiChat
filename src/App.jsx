@@ -10,6 +10,7 @@ import {Routes, Route, Navigate, Outlet} from 'react-router-dom'
 import UsersState from './Components/UsersState'
 import { authState } from './Components/UsersState'
 import Sidebar from './Components/Sidebar'
+import UserMode from './Components/UserMode'
 
 
 function App() {
@@ -26,12 +27,15 @@ function App() {
   }
 
   return (
-    <Routes>
-      <Route path='/' element={currentUser ? <ChatsOutlets /> : <Navigate to='/login' />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/signup' element={<SignUp />}/>
-      <Route path='/initialize' element={<Initialize />}/>
-    </Routes>
+    <UserMode>
+      <Routes>
+        <Route path='/' element={currentUser ? <ChatsOutlets /> : <Navigate to='/login' />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<SignUp />}/>
+        <Route path='/initialize' element={<Initialize />}/>
+      </Routes>
+    </UserMode>
+    
     
   )
 

@@ -1,13 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { mode} from "./UserMode";
 
 function Sidebar() {
-    const [isDarkMode, setIsDarkMode] = useState(false)
-
-    const handleMode = () => {
-        setIsDarkMode(prev => !prev)
+    const {isDarkMode, handleMode, isSidebar, setIsSidebar} = mode();
+    const sideRef = useRef(null)
+    
+    const removeSidebar = (e) =>{
+        if (isSidebar && sideRef.current && !sideRef.current.contains(e.target) && !e.target.closest('.menu_icon')) {
+            setIsSidebar(false)
+        }
     }
+
+    useEffect(() => {
+        window.addEventListener('click', removeSidebar) 
+        return () => window.removeEventListener('click', removeSidebar)
+    }, [isSidebar])
+
     return ( 
-        <div className="w-[80%] h-screen absolute z-[2000] bg-slate-100">
+        <div ref={sideRef} className={`w-[80%] sidebar h-screen absolute z-[2000] bg-slate-100 transition delay-300 duration-200 ${isSidebar ? 'translate-x-0' : '-translate-x-full'}`}>
             <div className="header h-40 bg-[#474E93]">
                 <div className="flex justify-between py-2 px-2">
                     <div className="username flex justify-center items-center text-lg font-[600] w-16 h-16 bg-slate-300 rounded-full">

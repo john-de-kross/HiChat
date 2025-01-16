@@ -8,7 +8,6 @@ function UsersState({children}) {
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         const unsuscribe = onAuthStateChanged(auth, (user) => {
-            console.log(user)
             setCurrentUser(user)
             setLoading(false)
         })
