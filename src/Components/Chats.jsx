@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { mode } from "./UserMode";
 function Chats() {
-  const {isDarkMode, handleSidebar} = mode()
+  const {isDarkMode, handleSidebar, isSidebar} = mode()
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef(null)
   const searchFocus = () => {
@@ -21,7 +21,7 @@ function Chats() {
   }, [isFocused])
   
   return (
-    <div className={`w-full chat-container min-h-screen ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white'}`}>
+    <div className={`w-full chat-container ${isSidebar ? 'overflow-hidden' : 'overflow-auto'} min-h-screen ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white'}`}>
       {!isFocused ? (
       <>
         <div className={`flex fixed w-full h-16 z-[1111] justify-between py-2 px-6 ${isDarkMode ? 'text-white' : 'text-black'}`}> 
