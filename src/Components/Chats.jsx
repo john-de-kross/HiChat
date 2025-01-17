@@ -21,7 +21,7 @@ function Chats() {
   }, [isFocused])
   
   return (
-    <div className={`w-full min-h-screen ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white'}`}>
+    <div className={`w-full chat-container min-h-screen ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white'}`}>
       {!isFocused ? (
       <>
         <div className={`flex fixed w-full h-16 z-[1111] justify-between py-2 px-6 ${isDarkMode ? 'text-white' : 'text-black'}`}> 

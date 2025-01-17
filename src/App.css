@@ -171,6 +171,10 @@ body{
         transform: translate(10%, -45%) scale(0.70);
         
     }
+
+    .sidebar{
+        width: 30%;
+    }
     
 }
 
