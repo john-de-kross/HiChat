@@ -24,7 +24,7 @@ function Sidebar() {
                     <div className={`flex w-16 h-10 text-lg gap-1 font-[500] justify-center items-center ${isDarkMode ? 'bg-slate-400' : 'bg-slate-300'} rounded-3xl`}>
                         <img
                         className="w-7 h-7" 
-                        src="/out.png" 
+                        src="/logout.png" 
                         alt="log out" />
     
                     </div>

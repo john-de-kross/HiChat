@@ -64,7 +64,7 @@ function Chats() {
       </Link>
     </div>
     <div className="flex relative w-full justify-center py-4">
-          <div className="absolute left-10 py-3">
+          <div className="absolute left-10 py-4">
               <svg xmlns="http://www.w3.org/2000/svg"
               fill="none" 
               viewBox="0 0 24 24" 
@@ -78,7 +78,7 @@ function Chats() {
           </div>
 
           <input  
-          className={`search w-[80%] h-12 ${isDarkMode ? 'bg-slate-600' : 'bg-slate-200'} rounded-2xl outline-none px-8`}
+          className={`search w-[80%] h-12 ${isDarkMode ? 'bg-slate-600' : 'bg-slate-200'} rounded-2xl outline-none px-9`}
           type="text" 
           placeholder="search messages"
           onFocus={searchFocus}
