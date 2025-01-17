@@ -22,7 +22,10 @@ function Chats() {
 
   useEffect(() => {
     if(isSidebar){
-      document.body.style.overflow = 'none'
+      document.body.style.overflowY = 'hidden'
+    }else{
+      document.body.style.overflowY = 'auto'
+
     }
 
   }, [isSidebar])
