@@ -31,7 +31,7 @@ function Sidebar() {
                 </div>
             </div>
             <div className={`flex flex-col gap-6 border-[1px] border-x-0 ${isDarkMode ? 'border-y-slate-600': 'border-y-slate-200'} py-4 px-4`}>
-                <div className="flex justify-start gap-4 text-base font-[300]">
+                <div className="flex justify-start gap-4 text-base font-[400]">
                     <svg 
                     xmlns="http://www.w3.org/2000/svg" 
                     fill="none" 
@@ -46,7 +46,7 @@ function Sidebar() {
                     </svg>
                     Profile
                 </div>
-                <div className="settings flex justify-start gap-4 text-base font-[300]">
+                <div className="settings flex justify-start gap-4 text-base font-[400]">
                     <svg 
                     xmlns="http://www.w3.org/2000/svg" 
                     fill="none" 
@@ -60,7 +60,7 @@ function Sidebar() {
                     Settings
                 </div>
             </div>
-            <div className="flex flex-col gap-8 py-6 text-base font-[300] px-6">
+            <div className="flex flex-col gap-8 py-6 text-base font-[400] px-6">
                 <div className="group flex gap-4 justify-start">
                     <svg xmlns="http://www.w3.org/2000/svg"
                      fill="none" 
