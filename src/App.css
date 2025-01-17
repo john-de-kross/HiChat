@@ -173,7 +173,11 @@ body{
     }
 
     .sidebar{
-        width: 30%;
+        width: 35%;
+    }
+
+    .chat-container{
+        min-height: 100vh;
     }
     
 }
