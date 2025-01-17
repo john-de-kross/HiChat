@@ -15,7 +15,7 @@ function Sidebar() {
         return () => window.removeEventListener('click', removeSidebar)
     }, [isSidebar])
     return ( 
-        <div ref={sideRef} className={`w-[80%] overflow-auto sidebar min-h-screen absolute z-[2000] ${isDarkMode ? 'bg-slate-800 text-white' : 'bg-slate-100'} transition  ${isSidebar ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div ref={sideRef} className={`w-[80%] overflow-y-auto sidebar min-h-screen absolute z-[2000] ${isDarkMode ? 'bg-slate-800 text-white' : 'bg-slate-100'} transition  ${isSidebar ? 'translate-x-0' : '-translate-x-full'}`}>
             <div className={`header h-40 ${isDarkMode ? 'bg-slate-700' : 'bg-[#474E93]'}`}>
                 <div className="flex justify-between py-2 px-2">
                     <div className={`username flex justify-center items-center text-lg font-[600] w-16 h-16 ${isDarkMode ? 'bg-slate-400': 'bg-slate-300'} rounded-full`}>
