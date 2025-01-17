@@ -1,10 +1,14 @@
 import React, { createContext, useContext, useState } from "react";
 export const modeContext = createContext()
 function UserMode({children}) {
-    const [isDarkMode, setIsDarkMode] = useState(false)
-    const [isSidebar, setIsSidebar] = useState(false)
+    const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('usersmode') === null ? false : JSON.parse(localStorage.getItem('usersmode')));
+    const [isSidebar, setIsSidebar] = useState(false);
     const handleMode = () => {
-        setIsDarkMode(prev => !prev)
+        setIsDarkMode(prev => {
+            const setModeInLocal = !prev
+            localStorage.setItem('usersmode', JSON.stringify(setModeInLocal))
+            return setModeInLocal
+        })
     }
     const handleSidebar = () => {
         setIsSidebar(true)

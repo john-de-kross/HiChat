@@ -3,8 +3,7 @@ import { mode} from "./UserMode";
 
 function Sidebar() {
     const {isDarkMode, handleMode, isSidebar, setIsSidebar} = mode();
-    const sideRef = useRef(null)
-    
+    const sideRef = useRef(null) 
     const removeSidebar = (e) =>{
         if (isSidebar && sideRef.current && !sideRef.current.contains(e.target) && !e.target.closest('.menu_icon')) {
             setIsSidebar(false)
