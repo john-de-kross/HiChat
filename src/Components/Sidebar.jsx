@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { mode} from "./UserMode";
-
+import { auth } from "./Firebase";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 function Sidebar() {
     const {isDarkMode, handleMode, isSidebar, setIsSidebar} = mode();
     const sideRef = useRef(null) 
+    const navigate = useNavigate()
     const removeSidebar = (e) =>{
         if (isSidebar && sideRef.current && !sideRef.current.contains(e.target) && !e.target.closest('.menu_icon')) {
             setIsSidebar(false)
@@ -14,14 +17,28 @@ function Sidebar() {
         window.addEventListener('click', removeSidebar) 
         return () => window.removeEventListener('click', removeSidebar)
     }, [isSidebar])
+
+    const logOut = () =>{
+        if(confirm("Are you sure you want to sign out?")){
+            signOut(auth).then(() => {
+                navigate('/login')
+            })
+            .catch((error) => {
+                console.log("An error occurred",error)
+            })
+        }else{
+            return null
+        }
+    }
+
     return ( 
         <div ref={sideRef} className={`w-[80%] overflow-y-auto sidebar h-full absolute z-[2000] ${isDarkMode ? 'bg-slate-800 text-white' : 'bg-slate-100'} transition  ${isSidebar ? 'translate-x-0' : '-translate-x-full'}`}>
             <div className={`header h-40 ${isDarkMode ? 'bg-slate-700' : 'bg-[#474E93]'}`}>
                 <div className="flex justify-between py-2 px-2">
-                    <div className={`username flex justify-center items-center text-lg font-[600] w-16 h-16 ${isDarkMode ? 'bg-slate-400': 'bg-slate-300'} rounded-full`}>
+                    <div className={`username flex justify-center items-center text-lg font-[600] w-14 h-14 ${isDarkMode ? 'bg-slate-400': 'bg-slate-300'} rounded-full`}>
                         Jj
                     </div>
-                    <div className={`flex w-16 h-10 text-lg gap-1 font-[500] justify-center items-center ${isDarkMode ? 'bg-slate-400' : 'bg-slate-300'} rounded-3xl`}>
+                    <div onClick={logOut} className={`flex w-14 h-9 text-lg gap-1 font-[500] justify-center items-center ${isDarkMode ? 'bg-slate-400' : 'bg-slate-300'} rounded-3xl`}>
                         <img
                         className="w-7 h-7" 
                         src="/out.png" 

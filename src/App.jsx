@@ -30,9 +30,9 @@ function App() {
     <UserMode>
       <Routes>
         <Route path='/' element={currentUser ? <ChatsOutlets /> : <Navigate to='/login' />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<SignUp />}/>
-        <Route path='/initialize' element={<Initialize />}/>
+        <Route path='login' element={<Login />} />
+        <Route path='signup' element={<SignUp />}/>
+        <Route path='initialize' element={<Initialize />}/>
       </Routes>
     </UserMode>
     
