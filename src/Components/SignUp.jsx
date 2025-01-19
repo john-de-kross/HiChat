@@ -3,13 +3,16 @@ import hide from './hide.png'
 import view from './view.png'
 import validate from 'validate.js'
 import constraints from './FormValidation'
-import { auth } from "./Firebase";
+import { auth} from "./Firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Timestamp } from "firebase/firestore";
+import { setDoc, doc,  getFirestore } from "firebase/firestore";
 
 
 function SignUp() {
+    const db = getFirestore()
     const emailRef = useRef(null)
     const [show, setShow] = useState(false)
     const navigate = useNavigate()
@@ -47,7 +50,14 @@ function SignUp() {
         try{
             const userCredentials = createUserWithEmailAndPassword(auth, formData.email, formData.password)
             console.log('user created successfully', (await userCredentials).user)
-            alert('signed up successfully');
+            const user = (await userCredentials).user
+            await setDoc(doc(db, 'users', user.uid), {
+                fullName: formData.fullName,
+                username: formData.username,
+                email: formData.email,
+                createdAt:  Timestamp.now()
+            })
+            
             navigate('/initialize')
             setTimeout(() => {
                 navigate('/login') 
