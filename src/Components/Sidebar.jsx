@@ -8,7 +8,10 @@ import { Firestore, getDoc, doc, getFirestore } from "firebase/firestore";
 function Sidebar() {
     const db = getFirestore()
     const {currentUser} = authState();
-    const [appUsername, setAppUsername] = useState('')
+    const [appUsername, setAppUsername] = useState({
+        fullName: '',
+        username: ''
+    })
     const {isDarkMode, handleMode, isSidebar, setIsSidebar} = mode();
     const sideRef = useRef(null) 
     const navigate = useNavigate()
@@ -27,7 +30,12 @@ function Sidebar() {
           try{
             const docRef = doc(db, 'users', currentUser.uid);
             const userDoc = await getDoc(docRef);
-            setAppUsername(userDoc.data().username)
+            setAppUsername({
+                ...appUsername,
+                username: userDoc.data().username,
+                fullName: userDoc.data().fullName
+
+            })
           }catch(error){
             console.log("error displaying docs", error)
           }
@@ -36,6 +44,17 @@ function Sidebar() {
         fetchUserData();
     
       }, [])
+
+      const handleInitials = (str) => {
+        const words = str.split(' ');
+        let initals = ''
+
+        for (let i = 0; i < words.length; i++) {
+            const splitWords = words[i] 
+            const initialsChar = splitWords[0].toUpperCase()
+            return initals += initialsChar
+        }
+      }
 
     const logOut = () =>{
         if(confirm("Are you sure you want to sign out?")){
@@ -53,22 +72,30 @@ function Sidebar() {
     return ( 
         <div ref={sideRef} className={`w-[80%] overflow-y-auto sidebar h-full absolute z-[2000] ${isDarkMode ? 'bg-slate-800 text-white' : 'bg-slate-100'} transition  ${isSidebar ? 'translate-x-0' : '-translate-x-full'}`}>
             <div className={`header h-40 ${isDarkMode ? 'bg-slate-700' : 'bg-[#474E93]'}`}>
-                <div className="grid grid-cols-2 w-full gap-16 px-4  py-2">
-                    <div className={`username flex justify-center place-content-between items-center text-lg font-[600] w-14 h-14 ${isDarkMode ? 'bg-slate-400': 'bg-slate-300'} rounded-full`}>
-                        Jj
+                <div className="flex flex-col">
+                    <div className="flex justify-between  gap-16 px-4  py-2">
+                        <div className={`username flex justify-center place-content-between items-center text-lg font-[600] w-14 h-14 ${isDarkMode ? 'bg-slate-400': 'bg-slate-300'} rounded-full`}>
+                            {handleInitials(appUsername.username)}
+                        </div>
+                        <div onClick={logOut} className={`flex w-14 h-9 text-lg gap-1 font-[500] justify-center items-center ${isDarkMode ? 'bg-slate-400' : 'bg-slate-300'} rounded-3xl`}>
+                            <img
+                            className="w-7 h-7" 
+                            src="/out.png" 
+                            alt="log out" />
+                        </div>  
                     </div>
-                    <div onClick={logOut} className={`flex w-14 h-9 text-lg gap-1 font-[500] justify-center items-center ${isDarkMode ? 'bg-slate-400' : 'bg-slate-300'} rounded-3xl`}>
-                        <img
-                        className="w-7 h-7" 
-                        src="/out.png" 
-                        alt="log out" />
-    
+                    <div className="names flex flex-col gap-1 py-10 px-2 w-full">
+                        <div className="px-2 text-base font-[500]">
+                            {appUsername.username}
+                        </div>
+                        <div className="text-sm font-[300]">
+                            @{appUsername.fullName}
+                        </div>
+
+
                     </div>
-                    <div className="username text-base italic font-[500]">
-                        {appUsername}
-                    </div>
-                    
                 </div>
+
             </div>
             <div className={`flex flex-col gap-6 border-[1px] border-x-0 ${isDarkMode ? 'border-y-slate-600': 'border-y-slate-200'} py-4 px-4`}>
                 <div className="flex justify-start gap-4 text-base font-[400]">
