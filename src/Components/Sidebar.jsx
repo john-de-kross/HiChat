@@ -51,8 +51,8 @@ function Sidebar() {
 
         for (let i = 0; i < words.length; i++) {
             const splitWords = words[i] 
-            const initialsChar = splitWords[0].toUpperCase()
-            return initals += initialsChar
+            const initialsChar = splitWords[0]
+            return (initals += initialsChar).toUpperCase()
         }
       }
 
