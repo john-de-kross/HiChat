@@ -12,6 +12,7 @@ function Sidebar() {
         fullName: '',
         username: ''
     })
+    const [initials, setInitials] = useState('')
     const {isDarkMode, handleMode, isSidebar, setIsSidebar} = mode();
     const sideRef = useRef(null) 
     const navigate = useNavigate()
@@ -45,16 +46,17 @@ function Sidebar() {
     
       }, [])
 
-      const handleInitials = (str) => {
-        const words = str.split(' ');
-        let initals = ''
-
-        for (let i = 0; i < words.length; i++) {
-            const splitWords = words[i] 
-            const initialsChar = splitWords[0]
-            return (initals += initialsChar).toUpperCase()
+      useEffect(() => {
+        const splitUsername = appUsername.username.split(' ')
+        let abbre = ''
+        for (let i = 0; i < splitUsername.length; i++) {
+            const word = splitUsername[i].charAt(0).toUpperCase();
+            const userInitials = abbre += word
+            setInitials(userInitials)
+            
         }
-      }
+        console.log(initials)
+      }, [appUsername])
 
     const logOut = () =>{
         if(confirm("Are you sure you want to sign out?")){
@@ -75,7 +77,7 @@ function Sidebar() {
                 <div className="flex flex-col">
                     <div className="flex justify-between  gap-16 px-4  py-2">
                         <div className={`username flex justify-center place-content-between items-center text-lg font-[600] w-14 h-14 ${isDarkMode ? 'bg-slate-400': 'bg-slate-300'} rounded-full`}>
-                            {handleInitials(appUsername.username)}
+                            {initials}
                         </div>
                         <div onClick={logOut} className={`flex w-14 h-9 text-lg gap-1 font-[500] justify-center items-center ${isDarkMode ? 'bg-slate-400' : 'bg-slate-300'} rounded-3xl`}>
                             <img
