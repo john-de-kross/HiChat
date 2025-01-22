@@ -17,6 +17,7 @@ function SignUp() {
     const [show, setShow] = useState(false)
     const navigate = useNavigate()
     const [errors, setErrors] = useState({})
+    const [issignedUp, setIsSignedUp] = useState(false)
     const [showMessage, setShowMessage] = useState(false)
     const [emailError, setEmailError] = useState('')
     const [formData, setFormData] = useState({
@@ -57,6 +58,7 @@ function SignUp() {
                 email: formData.email,
                 createdAt:  Timestamp.now()
             })
+            setIsSignedUp(true)
             
             navigate('/initialize')
             setTimeout(() => {
@@ -85,10 +87,10 @@ function SignUp() {
             <div>
                 <h1 className="text-white text-xl md:text-2xl">ChatFam</h1>
             </div>
-            <div className="con w-full md:w-96 md:h-auto md:bg-slate-700">
+            <div className="con w-full flex flex-col place-content-center items-center md:w-96 md:h-auto md:bg-slate-700">
                 <form className="space-y-4 py-9 md:pl-7">
                     <div className="input-fieldy">
-                        <input className="w-full rounded-xl md:rounded outline-none h-[50px] md:w-[90%]"
+                        <input className="w-[100%] rounded-xl md:rounded outline-none h-[50px] md:w-[90%]"
                          type="text" 
                          name="fullName" 
                          value={formData.fullName}
@@ -103,7 +105,7 @@ function SignUp() {
 
                     </div>
                     <div className="input-fieldy">
-                        <input className="w-full outline-none rounded-xl md:rounded h-[50px] md:w-[90%]" 
+                        <input className="w-[100%] outline-none rounded-xl md:rounded h-[50px] md:w-[90%]" 
                         type="text" 
                         name="username"
                         value={formData.username}
@@ -117,7 +119,7 @@ function SignUp() {
                         </div>
                     </div>
                     <div className="input-fieldy">
-                        <input className="w-full  rounded-xl md:rounded outline-none h-[50px] md:w-[90%]" 
+                        <input className="w-[100%] rounded-xl md:rounded outline-none h-[50px] md:w-[90%]" 
                         type="text" 
                         name="email"
                         onChange={handleForm}
@@ -134,7 +136,7 @@ function SignUp() {
                         </div>
                     </div>
                     <div className="input-fieldy relative">
-                        <input className="w-full outline-none rounded-xl md:rounded h-[50px] md:w-[90%]"
+                        <input className="w-[100%] outline-none rounded-xl md:rounded h-[50px] md:w-[90%]"
                         type={show ? 'text' : 'password'}
                         name="password"
                         onChange={handleForm}
@@ -149,7 +151,11 @@ function SignUp() {
                         </div>
                     </div>
                     <div className="btn text-white font-[500]">
-                        <button onClick={submitfunctions} className="bg-blue-800 rounded w-full md:w-[90%] md:rounded-2xl h-[50px]">Sign Up</button>
+                        <button onClick={submitfunctions} className="flex justify-center items-center bg-blue-800 rounded-xl w-[100%] md:w-[90%] md:rounded-2xl h-[50px]">
+                            {!issignedUp ? 'Sign up' : (
+                                <div className="w-8 h-8 rounded-full border-[5px] border-white border-t-transparent animate-spin"></div>
+                            )}
+                        </button>
 
                     </div>
                     <div className="flex justify-center gap-1 text-white font-[600]">

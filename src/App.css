@@ -135,6 +135,10 @@ body{
 @media(max-width:768px){
     .labelling{
         background-color: #0f172a;
+        width: 40%;
+    }
+    .email{
+        width: 25%;
     }
     .input-fieldy input:focus + .labelling,
     .input-fieldy input:valid + .labelling{
