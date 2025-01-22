@@ -68,14 +68,14 @@ function Login() {
                         </div>
                     </div>
                     <div className="w-full text-gray-300 text-base">
-                        <form className="w-full flex md:w-full justify-between">
+                        <form className="w-[90%] flex md:w-full justify-between">
                             <div className="flex gap-1">
                                 <input type="checkbox" name="" checked={true} />
                                 <label>Remember me</label>
                             </div>
                             <div className="flex gap-1">
                                 <input type="checkbox" name="" checked={true} />
-                                <label>Keep me signed in</label>
+                                <label>Stay signed in</label>
                             </div>
                         </form>
                     </div>
