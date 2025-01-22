@@ -40,7 +40,6 @@ function SignUp() {
     }
 
     async function submitfunctions(e){
-        let isValid = true
         e.preventDefault()
         const validateError = validate(formData, constraints);
         setErrors(validateError || {})
@@ -51,6 +50,7 @@ function SignUp() {
         try{
             const userCredentials = createUserWithEmailAndPassword(auth, formData.email, formData.password)
             console.log('user created successfully', (await userCredentials).user)
+            setIsSignedUp(true)
             const user = (await userCredentials).user
             await setDoc(doc(db, 'users', user.uid), {
                 fullName: formData.fullName,
@@ -58,7 +58,6 @@ function SignUp() {
                 email: formData.email,
                 createdAt:  Timestamp.now()
             })
-            setIsSignedUp(true)
             
             navigate('/initialize')
             setTimeout(() => {
@@ -70,6 +69,7 @@ function SignUp() {
         catch (err) {
             console.log('Failed to sign up', err)
             setEmailError('Email already exist')
+            setIsSignedUp(false)
         }
     }
     

@@ -24,15 +24,16 @@ function Login() {
     }
 
     const handleLogIn = (e) => {
+        setIsLogged(true)
         e.preventDefault()
        signInWithEmailAndPassword(auth, loginData.email, loginData.password)
        .then((userCredentials) => {
-        setIsLogged(true)
         navigate('/')
         
        })
        .catch((error) => {
         alert("Invalid password or email")
+        setIsLogged(false)
         console.log("An error occured",error.message)
        })
     }
