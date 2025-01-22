@@ -83,20 +83,20 @@ function SignUp() {
     }, [showMessage])
 
     return ( 
-        <div className="flex flex-col place-items-center md:gap-4 md:justify-center w-full min-h-screen bg-slate-900">
+        <div className="flex flex-col items-center w-full md:gap-4 md:justify-center min-h-screen bg-slate-900">
             <div>
                 <h1 className="text-white text-xl md:text-2xl">ChatFam</h1>
             </div>
-            <div className="con w-full flex flex-col place-content-center items-center md:w-96 md:h-auto md:bg-slate-700">
-                <form className="space-y-4 py-9 md:pl-7">
+            <div className="con w-full pl-6 md:w-96 md:h-auto md:bg-slate-700">
+                <form className="space-y-6 py-6 w-full md:pl-7">
                     <div className="input-fieldy">
-                        <input className="w-[100%] rounded-xl md:rounded outline-none h-[50px] md:w-[90%]"
+                        <input className="w-[90%] rounded-xl md:rounded outline-none h-[50px] md:w-[90%]"
                          type="text" 
                          name="fullName" 
                          value={formData.fullName}
                          onChange={handleForm}
                         required style={errors.fullName && {border: "2px solid red"}}/>
-                        <label className="labelling">Full Name</label>
+                        <label className="labelling full">Full Name</label>
                         <div className="error">
                             {errors.fullName && 
                                 <p>{errors.fullName.join(", ")}</p>
@@ -105,7 +105,7 @@ function SignUp() {
 
                     </div>
                     <div className="input-fieldy">
-                        <input className="w-[100%] outline-none rounded-xl md:rounded h-[50px] md:w-[90%]" 
+                        <input className="w-[90%] outline-none rounded-xl md:rounded h-[50px] md:w-[90%]" 
                         type="text" 
                         name="username"
                         value={formData.username}
@@ -119,7 +119,7 @@ function SignUp() {
                         </div>
                     </div>
                     <div className="input-fieldy">
-                        <input className="w-[100%] rounded-xl md:rounded outline-none h-[50px] md:w-[90%]" 
+                        <input className="w-[90%] rounded-xl md:rounded outline-none h-[50px] md:w-[90%]" 
                         type="text" 
                         name="email"
                         onChange={handleForm}
@@ -136,7 +136,7 @@ function SignUp() {
                         </div>
                     </div>
                     <div className="input-fieldy relative">
-                        <input className="w-[100%] outline-none rounded-xl md:rounded h-[50px] md:w-[90%]"
+                        <input className="w-[90%] outline-none rounded-xl md:rounded h-[50px] md:w-[90%]"
                         type={show ? 'text' : 'password'}
                         name="password"
                         onChange={handleForm}
@@ -151,7 +151,7 @@ function SignUp() {
                         </div>
                     </div>
                     <div className="btn text-white font-[500]">
-                        <button onClick={submitfunctions} className="flex justify-center items-center bg-blue-800 rounded-xl w-[100%] md:w-[90%] md:rounded-2xl h-[50px]">
+                        <button onClick={submitfunctions} className="flex justify-center items-center bg-blue-800 rounded-xl w-[90%] md:w-[90%] md:rounded-2xl h-[50px]">
                             {!issignedUp ? 'Sign up' : (
                                 <div className="w-8 h-8 rounded-full border-[5px] border-white border-t-transparent animate-spin"></div>
                             )}

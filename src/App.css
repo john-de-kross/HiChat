@@ -135,11 +135,13 @@ body{
 @media(max-width:768px){
     .labelling{
         background-color: #0f172a;
-        width: 40%;
     }
-    .email{
-        width: 25%;
+
+    .full{
+        width: 28%;
     }
+
+
     .input-fieldy input:focus + .labelling,
     .input-fieldy input:valid + .labelling{
         transform: translate(10%, -40%) scale(0.78);
