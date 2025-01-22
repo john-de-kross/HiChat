@@ -84,11 +84,11 @@ function SignUp() {
 
     return ( 
         <div className="flex flex-col items-center w-full md:gap-4 md:justify-center min-h-screen bg-slate-900">
-            <div>
-                <h1 className="text-white text-xl md:text-2xl">ChatFam</h1>
+            <div className="py-4">
+                <h1 className="text-white text-xl md:text-2xl">Sign up for HiChat</h1>
             </div>
             <div className="con w-full pl-6 md:w-96 md:h-auto md:bg-slate-700">
-                <form className="space-y-6 py-6 w-full md:pl-7">
+                <form className="space-y-6 py-6 w-full md:pl-4">
                     <div className="input-fieldy">
                         <input className="w-[90%] rounded-xl md:rounded outline-none h-[50px] md:w-[90%]"
                          type="text" 
@@ -153,7 +153,7 @@ function SignUp() {
                     <div className="btn text-white font-[500]">
                         <button onClick={submitfunctions} className="flex justify-center items-center bg-blue-800 rounded-xl w-[90%] md:w-[90%] md:rounded-2xl h-[50px]">
                             {!issignedUp ? 'Sign up' : (
-                                <div className="w-8 h-8 rounded-full border-[5px] border-white border-t-transparent animate-spin"></div>
+                                <div className="w-6 h-6 border-[4px] rounded-full md:w-8 md:h-8 md:border-[5px] border-white border-t-transparent animate-spin"></div>
                             )}
                         </button>
 

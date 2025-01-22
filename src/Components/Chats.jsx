@@ -51,7 +51,7 @@ function Chats() {
             </svg>
         </div>
         <div className="text-lg font-medium">
-            <h2>ChatFam</h2>
+            <h2>HiChat</h2>
         </div>
     </div>
     <div className={`flex py-16 justify-between px-14 border border-t-0 border-x-0 ${isDarkMode ? 'border-y-slate-800' : 'border-y-slate-200'} pb-2`}>
