@@ -87,10 +87,10 @@ function Sidebar() {
                         </div>  
                     </div>
                     <div className="names flex flex-col gap-1 py-10 px-2 w-full">
-                        <div className="px-2 text-base font-[500]">
+                        <div className="px-2 text-base text-white font-[500]">
                             {appUsername.username}
                         </div>
-                        <div className="text-sm font-[300]">
+                        <div className="text-sm  text-white font-[300]">
                             @{appUsername.fullName}
                         </div>
 

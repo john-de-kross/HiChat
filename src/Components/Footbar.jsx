@@ -1,11 +1,15 @@
 import React from "react";
+import { mode } from "./UserMode";
 
 
 function FootBar() {
+    const {isDarkMode} = mode()
     return ( 
-        <div className="fixed flex gap-8 justify-start items-center px-6 bottom-1 w-full h-16 bg-slate-900">
-            <div className="flex py-1 flex-col text-sm text-white font-[500] items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" className="fill-gray-100 w-7 h-7">
+        <div className={`fixed flex gap-8 justify-start items-center px-6 bottom-1 w-full h-16 ${isDarkMode ?'bg-slate-900': 'bg-white border-2 border-t border-y-0 border-x-0'}`}>
+            <div className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" strokeLinecap="round" 
+                strokeLinejoin="round" strokeWidth={1.5} 
+                stroke="currentColor" className={`${isDarkMode ? 'fill-gray-100' : 'stroke-black'} w-5 h-5`}>
                 <path 
                 d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 
                 128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 
@@ -16,14 +20,14 @@ function FootBar() {
                 </svg>
                 Connect
             </div>
-            <div className="flex flex-col items-center text-white font-[500]">
+            <div className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
                 <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 fill="none" 
                 viewBox="0 0 24 24" 
                 strokeWidth={1.5} 
                 stroke="currentColor" 
-                className="size-6 stroke-white w-7 h-7">
+                className={`size-6 ${isDarkMode ?'stroke-white': 'stroke-black'} w-5 h-5`}>
                 <path 
                 strokeLinecap="round" 
                 strokeLinejoin="round"
@@ -31,11 +35,11 @@ function FootBar() {
                 </svg>
                 Sent
             </div>
-            <div className="flex flex-col items-center text-white font-[500]">
+            <div className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
             <svg 
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 320 512" 
-            className="w-7 h-7 fill-white">
+            className={`w-5 h-5 ${isDarkMode ? 'fill-white' : 'fill-black'}`}>
             <path 
             d="M112 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm40 304l0 
             128c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-223.1L59.4
@@ -45,13 +49,13 @@ function FootBar() {
             </svg>
             Request
             </div>
-            <div className="flex flex-col items-center text-white font-[500]">
+            <div className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
                 <svg xmlns="http://www.w3.org/2000/svg" 
                 fill="none" 
                 viewBox="0 0 24 24" 
                 strokeWidth={1.5} 
                 stroke="currentColor" 
-                className="size-6 w-7 h-7">
+                className="size-6 w-5 h-5">
                 <path 
                 strokeLinecap="round" 
                 strokeLinejoin="round" 
