@@ -3,7 +3,7 @@ import React from "react";
 
 function FootBar() {
     return ( 
-        <div className="fixed flex gap-8 justify-start items-center px-4 bottom-1 w-full h-16 bg-slate-900">
+        <div className="fixed flex gap-8 justify-start items-center px-6 bottom-1 w-full h-16 bg-slate-900">
             <div className="flex py-1 flex-col text-sm text-white font-[500] items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" className="fill-gray-100 w-7 h-7">
                 <path 
