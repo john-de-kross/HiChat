@@ -11,6 +11,7 @@ import UsersState from './Components/UsersState'
 import { authState } from './Components/UsersState'
 import Sidebar from './Components/Sidebar'
 import UserMode from './Components/UserMode'
+import FootBar from './Components/Footbar'
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
       <>
        <Sidebar />
        <Chats />
+       <FootBar />
        <Outlet />
       </>
       
