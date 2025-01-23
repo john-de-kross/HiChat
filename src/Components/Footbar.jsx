@@ -3,7 +3,7 @@ import React from "react";
 
 function FootBar() {
     return ( 
-        <div className="fixed flex gap-8 justify-start items-center px-2 bottom-1 w-full h-16 bg-slate-900">
+        <div className="fixed flex gap-8 justify-start items-center px-4 bottom-1 w-full h-16 bg-slate-900">
             <div className="flex py-1 flex-col text-sm text-white font-[500] items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" className="fill-gray-100 w-7 h-7">
                 <path 
@@ -29,7 +29,7 @@ function FootBar() {
                 strokeLinejoin="round"
                 d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
-                sent
+                Sent
             </div>
             <div className="flex flex-col items-center text-white font-[500]">
             <svg 
