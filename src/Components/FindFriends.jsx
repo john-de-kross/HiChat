@@ -41,7 +41,7 @@ function FindFriends() {
                 <h2>Connect with friends</h2>
             </div>
             <div className="flex flex-col py-7">
-                <div className="add-friends flex justify-center gap-10 items-center">
+                <div className="add-friends flex justify-center gap-14 items-center">
                     <h2>Avatar</h2>
                     <h2>Name</h2>
                     <h2>Action</h2>
