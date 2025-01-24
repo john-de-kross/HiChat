@@ -148,6 +148,12 @@ body{
         
     }
 
+    .add-friends h2{
+        font-family: "Ubuntu", serif;
+        font-weight: 900;
+        font-style: normal;
+    }
+
 }
 
 @media(min-width:768px){

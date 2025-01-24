@@ -1,13 +1,15 @@
 import React from "react";
 import { mode } from "./UserMode";
+import { useNavigate } from "react-router-dom";
 
 
 function FootBar() {
     const {isDarkMode} = mode()
+    const navigate = useNavigate()
     return ( 
         <div className={`fixed flex gap-9 justify-start items-center px-8 bottom-1 w-full h-16 ${isDarkMode ?'bg-slate-900': 'bg-white border-2 border-t border-y-0 border-x-0'}`}>
             <div className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" strokeLinecap="round" 
+                <svg onClick={() => navigate('/find-friends')} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" strokeLinecap="round" 
                 strokeLinejoin="round" strokeWidth={1.5} 
                 stroke="currentColor" className={`${isDarkMode ? 'fill-gray-100' : 'stroke-black'} w-5 h-5`}>
                 <path 

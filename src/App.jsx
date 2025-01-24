@@ -12,11 +12,11 @@ import { authState } from './Components/UsersState'
 import Sidebar from './Components/Sidebar'
 import UserMode from './Components/UserMode'
 import FootBar from './Components/Footbar'
+import FindFriends from './Components/FindFriends'
 
 
 function App() {
   const {currentUser, loading} = authState()
-  console.log('this is users', currentUser)
   if (loading) {
     return(
       <div className='flex justify-center items-center w-full h-screen'>
@@ -34,6 +34,7 @@ function App() {
         <Route path='login' element={<Login />} />
         <Route path='signup' element={<SignUp />}/>
         <Route path='initialize' element={<Initialize />}/>
+        <Route path='find-friends' element={<FindFriends />}/>
       </Routes>
     </UserMode>
     
