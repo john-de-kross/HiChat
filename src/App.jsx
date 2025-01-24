@@ -34,7 +34,7 @@ function App() {
         <Route path='login' element={<Login />} />
         <Route path='signup' element={<SignUp />}/>
         <Route path='initialize' element={<Initialize />}/>
-        <Route path='find-friends' element={<FindFriends />}/>
+        <Route path='find-friends' element={<ConnectFriends />}/>
       </Routes>
     </UserMode>
     
@@ -48,8 +48,17 @@ function App() {
        <Chats />
        <FootBar />
        <Outlet />
+      </> 
+    )
+  }
+
+  function ConnectFriends(){
+    return(
+      <>
+       <FindFriends />
+       <Outlet />
+       <FootBar />
       </>
-      
     )
   }
 }
