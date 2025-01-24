@@ -1,27 +1,26 @@
 import React from "react";
 import { mode } from "./UserMode";
 import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 function FootBar() {
     const {isDarkMode} = mode()
     const navigate = useNavigate()
     return ( 
-        <div className={`fixed flex gap-9 justify-start items-center px-8 bottom-1 w-full h-16 ${isDarkMode ?'bg-slate-900': 'bg-white border-2 border-t border-y-0 border-x-0'}`}>
-            <div className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
-                <svg onClick={() => navigate('/find-friends')} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" strokeLinecap="round" 
-                strokeLinejoin="round" strokeWidth={1.5} 
-                stroke="currentColor" className={`${isDarkMode ? 'fill-gray-100' : 'stroke-black'} w-5 h-5`}>
-                <path 
-                d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 
-                128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 
-                448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 
-                512 0 498.7 0 482.3zM504 312l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 
-                24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 
-                24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/>
+        <div className={`link fixed flex gap-9 justify-start items-center pl-8 bottom-1 w-full h-16  ${isDarkMode ?'bg-slate-900': 'bg-white border-2 border-t border-y-0 border-x-0'}`}>
+            <NavLink to={'/find-friends'} className={({isActive}) => `flex flex-col ${isActive  ? 'flex text-white w-24 h-14 justify-center items-center bg-blue-950 rounded-2xl' : ''} text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
+                <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                strokeWidth={1.5} 
+                stroke="currentColor" 
+                className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
                 </svg>
                 Connect
-            </div>
+            </NavLink>
             <div className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
                 <svg 
                 xmlns="http://www.w3.org/2000/svg" 

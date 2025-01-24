@@ -2,9 +2,12 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { doc, getFirestore, onSnapshot, collection } from "firebase/firestore";
 import { auth } from "./Firebase";
+import { mode } from "./UserMode";
+
 
 
 function FindFriends() {
+    const {isDarkMode} = mode()
     const db = getFirestore()
     const [users, setUsers] = useState([])
     const [loading, setIsLoading] = useState(true)
@@ -36,11 +39,11 @@ function FindFriends() {
 
     
     return (
-        <div className="w-full  min-h-screen">
+        <div className={`w-full min-h-screen ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white'}`}>
             <div className="flex justify-center text-lg font-[500] py-2 items-center">
                 <h2>Connect with friends</h2>
             </div>
-            <div className="flex add-friends w-full py-2 justify-between px-2">
+            <div className={`flex add-friends w-full py-2 ${isDarkMode ? 'text-white' : 'text-black'} justify-between px-2`}>
                 <div className="flex gap-2">
                     <h2>Avatar</h2>
                     <h2>Name</h2>
@@ -50,7 +53,7 @@ function FindFriends() {
                 </div>
             </div>
             {users.map((user) => (
-                    <div key={user.id} className="flex flex-col border-[1px] border-x-0 gap-4  w-full">
+                    <div key={user.id} className={`flex flex-col border-[1px] border-x-0 ${isDarkMode ? 'border-slate-700': 'border-gray-200'} gap-4  w-full`}>
                         <div className="flex py-2 justify-between px-2 text-base">
                             <div className="flex gap-4">
                                 <div className="flex justify-center items-center ava-profile h-9 w-9 mt-1 rounded-full bg-gray-300">
@@ -64,7 +67,7 @@ function FindFriends() {
                                     <small className="text-sm font-[100]">{user.username}</small>
                                 </div>
                             </div>
-                            <div className="flex justify-center mt-2 items-center add-icon w-12 rounded h-8 border-[1px]">
+                            <div className={`flex justify-center mt-2 items-center add-icon w-12 rounded h-8 border-[1px] ${isDarkMode ? 'border-slate-700' : 'bg-gray-200'}`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" 
                                 fill="none" 
                                 viewBox="0 0 24 24" 
