@@ -129,7 +129,7 @@ function Sidebar() {
                     Settings
                 </div>
             </div>
-            <div className="flex flex-col gap-8 py-6 text-base font-[400] px-6">
+            <div className="flex flex-col gap-8 py-6 text-base font-[400] px-4">
                 <div className="group flex gap-4 justify-start">
                     <svg xmlns="http://www.w3.org/2000/svg"
                      fill="none" 
