@@ -8,7 +8,7 @@ function FootBar() {
     const {isDarkMode} = mode()
     const navigate = useNavigate()
     return ( 
-        <div className={`link fixed flex gap-9 justify-start items-center pl-8 bottom-1 w-full h-16  ${isDarkMode ?'bg-slate-900': 'bg-white border-2 border-t border-y-0 border-x-0'}`}>
+        <div className={`link fixed flex gap-7 justify-center items-center pl-4 bottom-1 w-full h-16  ${isDarkMode ?'bg-slate-900': 'bg-white border-2 border-t border-y-0 border-x-0'}`}>
             <NavLink to={'/find-friends'} className={({isActive}) => `flex flex-col w-24 mt-1 h-[45px]  ${isActive  ? 'flex text-white  justify-center items-center bg-blue-950 rounded-2xl' : ''} text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
                 <svg 
                 xmlns="http://www.w3.org/2000/svg" 
