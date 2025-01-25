@@ -1,12 +1,11 @@
 import React from "react";
 import { mode } from "./UserMode";
-import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
 
 function FootBar() {
-    const {isDarkMode} = mode()
-    const navigate = useNavigate()
+    const {isDarkMode} = mode();
+
     return ( 
         <div className={`link fixed flex gap-4 justify-between items-center px-3 bottom-1 w-full h-16  ${isDarkMode ?'bg-slate-900': 'bg-white border-2 border-t border-y-0 border-x-0'}`}>
             <NavLink to={'/find-friends'} className={({isActive}) => `flex flex-col  ${isActive  ? 'flex text-white w-24 mt-1 h-[45px] justify-center items-center bg-blue-950 rounded-2xl' : ''} text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
