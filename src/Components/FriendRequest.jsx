@@ -28,15 +28,19 @@ function FriendRequest() {
                 Friend Requests
             </div>
             {requests.map((user) => (
-                <div key={user.receiverId} className="grid grid-cols-[15%_65%_20%] py-2 px-2">
+                <div key={user.receiverId} className="grid grid-cols-[12%_56%_32%] py-2 px-2">
                     <div className="avatar w-7 h-7 rounded-full bg-white">
                         <img 
                         className="w-full h-full"
                         src="profile.png" 
                         alt="profile" />
                     </div>
-                    <div className="name">
+                    <div className="name text-sm font-[500] py-2">
                         {user.senderName}
+                    </div>
+                    <div className="flex text-sm font-[500] gap-3">
+                        <button className="bg-green-500 rounded-lg">Accept</button>
+                        <button className="bg-green-500 rounded-lg">Decline</button>
 
                     </div>
 
