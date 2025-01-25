@@ -13,6 +13,7 @@ import Sidebar from './Components/Sidebar'
 import UserMode from './Components/UserMode'
 import FootBar from './Components/Footbar'
 import FindFriends from './Components/FindFriends'
+import FriendRequest from './Components/FriendRequest'
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route path='signup' element={<SignUp />}/>
         <Route path='initialize' element={<Initialize />}/>
         <Route path='find-friends' element={<ConnectFriends />}/>
+        <Route path='friend requests' element ={<FriendRequest />}/>
       </Routes>
     </UserMode>
     

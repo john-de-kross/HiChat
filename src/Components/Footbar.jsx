@@ -20,7 +20,7 @@ function FootBar() {
                 </svg>
                 Connect
             </NavLink>
-            <div className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
+            <NavLink to={"/sent-request"} className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
                 <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 fill="none" 
@@ -34,8 +34,8 @@ function FootBar() {
                 d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
                 Sent
-            </div>
-            <div className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
+            </NavLink>
+            <NavLink to={"/friend requests"} className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
             <svg 
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 320 512" 
@@ -48,7 +48,7 @@ function FootBar() {
               15.1 4.2 34.8-10.9 43.9s-34.8 4.2-43.9-10.9L232 256.9 232 480c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-128-16 0z"/>
             </svg>
             Request
-            </div>
+            </NavLink>
             <div className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
                 <svg xmlns="http://www.w3.org/2000/svg" 
                 fill="none" 
