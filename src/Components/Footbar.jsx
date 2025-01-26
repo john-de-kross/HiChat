@@ -20,7 +20,7 @@ function FootBar() {
                 </svg>
                 Connect
             </NavLink>
-            <NavLink to={"/sent-request"} className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
+            <NavLink to={"/request-sent"} className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
                 <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 fill="none" 

@@ -14,6 +14,7 @@ import UserMode from './Components/UserMode'
 import FootBar from './Components/Footbar'
 import FindFriends from './Components/FindFriends'
 import FriendRequest from './Components/FriendRequest'
+import SentRequest from './Components/SentRequest'
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route path='initialize' element={<Initialize />}/>
         <Route path='find-friends' element={<ConnectFriends />}/>
         <Route path='friend requests' element ={<FriendRequest />}/>
+        <Route path='request-sent' element={<SentRequest />} />
       </Routes>
     </UserMode>
     

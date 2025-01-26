@@ -154,6 +154,18 @@ body{
         font-style: normal;
     }
 
+    .request-h{
+        font-family: "Ubuntu", serif;
+        font-weight: 600;
+        font-style: normal;
+    }
+
+    .request_text{
+        font-family: "Ubuntu", serif;
+        font-weight: 500;
+        font-style: normal;
+    }
+
 }
 
 @media(min-width:768px){
