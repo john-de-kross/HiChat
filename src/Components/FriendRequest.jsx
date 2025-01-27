@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { onSnapshot, getFirestore, collection, getDoc, doc } from "firebase/firestore";
+import { onSnapshot, getFirestore, collection, getDoc, doc, updateDoc, setDoc, Timestamp, deleteDoc } from "firebase/firestore";
 import { mode } from "./UserMode";
 import { auth } from "./Firebase";
 import { useNavigate } from "react-router-dom";
@@ -92,6 +92,47 @@ useEffect(() => {
 
 }, [requestDetails])
 
+const acceptRequest = async(user) => {
+    try{
+        const docRef = doc(db, "friendRequests", user.id)
+        await updateDoc(docRef, {
+            status: "Accepted"
+        })
+        const getReceiverName = doc(db, "users", user.receiverId)
+        const ref = await getDoc(getReceiverName)
+        const receiverUsername = ref.data().username || "Unknown user"
+
+        const senderFriendRef = doc(db, "friendLists", `${user.senderId}_${user.receiverId}`)
+        await setDoc(senderFriendRef,{
+            friendId: user.receiverId,
+            friendUsername: receiverUsername,
+            friendSince: Timestamp.now()
+        })
+
+
+
+        const receiverFriendRef = doc(db, "friendLists", `${user.receiverId}_${user.senderId}`)
+        await setDoc(receiverFriendRef, {
+            friendId: user.senderId,
+            friendUsername: user.senderUsername,
+            friendSince: Timestamp.now()
+
+        })
+
+        const friendDoc1 = await getDoc(senderFriendRef)
+        const friendDoc2 = await getDoc(receiverFriendRef)
+
+        if (friendDoc1.exists() && friendDoc2.exists()) {
+            await deleteDoc(doc(db, "friendRequests", user.id))
+            console.log("deleted")
+            
+        }
+    }catch(error){
+        console.log("Error updating data", error)
+    }
+
+}
+
 
     return ( 
         <div className={`w-full min-h-screen ${isDarkMode ? 'bg-slate-900 text-white' : 'text-white'}`}>
@@ -134,7 +175,7 @@ useEffect(() => {
                             {user.senderUsername}
                         </div>
                         <div className="flex text-sm mt-0.5 font-[Ubuntu, serif] gap-2">
-                            <button className={`w-16 h-7 rounded bg-green-500 text-white ${isDarkMode ? 'bg-green-500' : ''}`}>
+                            <button onClick={() => acceptRequest(user)} className={`w-16 h-7 rounded bg-green-500 text-white ${isDarkMode ? 'bg-green-500' : ''}`}>
                                 Accept
                             </button>
                             <button className="w-16 h-7 rounded bg-slate-800">Decline</button>
@@ -142,7 +183,7 @@ useEffect(() => {
                         </div>
 
                     </div>
-                    <div className={`text-sm font-[100] py-2 ${isDarkMode ? 'text-white' : 'text-gray-950'}`}>
+                    <div className={`text-sm font-[100] py-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
                         {user.receivedAt}
                     </div>
 
