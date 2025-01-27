@@ -20,14 +20,14 @@ function FootBar() {
                 </svg>
                 Connect
             </NavLink>
-            <NavLink to={"/request-sent"} className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
+            <NavLink to={"/request-sent"} className={({isActive}) => `flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center ${isActive ? 'text-white flex justify-center items-center h-[45px] bg-blue-950 w-24 rounded-2xl' : ''}`}>
                 <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 fill="none" 
                 viewBox="0 0 24 24" 
                 strokeWidth={1.5} 
                 stroke="currentColor" 
-                className={`size-6 ${isDarkMode ?'stroke-white': 'stroke-black'} w-5 h-5`}>
+                className={`size-6  w-5 h-5`}>
                 <path 
                 strokeLinecap="round" 
                 strokeLinejoin="round"
@@ -35,22 +35,26 @@ function FootBar() {
                 </svg>
                 Sent
             </NavLink>
-            <NavLink to={"/friend requests"} className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
+            <NavLink to={"/friend requests"} className={({isActive}) => `flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center ${isActive ? 'text-white flex justify-center items-center h-[45px] bg-blue-950 w-24 rounded-2xl' : ''}`}>
             <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 320 512" 
-            className={`w-5 h-5 ${isDarkMode ? 'fill-white' : 'fill-black'}`}>
-            <path 
-            d="M112 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm40 304l0 
-            128c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-223.1L59.4
-             304.5c-9.1 15.1-28.8 20-43.9 10.9s-20-28.8-10.9-43.9l58.3-97c17.4-28.9
-              48.6-46.6 82.3-46.6l29.7 0c33.7 0 64.9 17.7 82.3 46.6l58.3 97c9.1 
-              15.1 4.2 34.8-10.9 43.9s-34.8 4.2-43.9-10.9L232 256.9 232 480c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-128-16 0z"/>
-            </svg>
+                xmlns="http://www.w3.org/2000/svg" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                strokeWidth={1.5} 
+                stroke="currentColor"
+                className="size-6 w-5 h-5">
+                <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 
+                9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                </svg>
+
             Request
             </NavLink>
-            <div className={`flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center`}>
-                <svg xmlns="http://www.w3.org/2000/svg" 
+            <NavLink to={"/updates"} className={({isActive}) => `flex flex-col text-sm ${isDarkMode ?'text-white' : 'text-black'} font-[500] items-center ${isActive ? 'text-white flex justify-center items-center h-[45px] bg-blue-950 w-24 rounded-2xl' : ''}`}>
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
                 fill="none" 
                 viewBox="0 0 24 24" 
                 strokeWidth={1.5} 
@@ -72,7 +76,7 @@ function FootBar() {
                 </svg>
                 Updates
 
-            </div>
+            </NavLink>
 
 
         </div>

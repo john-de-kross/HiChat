@@ -94,12 +94,12 @@ useEffect(() => {
 
 
     return ( 
-        <div className={`w-full min-h-screen ${isDarkMode ? 'bg-slate-900 text-white' : ''}`}>
+        <div className={`w-full min-h-screen ${isDarkMode ? 'bg-slate-900 text-white' : 'text-white'}`}>
             <div onClick={() => navigate('/find-friends')} className={`flex font-[500]  py-3 w-full ${isDarkMode ? 'text-orange-400': 'text-black'} text-lg justify-center items-center`}>
                 Friend Requests
             </div>
             <div className="w-full flex justify-end pr-4">
-                <div className="flex justify-center items-center w-8 h-8 rounded-full bg-slate-800">
+                <div className={`flex justify-center items-center w-8 h-8 rounded-full ${isDarkMode ? 'bg-slate-800' : 'bg-gray-500' }`}>
                     <svg 
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none" 
@@ -116,10 +116,10 @@ useEffect(() => {
                 </div>
             </div>
             <div className="flex text-sm font-[Ubuntu] font-[400] px-2 gap-4">
-                <button className={`w-24 h-9 rounded-xl ${isDarkMode ? 'bg-purple-950' : 'bg-slate-900'}`}>
+                <button className={`w-24 h-9 rounded-xl text-white ${isDarkMode ? 'bg-purple-950' : 'bg-slate-900'}`}>
                     Your friends
                 </button>
-                <button className={`w-24 h-9 rounded-xl ${isDarkMode ? 'bg-purple-950' : 'bg-slate-900'}`}>Suggestions</button>
+                <button className={`w-24 h-9 rounded-xl text-white ${isDarkMode ? 'bg-purple-950' : 'bg-slate-900'}`}>Suggestions</button>
             </div>
             {requestDetails.map((user) => (
                 <div key={user.id} className="grid grid-cols-[20%_60%_20%] py-2 px-2">
@@ -130,11 +130,11 @@ useEffect(() => {
                         alt="profile" />
                     </div>
                     <div className="username flex flex-col px-2 py-2">
-                        <div className="">
+                        <div className={`${isDarkMode ? 'text-white' : 'text-gray-950'}`}>
                             {user.senderUsername}
                         </div>
                         <div className="flex text-sm mt-0.5 font-[Ubuntu, serif] gap-2">
-                            <button className="w-16 h-7 rounded bg-green-500">
+                            <button className={`w-16 h-7 rounded bg-green-500 text-white ${isDarkMode ? 'bg-green-500' : ''}`}>
                                 Accept
                             </button>
                             <button className="w-16 h-7 rounded bg-slate-800">Decline</button>
@@ -142,7 +142,7 @@ useEffect(() => {
                         </div>
 
                     </div>
-                    <div className="text-sm font-[100] py-2">
+                    <div className={`text-sm font-[100] py-2 ${isDarkMode ? 'text-white' : 'text-gray-950'}`}>
                         {user.receivedAt}
                     </div>
 

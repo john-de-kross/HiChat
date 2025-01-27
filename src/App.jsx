@@ -37,8 +37,8 @@ function App() {
         <Route path='signup' element={<SignUp />}/>
         <Route path='initialize' element={<Initialize />}/>
         <Route path='find-friends' element={<ConnectFriends />}/>
-        <Route path='friend requests' element ={<FriendRequest />}/>
-        <Route path='request-sent' element={<SentRequest />} />
+        <Route path='friend requests' element ={<FriendRequestOutlets />}/>
+        <Route path='request-sent' element={<RequestSentOutlets />} />
       </Routes>
     </UserMode>
     
@@ -66,5 +66,24 @@ function App() {
     )
   }
 }
+
+function FriendRequestOutlets(){
+  return(
+    <>
+    <FriendRequest />
+    <FootBar />
+    </>
+  )
+
+}
+
+function RequestSentOutlets(){
+  return(
+   <>
+    <SentRequest />
+    <FootBar />
+   </>
+  )
+ }
 
 export default App
