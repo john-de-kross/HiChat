@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { onSnapshot, getFirestore, collection } from "firebase/firestore";
+import { onSnapshot, getFirestore, collection, getDoc, doc } from "firebase/firestore";
 import { mode } from "./UserMode";
 import { auth } from "./Firebase";
+import { useNavigate } from "react-router-dom";
 
 
 function FriendRequest() {
     const {isDarkMode} = mode()
     const db = getFirestore()
     const [requests, setRequests] = useState([])
-
-    const handleRequest = (user) => {
-        console.log(user.senderName)
-
-    }
+    const [requestDetails, setRequestDetails] = useState([])
+    const navigate = useNavigate()
+    
 
     useEffect(() => {
         const  unsub = onSnapshot(collection(db, "friendRequests"), (snapshot) =>{
@@ -28,27 +27,125 @@ function FriendRequest() {
         })
         return() => unsub()
     }, [])
+const getSendersDetails = async(id)=>{
+    const ref = doc(db, "users", id.senderId)
+    const senderdoc = await getDoc(ref)
+    if (senderdoc.exists()) {
+        return senderdoc.data().username;
+    }else{
+        return "Unknown user"
+    }
+}
+
+const TimeSent = async(time) =>{
+    const currentTimeInSec = Math.floor(Date.now() / 1000);
+    const timeDiff = currentTimeInSec - time.sentAt.seconds;
+
+
+    if (timeDiff < 60){
+        return 'Just now'
+    }
+    else if (timeDiff >= 60 && timeDiff < 3600) {
+        const minute = Math.floor(timeDiff / 60);
+        return `${minute}m ago`
+    }
+    else if (timeDiff >= 3600 && timeDiff < 86400) {
+        const hours = Math.floor(timeDiff / 3600);
+        return `${hours}h ago`;
+    }
+    else if (timeDiff >= 86400 && timeDiff < 604800) {
+        const days = Math.floor(timeDiff / 86400);
+        return `${days}d ago`;
+    }
+    else if (timeDiff >= 604800) {
+        const weeks = Math.floor(timeDiff / 604800);
+        return `${weeks}w ago`;
+    }
+    
+    
+    
+
+}
+
+const mergeDetails = async() => {
+    const updatedData = await Promise.all(
+        requests.map(async(data) => {
+            const senderUsername = await getSendersDetails(data);
+            const receivedAt = await TimeSent(data)
+            return{
+                ...data,
+                senderUsername,
+                receivedAt
+            }
+        })
+    )
+    setRequestDetails(updatedData)
+}
+
+useEffect(() => {
+    mergeDetails()
+
+}, [requests])
+
+useEffect(() => {
+    console.log(requestDetails)
+
+}, [requestDetails])
+
+
     return ( 
         <div className={`w-full min-h-screen ${isDarkMode ? 'bg-slate-900 text-white' : ''}`}>
-            <div className="flex w-full text-lg justify-center items-center">
+            <div onClick={() => navigate('/find-friends')} className={`flex font-[500]  py-3 w-full ${isDarkMode ? 'text-orange-400': 'text-black'} text-lg justify-center items-center`}>
                 Friend Requests
             </div>
-            {requests.map((user) => (
-                <div key={user.id} className="grid grid-cols-[12%_56%_32%] w-full justify-center items-center py-2 px-2">
-                    <div className="avatar w-7 h-7 rounded-full bg-white">
+            <div className="w-full flex justify-end pr-4">
+                <div className="flex justify-center items-center w-8 h-8 rounded-full bg-slate-800">
+                    <svg 
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    strokeWidth={1.5} 
+                    stroke="currentColor" 
+                    className="size-6">
+                    <path 
+                    strokeLinecap="round"
+                     strokeLinejoin="round" 
+                     d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+
+                </div>
+            </div>
+            <div className="flex text-sm font-[Ubuntu] font-[400] px-2 gap-4">
+                <button className={`w-24 h-9 rounded-xl ${isDarkMode ? 'bg-purple-950' : 'bg-slate-900'}`}>
+                    Your friends
+                </button>
+                <button className={`w-24 h-9 rounded-xl ${isDarkMode ? 'bg-purple-950' : 'bg-slate-900'}`}>Suggestions</button>
+            </div>
+            {requestDetails.map((user) => (
+                <div key={user.id} className="grid grid-cols-[20%_60%_20%] py-2 px-2">
+                    <div className="profile w-16 h-16 rounded-full bg-slate-50">
                         <img 
                         className="w-full h-full"
                         src="profile.png" 
                         alt="profile" />
                     </div>
-                    <div className="name text-sm font-[500]">
-                        {user.senderName}
-                    </div>
-                    <div className="flex justify-between gap-3 text-sm font-[500]">
-                        <button onClick={() => handleRequest(user)} className="bg-green-500 h-8 w-20 rounded-xl">Accept</button>
-                        <button className="bg-green-500 h-8 w-20 rounded-xl">Decline</button>
+                    <div className="username flex flex-col px-2 py-2">
+                        <div className="">
+                            {user.senderUsername}
+                        </div>
+                        <div className="flex text-sm mt-0.5 font-[Ubuntu, serif] gap-2">
+                            <button className="w-16 h-7 rounded bg-green-500">
+                                Accept
+                            </button>
+                            <button className="w-16 h-7 rounded bg-slate-800">Decline</button>
+                            
+                        </div>
 
                     </div>
+                    <div className="text-sm font-[100] py-2">
+                        {user.receivedAt}
+                    </div>
+
 
                 </div>
             ))}

@@ -78,7 +78,7 @@ function SentRequest() {
             <div className="status">Status</div>
            </div>
            {receiverDetails.map((user) => (
-            <div key={user.id} className="grid request_text gap-2 py-2 px-2 border-b grid-cols-[15%_55%_30%]">
+            <div key={user.id} className="grid request_text gap-2 py-2 border-b grid-cols-[15%_55%_30%]">
                 <div className="h-full w-full rounded-full ">
                     <img
                     className="w-full h-full"
