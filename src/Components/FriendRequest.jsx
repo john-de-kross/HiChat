@@ -14,6 +14,8 @@ function FriendRequest() {
     const navigate = useNavigate()
     
 
+    
+
     useEffect(() => {
         const  unsub = onSnapshot(collection(db, "friendRequests"), (snapshot) =>{
             const updatedLists = snapshot.docs
@@ -170,10 +172,10 @@ useEffect(() => {
                 </div>
             </div>
             <div className="flex text-sm font-[Ubuntu] font-[400] px-2 gap-4">
-                <button className={`w-24 h-9 rounded-xl text-white ${isDarkMode ? 'bg-purple-950' : 'bg-slate-900'}`}>
+                <button onClick={() => navigate('/friends')} className={`w-24 h-9 rounded-xl text-white ${isDarkMode ? 'bg-purple-950' : 'bg-slate-900'}`}>
                     Your friends
                 </button>
-                <button className={`w-24 h-9 rounded-xl text-white ${isDarkMode ? 'bg-purple-950' : 'bg-slate-900'}`}>Suggestions</button>
+                <button onClick={() => navigate('/find-friends')} className={`w-24 h-9 rounded-xl text-white ${isDarkMode ? 'bg-purple-950' : 'bg-slate-900'}`}>Suggestions</button>
             </div>
             {requestDetails.map((user) => (
                 <div key={user.id} className="grid grid-cols-[20%_60%_20%] py-2 px-2">

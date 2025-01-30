@@ -8,6 +8,7 @@ function Friends() {
     const db = getFirestore()
     const {isDarkMode} = mode();
     const [friendCollection, setFriendCollection] = useState([]);
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         const unsubscribe = onSnapshot(doc(db, "users", auth.currentUser.uid), async(snapshot) => {
@@ -22,6 +23,7 @@ function Friends() {
             )
             .then((friends) => {
                 setFriendCollection(friends.filter(friend => friend !== null))
+                setIsLoading(false)
             })
         });
 
@@ -35,6 +37,14 @@ function Friends() {
         console.log(friendCollection)
 
     }, [friendCollection])
+
+    if (isLoading) {
+        return <div className="flex w-full min-h-screen justify-center items-center">
+            <div className="w-7 h-7 rounded-full border-[5px] border-blue-500 border-t-transparent animate-spin"></div>
+
+        </div>
+        
+    }
 
 
 
