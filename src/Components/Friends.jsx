@@ -105,8 +105,8 @@ function Friends() {
                     </div>
                     <div className="flex flex-col py-2">
                         {friendCollection.map((user, index) => (
-                            <div className="flex firends py-3 items-center px-2 text-sm font-normal gap-2" key={index}>
-                                <div className="w-9 h-9 rounded-full bg-white">
+                            <div className="flex firends py-3 items-center px-2 text-base font-normal gap-2" key={index}>
+                                <div className="w-12 h-12 rounded-full bg-white">
                                     <img 
                                     src="profile.png" 
                                     alt="profile" />

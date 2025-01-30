@@ -48,9 +48,9 @@ function SignUp() {
 
         }
         try{
+            setIsSignedUp(true)
             const userCredentials = createUserWithEmailAndPassword(auth, formData.email, formData.password)
             console.log('user created successfully', (await userCredentials).user)
-            setIsSignedUp(true)
             const user = (await userCredentials).user
             await setDoc(doc(db, 'users', user.uid), {
                 fullName: formData.fullName,

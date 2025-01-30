@@ -93,7 +93,7 @@ function SentRequest() {
                         {user.receiverUsername}
                     </div>
                 </div>
-                <div className="w-full h-8 rounded-xl mt-2 flex justify-center items-center bg-opacity-55 bg-green-300">
+                <div className="h-8 rounded-xl mt-2 flex justify-center items-center bg-opacity-55 bg-green-300">
                     {user.status}
                 </div>
             </div>
