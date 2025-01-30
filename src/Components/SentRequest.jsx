@@ -72,28 +72,25 @@ function SentRequest() {
            <div className="flex py-4 request-h justify-center items-center">
             <h1>Request Status</h1>
            </div>
-           <div className="grid gap-2 request-h px-2 border-b grid-cols-[15%_65%_20%]">
+           <div className="grid gap-3 request-h px-2 border-b grid-cols-[15%_45%_30%]">
             <div>Avatar</div>
             <div className="Name">Name</div>
-            <div className="status">Status</div>
+            <div className="status px-2">Status</div>
            </div>
            {receiverDetails.map((user) => (
-            <div key={user.id} className="grid request_text gap-2 py-2 border-b grid-cols-[15%_55%_30%]">
+            <div key={user.id} className="grid request_text gap-2 py-2 border-b grid-cols-[15%_45%_30%]">
                 <div className="h-full w-full rounded-full ">
                     <img
                     className="w-full h-full"
                     src="profile.png" 
                     alt="profile" />
                 </div>
-                <div className="flex-col">
-                    <div className="">
-                        {user.receiverName}
-                    </div>
-                    <div className="text-sm font-light">
+                <div className="">
+                    <div className="text-base firends py-3 font-light">
                         {user.receiverUsername}
                     </div>
                 </div>
-                <div className="h-8 rounded-xl mt-2 flex justify-center items-center bg-opacity-55 bg-green-300">
+                <div className="h-8 rounded-xl mt-2 w-full  flex justify-center items-center bg-opacity-55 bg-green-300">
                     {user.status}
                 </div>
             </div>
