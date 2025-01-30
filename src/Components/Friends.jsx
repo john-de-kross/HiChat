@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { mode } from "./UserMode";
 import { collection, onSnapshot, getFirestore, updateDoc, query, where, getDoc, doc } from "firebase/firestore";
 import { auth } from "./Firebase";
+import Lottie from "lottie-react";
+import Animate from './Animate.json'
 
 
 function Friends() {
@@ -40,7 +42,7 @@ function Friends() {
 
     if (isLoading) {
         return <div className="flex w-full min-h-screen justify-center items-center">
-            <div className="w-7 h-7 rounded-full border-[5px] border-blue-500 border-t-transparent animate-spin"></div>
+           <Lottie className="w-16 h-16" animationData={Animate} loop/>
 
         </div>
         

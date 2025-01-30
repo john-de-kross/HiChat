@@ -16,6 +16,9 @@ import FindFriends from './Components/FindFriends'
 import FriendRequest from './Components/FriendRequest'
 import SentRequest from './Components/SentRequest'
 import Friends from './Components/Friends'
+import Lottie from "lottie-react";
+import Animate from "./Components/Animate.json"
+
 
 
 function App() {
@@ -23,8 +26,7 @@ function App() {
   if (loading) {
     return(
       <div className='flex justify-center items-center w-full h-screen'>
-        <div className='animate-spin h-8 w-8 rounded-full bg-white border-4 border-blue-400 border-t-transparent'>
-        </div>
+        <Lottie className="w-16 h-16" animationData={Animate} loop/>   
       </div>
     )  
     
