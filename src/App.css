@@ -166,6 +166,10 @@ body{
         font-style: normal;
     }
 
+    .friends{
+        font-family: "Ubuntu", serif;
+    }
+
 }
 
 @media(min-width:768px){

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { onSnapshot, getFirestore, collection, getDoc, doc, updateDoc, setDoc, Timestamp, deleteDoc } from "firebase/firestore";
+import { onSnapshot, getFirestore, collection, getDoc, doc, updateDoc, setDoc, Timestamp, deleteDoc, arrayUnion } from "firebase/firestore";
 import { mode } from "./UserMode";
 import { auth } from "./Firebase";
 import { useNavigate } from "react-router-dom";
@@ -87,11 +87,6 @@ useEffect(() => {
 
 }, [requests])
 
-useEffect(() => {
-    console.log(requestDetails)
-
-}, [requestDetails])
-
 const acceptRequest = async(user) => {
     try{
         const docRef = doc(db, "friendRequests", user.id)
@@ -100,38 +95,56 @@ const acceptRequest = async(user) => {
         })
         const getReceiverName = doc(db, "users", user.receiverId)
         const ref = await getDoc(getReceiverName)
-        const receiverUsername = ref.data().username || "Unknown user"
+        const receiverUsername = ref.exists() ? ref.data().username : "Unknown user"
 
-        const senderFriendRef = doc(db, "friendLists", `${user.senderId}_${user.receiverId}`)
-        await setDoc(senderFriendRef,{
-            friendId: user.receiverId,
-            friendUsername: receiverUsername,
-            friendSince: Timestamp.now()
-        })
+        const friendShipId =  user.senderId < user.receiverId
+            ? `${user.senderId}_${user.receiverId}`
+            : `${user.receiverId}_${user.senderId}`;
 
 
-
-        const receiverFriendRef = doc(db, "friendLists", `${user.receiverId}_${user.senderId}`)
-        await setDoc(receiverFriendRef, {
-            friendId: user.senderId,
-            friendUsername: user.senderUsername,
-            friendSince: Timestamp.now()
-
-        })
-
-        const friendDoc1 = await getDoc(senderFriendRef)
-        const friendDoc2 = await getDoc(receiverFriendRef)
-
-        if (friendDoc1.exists() && friendDoc2.exists()) {
-            await deleteDoc(doc(db, "friendRequests", user.id))
-            console.log("deleted")
-            
+        const friendShipRef = doc(db, "friendShips", friendShipId)
+        const friendShipDoc = {
+            user1Id: user.senderId,
+            user2Id: user.receiverId,
+            user1Username: user.senderUsername,
+            user2Username: receiverUsername,
+            createdAt: Timestamp.now()
         }
+
+        await setDoc(friendShipRef, friendShipDoc);
+
+        //Update both users' friend lists
+        const senderRef = doc(db, "users", user.senderId);
+        const receiverRef = doc(db, "users", user.receiverId);
+
+        //Add receiver's ID to sender's friend list
+        await updateDoc(senderRef, {
+            friends: arrayUnion(user.receiverId)
+        });
+
+        //Add sender's ID to receiver's friend list
+        await updateDoc(receiverRef, {
+            friends: arrayUnion(user.senderId)
+        })
+        
+        console.log("created")
+
+        await deleteDoc(doc(db, "friendRequests", user.id))
+
+
+
+        
     }catch(error){
-        console.log("Error updating data", error)
+        console.log("Error updating data and creating friends", error)
     }
 
 }
+
+useEffect(() => {
+    console.log(requestDetails)
+    console.log(auth.currentUser.uid)
+
+}, [requestDetails])
 
 
     return ( 
