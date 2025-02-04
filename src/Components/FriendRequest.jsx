@@ -6,12 +6,13 @@ import { auth } from "./Firebase";
 import { useNavigate } from "react-router-dom";
 
 
+
+
 function FriendRequest() {
     const {isDarkMode} = mode()
     const db = getFirestore()
     const [requests, setRequests] = useState([])
     const [requestDetails, setRequestDetails] = useState([])
-    const [btnAnimation, setBtnAnimation] = useState(false)
     const navigate = useNavigate()
     
 
@@ -144,8 +145,14 @@ const acceptRequest = async(user) => {
 }
 
 const declineRequest = async(user) => {
-    const ref = doc(db, "friendRquests", user.id)
-    await deleteDoc(ref)
+    try{
+        setLoader(true)
+        await deleteDoc(doc(db, "friendRequests", user.id));
+        console.log("deleted");
+    }catch(error){
+        console.log("Error", error)
+
+    }
 
 }
 
@@ -200,7 +207,9 @@ useEffect(() => {
                             <button onClick={() => acceptRequest(user)} className={`w-16 h-7 rounded bg-green-500 text-white ${isDarkMode ? 'bg-green-500' : ''}`}>
                                 Accept
                             </button>
-                            <button onClick={() => declineRequest(user)} className="w-16 h-7 rounded bg-slate-800">Decline</button>
+                            <button onClick={() => declineRequest(user)} className="w-16 h-7 rounded bg-slate-800">
+                               Decline
+                            </button>
                             
                         </div>
 

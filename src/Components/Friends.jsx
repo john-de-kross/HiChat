@@ -3,14 +3,18 @@ import { mode } from "./UserMode";
 import { collection, onSnapshot, getFirestore, updateDoc, query, where, getDoc, doc } from "firebase/firestore";
 import { auth } from "./Firebase";
 import Lottie from "lottie-react";
-import Animate from './Animate.json'
+import Animate from './Animate.json';
+import { useNavigate } from "react-router-dom"; 
+import { usersId } from "./CirculateId";
 
 
 function Friends() {
     const db = getFirestore()
     const {isDarkMode} = mode();
     const [friendCollection, setFriendCollection] = useState([]);
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
+    const {userId, setUserId} = usersId()
 
     useEffect(() => {
         const unsubscribe = onSnapshot(doc(db, "users", auth.currentUser.uid), async(snapshot) => {
@@ -20,7 +24,10 @@ function Friends() {
                 friendsId.map(async(id) => {
                     const userRef = doc(db, "users", id)
                     const getUser = await getDoc(userRef);
-                    return getUser.data().username
+                    return {
+                        id: id,
+                        username: getUser.data().username
+                    }
                 })
             )
             .then((friends) => {
@@ -48,14 +55,13 @@ function Friends() {
         
     }
 
-
-
     
     return ( 
         <div className={`min-h-screen w-full ${isDarkMode ? 'bg-slate-900' : 'bg-[smokewhite]'}`}>
             <div className={`w-full grid grid-cols-[10%_30%_40%_10%_10%] border-b ${isDarkMode ? 'border-slate-600 text-white' : 'border-slate-300 text-black'} px-2 py-2`}>
                 <div>
-                    <svg
+                    <svg onClick={() => navigate('/')}
+
                         xmlns="http://www.w3.org/2000/svg" 
                         fill="none" viewBox="0 0 24 24" 
                         strokeWidth={1.5} stroke="currentColor" 
@@ -69,7 +75,7 @@ function Friends() {
                     <div className="">
                         <p>Select friend</p>
                     </div>
-                    <div className="text-sm font-[200]">
+                    <div className="text-sm font-[200]" >
                         {friendCollection.length} friends
                     </div>
                 </div>
@@ -107,7 +113,6 @@ function Friends() {
             {friendCollection.length === 0 ? (
                 <div className={`flex justify-center items-center text-lg font-[400] flex-1 h-[50vh] ${isDarkMode ? 'text-white' : ''}`}>
                     You have no friends yet
-
                 </div>
             )
             : (
@@ -116,15 +121,15 @@ function Friends() {
                         Friends
                     </div>
                     <div className="flex flex-col py-2">
-                        {friendCollection.map((user, index) => (
-                            <div className="flex firends py-3 items-center px-2 text-base font-normal gap-2" key={index}>
+                        {friendCollection.map((user) => (
+                            <div className="flex firends py-3 items-center px-2 text-base font-normal gap-2" key={user.id}>
                                 <div className="w-12 h-12 rounded-full bg-white">
                                     <img 
                                     src="profile.png" 
                                     alt="profile" />
                                 </div>
-                                <div>
-                                    {user}
+                                <div onClick={() => {setUserId(user.id), navigate('/my-chat')}}>
+                                    {user.username}
                                 </div>
                             </div>
                         ))}

@@ -17,7 +17,9 @@ import FriendRequest from './Components/FriendRequest'
 import SentRequest from './Components/SentRequest'
 import Friends from './Components/Friends'
 import Lottie from "lottie-react";
-import Animate from "./Components/Animate.json"
+import Animate from "./Components/Animate.json";
+import IdCircle from './Components/CirculateId'
+import MyChat from './Components/MyChat'
 
 
 
@@ -33,18 +35,22 @@ function App() {
   }
 
   return (
-    <UserMode>
-      <Routes>
-        <Route path='/' element={currentUser ? <ChatsOutlets /> : <Navigate to='/login' />} />
-        <Route path='login' element={<Login />} />
-        <Route path='signup' element={<SignUp />}/>
-        <Route path='initialize' element={<Initialize />}/>
-        <Route path='find-friends' element={<ConnectFriends />}/>
-        <Route path='friend requests' element ={<FriendRequestOutlets />}/>
-        <Route path='request-sent' element={<RequestSentOutlets />} />
-        <Route path='friends' element={<Friends />} />
-      </Routes>
-    </UserMode>
+    
+    <IdCircle>
+      <UserMode>
+        <Routes>
+          <Route path='/' element={currentUser ? <ChatsOutlets /> : <Navigate to='/login' />} />
+          <Route path='login' element={<Login />} />
+          <Route path='signup' element={<SignUp />}/>
+          <Route path='initialize' element={<Initialize />}/>
+          <Route path='find-friends' element={<ConnectFriends />}/>
+          <Route path='friend requests' element ={<FriendRequestOutlets />}/>
+          <Route path='request-sent' element={<RequestSentOutlets />} />
+          <Route path='friends' element={<Friends />} />
+          <Route path='my-chat' element={<MyChat/>} />
+        </Routes>
+      </UserMode>
+    </IdCircle>
     
     
   )
