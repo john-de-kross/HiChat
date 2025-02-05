@@ -114,12 +114,12 @@ function MyChat() {
                 </div>
 
             </div>
-            <div className="fixed px-2 grid grid-cols-[80%_20%] w-full bottom-1">
+            <div className="fixed px-2 grid grid-cols-[85%_15%] w-full bottom-1">
                 <div className="">
-                    <input className={`h-10 w-full outline-none px-2 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-100'} 
+                    <input className={`h-12 w-full outline-none px-2 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-100'} 
                     rounded-3xl`} type="text" placeholder="Message"/>
                 </div>
-                <div className={`flex absolute top-3 right-20 gap-3 ${isDarkMode ? 'text-gray-200' : 'text-gray-950'}`}>
+                <div className={`flex absolute items-center py-0.5 top-3 right-20 gap-3 ${isDarkMode ? 'text-gray-200' : 'text-gray-950'}`}>
                     <svg 
                         xmlns="http://www.w3.org/2000/svg" 
                         fill="none" 
