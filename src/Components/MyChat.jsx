@@ -61,7 +61,7 @@ function MyChat() {
                     </div>
 
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-8">
                     <div className="video">
                         <svg 
                         xmlns="http://www.w3.org/2000/svg" 
@@ -116,8 +116,8 @@ function MyChat() {
             </div>
             <div className="fixed px-2 grid grid-cols-[85%_15%] w-full bottom-1">
                 <div className="">
-                    <input className={`h-12 w-full outline-none px-2 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-100'} 
-                    rounded-3xl`} type="text" placeholder="Message"/>
+                    <textarea className={`flex items-center py-3 h-12 w-full outline-none resize-none  row-span-1 px-2 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-100'} 
+                    rounded-3xl`} type="text" placeholder="Message"></textarea>
                 </div>
                 <div className={`flex absolute items-center py-0.5 top-3 right-20 gap-3 ${isDarkMode ? 'text-gray-200' : 'text-gray-950'}`}>
                     <svg 
