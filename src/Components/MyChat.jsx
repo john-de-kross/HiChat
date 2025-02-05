@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { usersId } from "./CirculateId";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { mode} from "./UserMode";
@@ -8,6 +8,9 @@ function MyChat() {
     const db = getFirestore();
     const {isDarkMode} = mode()
     const [username, setUsername] = useState('')
+    const [text, setText] = useState('')
+    const messageRef = useRef(null)
+    const clipRef = useRef(null)
     useEffect(() => {
         const getUser = async() => {
             try{
@@ -28,11 +31,35 @@ function MyChat() {
 
             }
         }
-        getUser()
-        
+        getUser();
+    }, [userId]);
+    const handleText = (e) => {
+        const {value} = e.target;
+        setText(value)
+    }
+    useEffect(() => {
+        if (messageRef.current) {
+            if (text.length >= 30){
+                messageRef.current.style.height  = 'auto'
+                messageRef.current.style.height = messageRef.current.scrollHeight + "px"
+            }else{
+                messageRef.current.style.height  = ''
+                messageRef.current.style.height = ""
+
+            }
+
+            
+        }
+
+        return () => {
+            messageRef.current.style.height  = ''
+            messageRef.current.style.height = ""
+
+        }
 
 
-    }, [userId])
+
+    }, [text])
     return ( 
         <div className={`w-full min-h-screen ${isDarkMode ? 'bg-slate-900' : 'bg-slate-200'}`}>
             <div className={`w-full fixed flex justify-between px-2 items-center h-20 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-300'}`}>
@@ -61,7 +88,7 @@ function MyChat() {
                     </div>
 
                 </div>
-                <div className="flex gap-8">
+                <div className="flex gap-6">
                     <div className="video">
                         <svg 
                         xmlns="http://www.w3.org/2000/svg" 
@@ -114,19 +141,20 @@ function MyChat() {
                 </div>
 
             </div>
-            <div className="fixed px-2 grid grid-cols-[85%_15%] w-full bottom-1">
+            <div className="fixed px-2 grid grid-cols-[85%_15%] w-full bottom-2">
                 <div className="">
-                    <textarea className={`flex items-center py-3 h-12 w-full outline-none resize-none  row-span-1 px-2 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-100'} 
-                    rounded-3xl`} type="text" placeholder="Message"></textarea>
+                    <textarea onChange={handleText} className={`flex py-3 h-12 w-full outline-none resize-none px-2 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-100'} 
+                    rounded-3xl`} type="text" placeholder="Message" ref={messageRef}></textarea>
                 </div>
                 <div className={`flex absolute items-center py-0.5 top-3 right-20 gap-3 ${isDarkMode ? 'text-gray-200' : 'text-gray-950'}`}>
-                    <svg 
+                    <svg
+                        
                         xmlns="http://www.w3.org/2000/svg" 
                         fill="none" 
                         viewBox="0 0 24 24" 
                         strokeWidth={1.5} stroke="
                         currentColor" 
-                        className="size-6 transition h-5 w-5 rotate-[-44deg]">
+                        className={`size-6 transition ${text.length > 0 ? 'hidden' : ''} h-5 w-5 rotate-[-44deg]`}>
                         <path strokeLinecap="round" 
                         strokeLinejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3
                         3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13" />
@@ -137,14 +165,27 @@ function MyChat() {
                     viewBox="0 0 24 24" 
                     strokeWidth={1.5} 
                     stroke="currentColor" 
-                    className="size-6 w-5 h-5">
+                    className={`size-6 w-5 h-5 ${text.length > 0 ? 'hidden' : ''}`}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
                     </svg>
 
                 </div>
-                <div className="microphone ml-3 flex justify-center items-center py-2 w-10 h-10 rounded-full bg-green-600">
-                    <svg 
+                <div className="microphone fixed right-2 bottom-2 ml-3 flex justify-center items-center py-2 w-10 h-10 rounded-full bg-green-600">
+                    {text.length > 0 ? (
+                        <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            fill="none" 
+                            viewBox="0 0 24 24" 
+                            strokeWidth={1.5} 
+                            stroke="currentColor" 
+                            className="size-6 w-5 h-5 fill-black">
+                            <path strokeLinecap="round" 
+                            strokeLinejoin="round"
+                            d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                        </svg>
+                    ): (
+                        <svg 
                         xmlns="http://www.w3.org/2000/svg" 
                         fill="none" 
                         viewBox="0 0 24 24"
@@ -156,6 +197,8 @@ function MyChat() {
                         d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 
                         7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
                     </svg>
+
+                    )}
                 </div>
             </div>
         </div>
