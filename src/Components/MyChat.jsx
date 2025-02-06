@@ -4,7 +4,6 @@ import { getFirestore, doc, getDoc, Timestamp, setDoc, addDoc, collection, serve
 import { mode} from "./UserMode";
 import { messageCarrier } from "./HandleMessage";
 import { auth } from "./Firebase";
-import { div } from "motion/react-client";
 
 function MyChat() {
     const {userId} = usersId();
