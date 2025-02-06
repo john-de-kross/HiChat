@@ -107,9 +107,13 @@ function MyChat() {
         retrieveMsg(userId, auth.currentUser.uid)
 
     }, [])
-
+    const scrollRef = useRef(null)
     useEffect(() => {
-        console.log(message)
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight
+            
+        }
+        
 
     }, [message])
 
@@ -196,7 +200,7 @@ function MyChat() {
                     </div>
                 </div>
             </div>
-            <div className="w-full h-[70vh] overflow-y-auto">
+            <div ref={scrollRef} className="w-full h-[70vh] overflow-y-auto">
                 {message.map((msg) => (
                     <div key={msg.id} className={`text-white flex px-2 ${msg.senderId === auth.currentUser.uid ? 'justify-end' : 'justify-start'}`}>
                         <div className={`px-4 py-2 mt-2 text-sm rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}>
@@ -206,7 +210,7 @@ function MyChat() {
                 ))}
                 
             </div>
-            <div className="fixed px-2 grid grid-cols-[85%_15%] bg-slate-900 w-full bottom-0 pb-2">
+            <div className="fixed px-2 grid grid-cols-[85%_15%]  w-full bottom-2 mt-8">
                 <div className="">
                     <textarea value={text} onChange={handleText} className={`flex py-3 h-12 w-full outline-none resize-none px-2 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-100'} 
                     rounded-3xl`} type="text" placeholder="Message" ref={messageRef}></textarea>
