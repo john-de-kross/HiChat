@@ -196,7 +196,7 @@ function MyChat() {
                     </div>
                 </div>
             </div>
-            <div className="w-full mt-2">
+            <div className="w-full mt-2 overflow-y-auto">
                 {message.map((msg) => (
                     <div key={msg.id} className={`text-white flex px-2 ${msg.senderId === auth.currentUser.uid ? 'justify-end' : 'justify-start'}`}>
                         <div className={`px-4 py-2 mt-2 rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}>
