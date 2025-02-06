@@ -11,7 +11,7 @@ function MyChat() {
     const {isDarkMode} = mode();
     const [username, setUsername] = useState('');
     const messageRef = useRef(null);
-    const {text, handleText, setText} = messageCarrier()
+    const {text, handleText, clearText} = messageCarrier()
     const [message, setMessage] = useState([])
 
     useEffect(() => {
@@ -72,7 +72,7 @@ function MyChat() {
                 sentAt: serverTimestamp()
             })
 
-            setText('')
+            clearText()
             console.log("message sent")
 
         }catch(error){
@@ -196,12 +196,11 @@ function MyChat() {
                     </div>
                 </div>
             </div>
-            <div className="w-full mt-2 overflow-y-auto">
+            <div className="w-full h-[70vh] overflow-y-auto">
                 {message.map((msg) => (
                     <div key={msg.id} className={`text-white flex px-2 ${msg.senderId === auth.currentUser.uid ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`px-4 py-2 mt-2 rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}>
+                        <div className={`px-4 py-2 mt-2 text-sm rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}>
                             {msg.message}
-
                         </div>  
                     </div>
                 ))}
@@ -209,7 +208,7 @@ function MyChat() {
             </div>
             <div className="fixed px-2 grid grid-cols-[85%_15%] bg-slate-900 w-full bottom-0 pb-2">
                 <div className="">
-                    <textarea onChange={handleText} className={`flex py-3 h-12 w-full outline-none resize-none px-2 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-100'} 
+                    <textarea value={text} onChange={handleText} className={`flex py-3 h-12 w-full outline-none resize-none px-2 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-100'} 
                     rounded-3xl`} type="text" placeholder="Message" ref={messageRef}></textarea>
                 </div>
                 <div className={`flex absolute items-center py-0.5 top-3 right-20 gap-3 ${isDarkMode ? 'text-gray-200' : 'text-gray-950'}`}>
