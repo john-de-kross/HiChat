@@ -20,6 +20,7 @@ import Lottie from "lottie-react";
 import Animate from "./Components/Animate.json";
 import IdCircle from './Components/CirculateId'
 import MyChat from './Components/MyChat'
+import HandleMessage from './Components/HandleMessage'
 
 
 
@@ -38,17 +39,20 @@ function App() {
     
     <IdCircle>
       <UserMode>
-        <Routes>
-          <Route path='/' element={currentUser ? <ChatsOutlets /> : <Navigate to='/login' />} />
-          <Route path='login' element={<Login />} />
-          <Route path='signup' element={<SignUp />}/>
-          <Route path='initialize' element={<Initialize />}/>
-          <Route path='find-friends' element={<ConnectFriends />}/>
-          <Route path='friend requests' element ={<FriendRequestOutlets />}/>
-          <Route path='request-sent' element={<RequestSentOutlets />} />
-          <Route path='friends' element={<Friends />} />
-          <Route path='my-chat' element={<MyChat/>} />
-        </Routes>
+        <HandleMessage>
+          <Routes>
+            <Route path='/' element={currentUser ? <ChatsOutlets /> : <Navigate to='/login' />} />
+            <Route path='login' element={<Login />} />
+            <Route path='signup' element={<SignUp />}/>
+            <Route path='initialize' element={<Initialize />}/>
+            <Route path='find-friends' element={<ConnectFriends />}/>
+            <Route path='friend requests' element ={<FriendRequestOutlets />}/>
+            <Route path='request-sent' element={<RequestSentOutlets />} />
+            <Route path='friends' element={<Friends />} />
+            <Route path='my-chat' element={<MyChat/>} />
+          </Routes>
+        </HandleMessage>
+        
       </UserMode>
     </IdCircle>
     

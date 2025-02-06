@@ -1,16 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { usersId } from "./CirculateId";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, Timestamp, setDoc, addDoc, collection, serverTimestamp, query, orderBy, onSnapshot, snapshotEqual } from "firebase/firestore";
 import { mode} from "./UserMode";
+import { messageCarrier } from "./HandleMessage";
+import { auth } from "./Firebase";
+import { div } from "motion/react-client";
 
 function MyChat() {
     const {userId} = usersId();
     const db = getFirestore();
-    const {isDarkMode} = mode()
-    const [username, setUsername] = useState('')
-    const [text, setText] = useState('')
-    const messageRef = useRef(null)
-    const clipRef = useRef(null)
+    const {isDarkMode} = mode();
+    const [username, setUsername] = useState('');
+    const messageRef = useRef(null);
+    const {text, handleText, setText} = messageCarrier()
+    const [message, setMessage] = useState([])
+
     useEffect(() => {
         const getUser = async() => {
             try{
@@ -19,8 +23,6 @@ function MyChat() {
                 if (userSnap.exists()) {
                     setUsername(userSnap.data().username)
                     console.log("Document data", userSnap.data())
-
-                    
                 }else{
                     console.log("user does not exist exist")
                 }
@@ -33,10 +35,7 @@ function MyChat() {
         }
         getUser();
     }, [userId]);
-    const handleText = (e) => {
-        const {value} = e.target;
-        setText(value)
-    }
+
     useEffect(() => {
         if (messageRef.current) {
             if (text.length >= 30){
@@ -56,13 +55,71 @@ function MyChat() {
             messageRef.current.style.height = ""
 
         }
+    }, [text]);
+
+    const handleMessage = async(message, receiverId, senderId) => {
+        try{
+            const friendsId = senderId > receiverId
+                          ? `${senderId}_${receiverId}`
+                          : `${receiverId}_${senderId}`
+        
+            const docRef = collection(doc(db, "messages", friendsId), "chats");
+
+            await addDoc(docRef, {
+                senderId,
+                receiverId,
+                message,
+                seen: false,
+                sentAt: serverTimestamp()
+            })
+
+            setText('')
+            console.log("message sent")
+
+        }catch(error){
+            console.log("An error occurred while trying to send message", error)
+        }
+
+    }
+
+    const retrieveMsg = async(receiverId, senderId) => {
+        try{
+            const friendsId = senderId > receiverId
+            ? `${senderId}_${receiverId}`
+            : `${receiverId}_${senderId}`
+
+            const docRef = collection(db, "messages", friendsId, "chats")
+            const q = query(docRef, orderBy('sentAt'))
+            const unsuscribe = onSnapshot(q, (snapshot) => {
+                setMessage(snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data()
+                })))
+            })
+
+            return () => unsuscribe()
+
+        }catch(err){
+            console.log("error in retrieving message", err)
+        }
+    }
+
+    useEffect(() => {
+        retrieveMsg(userId, auth.currentUser.uid)
+
+    }, [])
+
+    useEffect(() => {
+        console.log(message)
+
+    }, [message])
 
 
 
-    }, [text])
+
     return ( 
         <div className={`w-full min-h-screen ${isDarkMode ? 'bg-slate-900' : 'bg-slate-200'}`}>
-            <div className={`w-full fixed flex justify-between px-2 items-center h-20 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-300'}`}>
+            <div className={`w-full top-0 flex justify-between px-2 items-center h-20 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-300'}`}>
                 <div className="flex gap-2">
                     <div className="py-2">
                         <svg 
@@ -83,7 +140,7 @@ function MyChat() {
                         src="profile.png" 
                         alt="profile" />
                     </div>
-                    <div className="text-base font-[Ubuntu] py-1">
+                    <div>
                         {username}
                     </div>
 
@@ -139,7 +196,17 @@ function MyChat() {
 
                     </div>
                 </div>
+            </div>
+            <div className="w-full mt-2">
+                {message.map((msg) => (
+                    <div key={msg.id} className={`text-white flex px-2 ${msg.senderId === auth.currentUser.uid ? 'justify-end' : 'justify-start'}`}>
+                        <div className={`px-4 py-2 mt-2 rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}>
+                            {msg.message}
 
+                        </div>  
+                    </div>
+                ))}
+                
             </div>
             <div className="fixed px-2 grid grid-cols-[85%_15%] w-full bottom-2">
                 <div className="">
@@ -171,9 +238,11 @@ function MyChat() {
                     </svg>
 
                 </div>
+                
                 <div className="microphone fixed right-2 bottom-2 ml-3 flex justify-center items-center py-2 w-10 h-10 rounded-full bg-green-600">
                     {text.length > 0 ? (
                         <svg 
+                            onClick={() => handleMessage(text, userId, auth.currentUser.uid)}
                             xmlns="http://www.w3.org/2000/svg" 
                             fill="none" 
                             viewBox="0 0 24 24" 
