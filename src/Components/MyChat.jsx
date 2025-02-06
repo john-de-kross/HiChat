@@ -208,7 +208,7 @@ function MyChat() {
                 ))}
                 
             </div>
-            <div className="fixed px-2 grid grid-cols-[85%_15%] w-full bottom-2">
+            <div className="fixed px-2 grid grid-cols-[85%_15%] bg-slate-900 w-full bottom-0 pb-2">
                 <div className="">
                     <textarea onChange={handleText} className={`flex py-3 h-12 w-full outline-none resize-none px-2 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-100'} 
                     rounded-3xl`} type="text" placeholder="Message" ref={messageRef}></textarea>
