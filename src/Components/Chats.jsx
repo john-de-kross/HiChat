@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { usersId } from "./CirculateId";
 import { mode } from "./UserMode";
-import { onSnapshot, getFirestore, doc, collection, setDoc, updateDoc, getDocs } from "firebase/firestore";
+import { onSnapshot, getFirestore, doc, collection, setDoc, updateDoc, getDocs, getDoc } from "firebase/firestore";
 import { auth } from "./Firebase";
 function Chats() {
   const db = getFirestore()
@@ -31,11 +31,14 @@ function Chats() {
       try{
         const docref = collection(db, "users")
         const usersSnapshot = await getDocs(docref)
-        const updateDoc = usersSnapshot.docs.map(async(user) => {
-          await setDoc(doc(db, "users", user.id),{online: false}, {merge: true})
+        const updateDoc = usersSnapshot.docs.map((user) => {
+          if (user.id !== auth.currentUser.uid) {
+            return setDoc(doc(db, "users", user.id),{online: false}, {merge: true})
+            
+          }
         })
         await Promise.all(updateDoc)
-        console.log("All users set offline")
+        console.log("user set offLine")
       }catch(error){
         console.log("error occurred while trying to update doc", error)
       }
@@ -50,25 +53,15 @@ function Chats() {
       if(!auth.currentUser.uid) return
       
       try{
-        const unsub = onSnapshot(doc(db, "users", auth.currentUser.uid), (snaphot) => {
-          const friendId = snaphot.data().friends || []
-          Promise.all(friendId.map(async(id) => {
-            const usersRef = doc(db, "users", id)
-            if (auth.currentUser.uid === id) {
-              await setDoc(usersRef, {
-                online: true
-              },{
-                merge: true
-              }) 
-            }
-          }))
-          
-
+        const userRef = doc(db, "users", auth.currentUser.uid)
+        await updateDoc(userRef, {
+          online: true
         })
-        return () => unsub()
+        console.log('user online')
+        
 
       }catch(err){
-        console.log("Error", err)
+        console.log("Error occured while updating ref", err)
       }
     }
     checkUsersOnline()
