@@ -8,7 +8,6 @@ function Chats() {
   const db = getFirestore()
   const {isDarkMode, handleSidebar, isSidebar} = mode()
   const [isFocused, setIsFocused] = useState(false);
-  const {setIsOline} = usersId()
   const inputRef = useRef(null)
   const navigate = useNavigate()
   const searchFocus = () => {
@@ -26,46 +25,7 @@ function Chats() {
 
   }, [isFocused])
 
-  useEffect(() => {
-    const setAllUsersOffLine = async() => {
-      try{
-        const docref = collection(db, "users")
-        const usersSnapshot = await getDocs(docref)
-        const updateDoc = usersSnapshot.docs.map((user) => {
-          if (user.id !== auth.currentUser.uid) {
-            return setDoc(doc(db, "users", user.id),{online: false}, {merge: true})
-            
-          }
-        })
-        await Promise.all(updateDoc)
-        console.log("user set offLine")
-      }catch(error){
-        console.log("error occurred while trying to update doc", error)
-      }
-
-    }
-    setAllUsersOffLine()
-  }, [])
-
-
-  useEffect(() => {
-    const checkUsersOnline = async()=> {
-      if(!auth.currentUser.uid) return
-      
-      try{
-        const userRef = doc(db, "users", auth.currentUser.uid)
-        await updateDoc(userRef, {
-          online: true
-        })
-        console.log('user online')
-        
-
-      }catch(err){
-        console.log("Error occured while updating ref", err)
-      }
-    }
-    checkUsersOnline()
-  }, [])
+  
   
   useEffect(() => {
     if(isSidebar){

@@ -7,7 +7,7 @@ import { auth } from "./Firebase";
 
 
 function MyChat() {
-    const {userId, isOnline} = usersId();
+    const {userId} = usersId();
     const db = getFirestore();
     const {isDarkMode} = mode();
     const [username, setUsername] = useState({});
@@ -15,29 +15,28 @@ function MyChat() {
     const {text, handleText, clearText, seen} = messageCarrier()
     const [message, setMessage] = useState([])
     const isSeen = Object.values(seen)[0]
-    console.log(isOnline)
+    
 
     useEffect(() => {
         const getUser = async() => {
+            let unsub
             try{
-                const userRef = doc(db, "users", userId);
-                const userSnap = await getDoc(userRef);
-                if (userSnap.exists()) {
+                unsub = onSnapshot(doc(db, "users", userId), (snapshot) => {
                     setUsername({
                         ...username,
-                        username: userSnap.data().username,
-                        online: userSnap.data().online
+                        username: snapshot.data().username,
+                        online: snapshot.data().online 
                     })
-                    console.log("Document data", userSnap.data())
-                }else{
-                    console.log("user does not exist exist")
-                }
+
+                });
 
             
             }catch(error){
                 console.log(error)
 
             }
+            return() => unsub()
+
         }
         getUser();
     }, [userId]);
@@ -195,13 +194,13 @@ function MyChat() {
                         src="profile.png" 
                         alt="profile" />
                     </div>
-                    <div className="flex flex-col py-2">
+                    <div className="flex flex-col py-1">
                         <div>{username.username}</div>
-                        <div className={`text-sm font-[400] py-1 ${username.online? 'text-green-500' : 'text-gray-200'}`}>{username.online? 'online' : 'offline'}</div>
+                        <div className={`text-xs font-[400] py-1 ${username.online? 'text-green-500' : 'text-gray-200'}`}>{username.online? 'online' : 'offline'}</div>
                     </div>
 
                 </div>
-                <div className="flex gap-6">
+                <div className="flex gap-6 pb-6">
                     <div className="video">
                         <svg 
                         xmlns="http://www.w3.org/2000/svg" 
