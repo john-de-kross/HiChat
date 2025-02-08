@@ -6,6 +6,7 @@ import Lottie from "lottie-react";
 import Animate from './Animate.json';
 import { useNavigate } from "react-router-dom"; 
 import { usersId } from "./CirculateId";
+import { messageCarrier } from "./HandleMessage";
 
 
 function Friends() {
@@ -15,6 +16,7 @@ function Friends() {
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
     const {userId, setUserId} = usersId()
+    const {messageState} = messageCarrier()
 
     useEffect(() => {
         const unsubscribe = onSnapshot(doc(db, "users", auth.currentUser.uid), async(snapshot) => {
@@ -26,7 +28,8 @@ function Friends() {
                     const getUser = await getDoc(userRef);
                     return {
                         id: id,
-                        username: getUser.data().username
+                        username: getUser.data().username,
+                        
                     }
                 })
             )
@@ -40,6 +43,7 @@ function Friends() {
 
 
     }, [])
+
 
 
     useEffect(() => {
@@ -128,7 +132,7 @@ function Friends() {
                                     src="profile.png" 
                                     alt="profile" />
                                 </div>
-                                <div onClick={() => {setUserId(user.id), navigate('/my-chat')}}>
+                                <div onClick={() => {setUserId(user.id), navigate('/my-chat'), messageState(user)}}>
                                     {user.username}
                                 </div>
                             </div>

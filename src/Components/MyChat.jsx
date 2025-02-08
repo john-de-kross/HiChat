@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { usersId } from "./CirculateId";
-import { getFirestore, doc, getDoc, Timestamp, setDoc, addDoc, collection, serverTimestamp, query, orderBy, onSnapshot, snapshotEqual } from "firebase/firestore";
+import { getFirestore, doc, getDoc, getDocs, Timestamp, setDoc, addDoc, collection, serverTimestamp, query, orderBy, onSnapshot, snapshotEqual, updateDoc } from "firebase/firestore";
 import { mode} from "./UserMode";
 import { messageCarrier } from "./HandleMessage";
 import { auth } from "./Firebase";
+
 
 function MyChat() {
     const {userId} = usersId();
@@ -11,8 +12,11 @@ function MyChat() {
     const {isDarkMode} = mode();
     const [username, setUsername] = useState('');
     const messageRef = useRef(null);
-    const {text, handleText, clearText} = messageCarrier()
+    const {text, handleText, clearText, seen} = messageCarrier()
     const [message, setMessage] = useState([])
+    const isSeen = Object.values(seen)[0]
+    console.log(seen)
+    console.log(isSeen)
 
     useEffect(() => {
         const getUser = async() => {
@@ -50,8 +54,11 @@ function MyChat() {
         }
 
         return () => {
-            messageRef.current.style.height  = ''
-            messageRef.current.style.height = ""
+            if (messageRef.current) {
+                messageRef.current.style.height  = ''
+                messageRef.current.style.height = ""
+                
+            }
 
         }
     }, [text]);
@@ -117,6 +124,51 @@ function MyChat() {
 
     }, [message])
 
+    useEffect(() => {
+        const updateMessageState = async(receiverId, senderId) =>{
+            try{
+                console.log('seen boo', isSeen)
+                console.log("user-id", auth.currentUser.uid)
+                console.log("receiver", receiverId)
+                const friendsId = senderId > receiverId
+                ? `${senderId}_${receiverId}`
+                : `${receiverId}_${senderId}`
+                const messageRef = collection(db, "messages", friendsId, "chats");
+                const messageDoc = await getDocs(messageRef)
+
+                if (!messageDoc.empty) {
+                    const updatePromise = messageDoc.docs.map(async (chat) => {
+                        const messageDocRef = doc(db, "messages", friendsId, "chats", chat.id);
+                        if (isSeen && chat.data().receiverId === auth.currentUser.uid){
+                            await updateDoc(messageDocRef, {
+                                seen: true
+                            })
+                            console.log('message seen')
+                        }
+                    
+                    });  
+                    await Promise.all(updatePromise)
+                    console.log("All seen messages marked as seen")  
+                }else{
+                    console.log("No unseen messages found")
+                }
+                
+
+
+            }catch(error) {
+                console.log("Error occurred while trying to update doc", error)
+            }
+        }
+        
+
+        updateMessageState(userId, auth.currentUser.uid)
+        
+    }, [isSeen, auth.currentUser.uid, userId, message])
+
+    useEffect(() => {
+        console.log(message)
+    }, [message])
+
 
 
 
@@ -143,7 +195,7 @@ function MyChat() {
                         src="profile.png" 
                         alt="profile" />
                     </div>
-                    <div>
+                    <div className="py-2">
                         {username}
                     </div>
 
@@ -203,8 +255,45 @@ function MyChat() {
             <div ref={scrollRef} className="w-full h-[70vh] overflow-y-auto">
                 {message.map((msg) => (
                     <div key={msg.id} className={`text-white flex px-2 ${msg.senderId === auth.currentUser.uid ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`px-4 py-2 mt-2 text-sm rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}>
+                        <div className={`px-4 py-2 mt-2  text-sm rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-900 text-white' : 'bg-gray-200 text-black'}`}>
                             {msg.message}
+                            {msg.seen ? (
+                                <div className="w-5 float-end">
+                                    <svg 
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    fill="none" 
+                                    viewBox="0 0 24 24" 
+                                    strokeWidth={1.5} 
+                                    stroke="currentColor" 
+                                    className={`size-6 h-5 text-green-500 drop-shadow-2xl ${msg.senderId !== auth.currentUser.uid ? 'hidden' : ''}`}>
+                                    <path strokeLinecap="round" 
+                                    strokeLinejoin="round" 
+                                    d="m4.5 12.75 6 6 9-13.5" />
+                                    <polyline points="20 6 9 17 4 12" />
+                                    <polyline points="16 6 9 13 8 12" />
+                                    </svg>
+                                    
+                                </div>
+                            ): (
+                                <div className="w-5 float-end">
+                                    <svg 
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    fill="none" 
+                                    viewBox="0 0 24 24" 
+                                    strokeWidth={1.5} 
+                                    stroke="currentColor" 
+                                    className={`size-6 h-5 ${msg.senderId === auth.currentUser.uid ? 'flex' : 'hidden'}`}>
+                                    <path strokeLinecap="round" 
+                                    strokeLinejoin="round" 
+                                    d="m4.5 12.75 6 6 9-13.5" />
+                                    </svg>
+
+                                </div>
+                            )}
+                                
+
+                            
+
                         </div>  
                     </div>
                 ))}
