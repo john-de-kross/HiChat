@@ -7,7 +7,7 @@ import { auth } from "./Firebase";
 
 
 function MyChat() {
-    const {userId} = usersId();
+    const {userId, isOnline} = usersId();
     const db = getFirestore();
     const {isDarkMode} = mode();
     const [username, setUsername] = useState('');
@@ -127,9 +127,6 @@ function MyChat() {
     useEffect(() => {
         const updateMessageState = async(receiverId, senderId) =>{
             try{
-                console.log('seen boo', isSeen)
-                console.log("user-id", auth.currentUser.uid)
-                console.log("receiver", receiverId)
                 const friendsId = senderId > receiverId
                 ? `${senderId}_${receiverId}`
                 : `${receiverId}_${senderId}`
@@ -195,8 +192,9 @@ function MyChat() {
                         src="profile.png" 
                         alt="profile" />
                     </div>
-                    <div className="py-2">
-                        {username}
+                    <div className="flex flex-col py-2">
+                        <div>{username}</div>
+                        <div className={`text-sm font-[400] py-1 ${isOnline ? 'text-green-500' : 'text-gray-200'}`}>{isOnline ? 'online' : 'offline'}</div>
                     </div>
 
                 </div>
@@ -255,7 +253,7 @@ function MyChat() {
             <div ref={scrollRef} className="w-full h-[70vh] overflow-y-auto">
                 {message.map((msg) => (
                     <div key={msg.id} className={`text-white flex px-2 ${msg.senderId === auth.currentUser.uid ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`px-4 py-2 mt-2  text-sm rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-900 text-white' : 'bg-gray-200 text-black'}`}>
+                        <div className={`px-4 py-2 mt-2 text-sm rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-900 text-white' : 'bg-gray-200 text-black'}`}>
                             {msg.message}
                             {msg.seen ? (
                                 <div className="w-5 float-end">

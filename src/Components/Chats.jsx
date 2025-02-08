@@ -1,9 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { usersId } from "./CirculateId";
 import { mode } from "./UserMode";
+import { onSnapshot, getFirestore, doc } from "firebase/firestore";
+import { auth } from "./Firebase";
 function Chats() {
+  const db = getFirestore()
   const {isDarkMode, handleSidebar, isSidebar} = mode()
   const [isFocused, setIsFocused] = useState(false);
+  const {setIsOline} = usersId()
   const inputRef = useRef(null)
   const navigate = useNavigate()
   const searchFocus = () => {
@@ -21,6 +26,27 @@ function Chats() {
 
   }, [isFocused])
 
+  useEffect(() => {
+    const checkUsersOnline = async()=> {
+      try{
+        const unsub = onSnapshot(doc(db, "users", auth.currentUser.uid), (snaphot) => {
+          const friendsId = snaphot.data().friends || []
+          friendsId.forEach((id) => {
+            if (auth.currentUser.uid === id) {
+              setIsOline(true);
+            }
+          })
+
+        })
+        return () => unsub()
+
+      }catch(err){
+        console.log("Error", err)
+      }
+    }
+    checkUsersOnline()
+  }, [])
+  
   useEffect(() => {
     if(isSidebar){
       document.body.style.overflowY = 'hidden'
