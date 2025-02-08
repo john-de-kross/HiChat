@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { usersId } from "./CirculateId";
 import { mode } from "./UserMode";
-import { onSnapshot, getFirestore, doc } from "firebase/firestore";
+import { onSnapshot, getFirestore, doc, collection, setDoc, updateDoc, getDocs } from "firebase/firestore";
 import { auth } from "./Firebase";
 function Chats() {
   const db = getFirestore()
@@ -27,15 +27,42 @@ function Chats() {
   }, [isFocused])
 
   useEffect(() => {
+    const setAllUsersOffLine = async() => {
+      try{
+        const docref = collection(db, "users")
+        const usersSnapshot = await getDocs(docref)
+        const updateDoc = usersSnapshot.docs.map(async(user) => {
+          await setDoc(doc(db, "users", user.id),{online: false}, {merge: true})
+        })
+        await Promise.all(updateDoc)
+        console.log("All users set offline")
+      }catch(error){
+        console.log("error occurred while trying to update doc", error)
+      }
+
+    }
+    setAllUsersOffLine()
+  }, [])
+
+
+  useEffect(() => {
     const checkUsersOnline = async()=> {
+      if(!auth.currentUser.uid) return
+      
       try{
         const unsub = onSnapshot(doc(db, "users", auth.currentUser.uid), (snaphot) => {
-          const friendsId = snaphot.data().friends || []
-          friendsId.forEach((id) => {
+          const friendId = snaphot.data().friends || []
+          Promise.all(friendId.map(async(id) => {
+            const usersRef = doc(db, "users", id)
             if (auth.currentUser.uid === id) {
-              setIsOline(true);
+              await setDoc(usersRef, {
+                online: true
+              },{
+                merge: true
+              }) 
             }
-          })
+          }))
+          
 
         })
         return () => unsub()

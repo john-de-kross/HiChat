@@ -10,13 +10,12 @@ function MyChat() {
     const {userId, isOnline} = usersId();
     const db = getFirestore();
     const {isDarkMode} = mode();
-    const [username, setUsername] = useState('');
+    const [username, setUsername] = useState({});
     const messageRef = useRef(null);
     const {text, handleText, clearText, seen} = messageCarrier()
     const [message, setMessage] = useState([])
     const isSeen = Object.values(seen)[0]
-    console.log(seen)
-    console.log(isSeen)
+    console.log(isOnline)
 
     useEffect(() => {
         const getUser = async() => {
@@ -24,7 +23,11 @@ function MyChat() {
                 const userRef = doc(db, "users", userId);
                 const userSnap = await getDoc(userRef);
                 if (userSnap.exists()) {
-                    setUsername(userSnap.data().username)
+                    setUsername({
+                        ...username,
+                        username: userSnap.data().username,
+                        online: userSnap.data().online
+                    })
                     console.log("Document data", userSnap.data())
                 }else{
                     console.log("user does not exist exist")
@@ -193,8 +196,8 @@ function MyChat() {
                         alt="profile" />
                     </div>
                     <div className="flex flex-col py-2">
-                        <div>{username}</div>
-                        <div className={`text-sm font-[400] py-1 ${isOnline ? 'text-green-500' : 'text-gray-200'}`}>{isOnline ? 'online' : 'offline'}</div>
+                        <div>{username.username}</div>
+                        <div className={`text-sm font-[400] py-1 ${username.online? 'text-green-500' : 'text-gray-200'}`}>{username.online? 'online' : 'offline'}</div>
                     </div>
 
                 </div>
