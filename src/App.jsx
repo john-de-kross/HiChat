@@ -22,11 +22,14 @@ import IdCircle from './Components/CirculateId'
 import MyChat from './Components/MyChat'
 import HandleMessage from './Components/HandleMessage'
 import { useEffect } from 'react'
+import { collection, getDocs, updateDoc, getFirestore, doc} from 'firebase/firestore'
+import { auth } from './Components/Firebase'
 
 
 
 function App() {
-  const {currentUser, loading} = authState()
+  const db = getFirestore()
+  const {currentUser, loading} = authState();
   if (loading) {
     return(
       <div className='flex justify-center items-center w-full h-screen'>
@@ -36,40 +39,23 @@ function App() {
     
   }
   useEffect(() => {
-    const setAllUsersOffLine = async() => {
-      try{
-        const docref = collection(db, "users")
-        const usersSnapshot = await getDocs(docref)
-        const updateDoc = usersSnapshot.docs.map((user) => {
-          if (user.id !== auth.currentUser.uid) {
-            return setDoc(doc(db, "users", user.id),{online: false}, {merge: true})
-            
-          }
-        })
-        await Promise.all(updateDoc)
-        console.log("user set offLine")
-      }catch(error){
-        console.log("error occurred while trying to update doc", error)
-      }
-
-    }
-    setAllUsersOffLine()
-  }, [])
-
-
-  useEffect(() => {
     const checkUsersOnline = async()=> {
-      
       try{
-        const userRef = doc(db, "users", auth.currentUser.uid)
-        await updateDoc(userRef, {
-          online: true
-        })
-        console.log('user online')
-        
+        const userRef = collection(db, "users")
+        const userData = await getDocs(userRef)
+        Promise.all(userData.docs.map(async(user) => {
+          if (user.id === auth.currentUser.uid) {
+            const docRef = doc(db, "users", user.id)
+            await updateDoc(docRef, {
+              online: true
+            })
+          }
+        }))
+        console.log("online")
+      
 
       }catch(err){
-        console.log("Error occured while updating ref", err)
+        console.log("Error occured while updating user's online", err)
       }
     }
     checkUsersOnline()
