@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {getAuth} from 'firebase/auth'
+import { Database } from "firebase/database";
 
 
 
@@ -7,6 +8,7 @@ import {getAuth} from 'firebase/auth'
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_API_KEY,
     authDomain: "chat-app-554b4.firebaseapp.com",
+    databaseUrl: 'https://chat-app-554b4-default-rtdb.firebaseio.com/',
     projectId: "chat-app-554b4",
     storageBucket: "chat-app-554b4.firebasestorage.app",
     messagingSenderId: "523060059771",

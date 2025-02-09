@@ -26,7 +26,6 @@ export default UsersState;
 
 export const authState = () => {
     const context = useContext(authContext);
-    console.log(context)
     return context;
 }
 

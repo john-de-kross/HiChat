@@ -4,29 +4,36 @@ import { getFirestore, doc, getDoc, getDocs, Timestamp, setDoc, addDoc, collecti
 import { mode} from "./UserMode";
 import { messageCarrier } from "./HandleMessage";
 import { auth } from "./Firebase";
+import { getDatabase, ref, onDisconnect, set, onValue } from "firebase/database";
+
 
 
 function MyChat() {
+    const DB = getDatabase()
     const {userId} = usersId();
     const db = getFirestore();
     const {isDarkMode} = mode();
-    const [username, setUsername] = useState({});
+    const [username, setUsername] = useState('');
     const messageRef = useRef(null);
     const {text, handleText, clearText, seen} = messageCarrier()
     const [message, setMessage] = useState([])
-    const isSeen = Object.values(seen)[0]
-    
+    const isSeen = Object.values(seen)[0];
+    const [isOnline, setIsOnline] = useState(false);
+
+
+    useEffect(() => {
+        const userRef = ref(DB, `users/${userId}/online`);
+        onValue(userRef, (snap) => {
+            return snap.val() ? setIsOnline(true) : setIsOnline(false);
+        });
+    }, [])
 
     useEffect(() => {
         const getUser = async() => {
             let unsub
             try{
                 unsub = onSnapshot(doc(db, "users", userId), (snapshot) => {
-                    setUsername({
-                        ...username,
-                        username: snapshot.data().username,
-                        online: snapshot.data().online 
-                    })
+                    setUsername(snapshot.data().username);
 
                 });
 
@@ -195,8 +202,8 @@ function MyChat() {
                         alt="profile" />
                     </div>
                     <div className="flex flex-col py-1">
-                        <div>{username.username}</div>
-                        <div className={`text-xs font-[400] py-1 ${username.online? 'text-green-500' : 'text-gray-200'}`}>{username.online? 'online' : 'offline'}</div>
+                        <div>{username}</div>
+                        <div className={`text-xs font-[400] py-1 ${isOnline? 'text-green-500' : 'text-gray-200'}`}>{isOnline? 'online' : 'offline'}</div>
                     </div>
 
                 </div>
@@ -255,7 +262,7 @@ function MyChat() {
             <div ref={scrollRef} className="w-full h-[70vh] overflow-y-auto">
                 {message.map((msg) => (
                     <div key={msg.id} className={`text-white flex px-2 ${msg.senderId === auth.currentUser.uid ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`px-4 py-2 mt-2 text-sm rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-900 text-white' : 'bg-gray-200 text-black'}`}>
+                        <div className={`px-4 py-2 mt-2 text-lg rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-900 text-white' : 'bg-gray-200 text-black'}`}>
                             {msg.message}
                             {msg.seen ? (
                                 <div className="w-5 float-end">

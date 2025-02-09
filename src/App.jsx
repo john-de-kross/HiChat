@@ -22,14 +22,50 @@ import IdCircle from './Components/CirculateId'
 import MyChat from './Components/MyChat'
 import HandleMessage from './Components/HandleMessage'
 import { useEffect } from 'react'
-import { collection, getDocs, updateDoc, getFirestore, doc} from 'firebase/firestore'
 import { auth } from './Components/Firebase'
+import { getDatabase, ref, onDisconnect, set, onValue } from "firebase/database";
 
 
 
 function App() {
-  const db = getFirestore()
+  const db = getDatabase();
   const {currentUser, loading} = authState();
+
+
+  useEffect(() => {
+    const checkConnection = async() => {
+      try{
+        
+
+        const userId = auth.currentUser.uid;
+        const presenceRef = ref(db, `users/${userId}/online`) ;
+        const connectedRef = ref(db, '.info/connected');
+
+        const unsub = onValue(connectedRef, (snap) => {
+          if (snap.val() === true) {
+            set(presenceRef, {online: true})
+            console.log("connected")
+            
+          }else{
+            setIsOnline(false)
+            console.log("Not connected")
+          }
+        })
+        onDisconnect(presenceRef).set({online: false});
+
+        return () => unsub()
+      }catch(error){
+        console.log("Error occurreed while trying to set online users", error)
+      }
+        
+    
+    }
+
+
+    checkConnection()
+      
+  }, []);
+
   if (loading) {
     return(
       <div className='flex justify-center items-center w-full h-screen'>
@@ -38,28 +74,6 @@ function App() {
     )  
     
   }
-  useEffect(() => {
-    const checkUsersOnline = async()=> {
-      try{
-        const userRef = collection(db, "users")
-        const userData = await getDocs(userRef)
-        Promise.all(userData.docs.map(async(user) => {
-          if (user.id === auth.currentUser.uid) {
-            const docRef = doc(db, "users", user.id)
-            await updateDoc(docRef, {
-              online: true
-            })
-          }
-        }))
-        console.log("online")
-      
-
-      }catch(err){
-        console.log("Error occured while updating user's online", err)
-      }
-    }
-    checkUsersOnline()
-  }, [])
 
   return (
     
