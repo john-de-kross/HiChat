@@ -266,10 +266,10 @@ function MyChat() {
                     </div>
                 </div>
             </div>
-            <div ref={scrollRef} className="w-full h-[70vh] overflow-y-auto">
+            <div ref={scrollRef} className="w-full h-[75vh] overflow-y-auto">
                 {message.map((msg) => (
                     <div key={msg.id} className={`text-white flex px-2 ${msg.senderId === auth.currentUser.uid ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`px-4 py-2 mt-2 text-lg rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-900 text-white' : 'bg-gray-200 text-black'}`}>
+                        <div className={`px-4 py-2 mt-2 text-base rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-900 text-white' : 'bg-gray-200 text-black'}`}>
                             {msg.message}
                             {msg.seen ? (
                                 <div className="w-5 float-end">
@@ -288,7 +288,24 @@ function MyChat() {
                                     </svg>
                                     
                                 </div>
-                            ): (
+                            ): !msg.seen && isOnline ? (
+                                <div className="w-5 float-end">
+                                    <svg 
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    fill="none" 
+                                    viewBox="0 0 24 24" 
+                                    strokeWidth={1.5} 
+                                    stroke="currentColor" 
+                                    className={`size-6 h-5 ${msg.senderId === auth.currentUser.uid ? 'flex' : 'hidden'}`}>
+                                    <path strokeLinecap="round" 
+                                    strokeLinejoin="round" 
+                                    d="m4.5 12.75 6 6 9-13.5" />
+                                    <polyline points="20 6 9 17 4 12" />
+                                    <polyline points="16 6 9 13 8 12" />
+                                    </svg>
+
+                                </div>
+                            ) : (
                                 <div className="w-5 float-end">
                                     <svg 
                                     xmlns="http://www.w3.org/2000/svg" 
@@ -303,7 +320,9 @@ function MyChat() {
                                     </svg>
 
                                 </div>
-                            )}
+                            )
+                                
+                            } 
                                 
 
                             
