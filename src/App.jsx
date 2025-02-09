@@ -42,33 +42,34 @@ function App() {
 
 
   useEffect(() => {
-    const checkConnection = async() => {
-      
-      try{
-        const userId = auth.currentUser.uid;
-        const presenceRef = ref(db, `users/${userId}/online`) ;
-        const connectedRef = ref(db, '.info/connected');
+ 
+    try{
+      const userId = auth.currentUser.uid;
+      const presenceRef = ref(db, `users/${userId}/online`) ;
+      const connectedRef = ref(db, '.info/connected');
 
-        const unsub = onValue(connectedRef, (snap) => {
-          if (snap.val() === true) {
-            set(presenceRef, {online: true})
-            console.log("connected")
-            
-          }else{
-            console.log("Not connected")
-          }
-        })
-        onDisconnect(presenceRef).set({online: false});
+      const unsub = onValue(connectedRef, (snap) => {
+        if (snap.val() === true) {
+          set(presenceRef, true)
+          console.log("connected")
 
-        return () => unsub()
-      }catch(error){
-        console.log("Error occurreed while trying to set online users", error)
-      }
+
+          onDisconnect(presenceRef).set(false);
+          
+        }else{
+          console.log("Not connected")
+        }
+      })
+
+      return () => unsub()
+    }catch(error){
+      console.log("Error occurreed while trying to set online users", error)
+    }
         
     
-    }
+    
 
-    checkConnection()
+    
       
   }, []);
 

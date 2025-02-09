@@ -23,9 +23,11 @@ function MyChat() {
 
     useEffect(() => {
         const userRef = ref(DB, `users/${userId}/online`);
-        onValue(userRef, (snap) => {
-            return snap.val() ? setIsOnline(true) : setIsOnline(false);
+        const unsub = onValue(userRef, (snap) => {
+            setIsOnline(snap.val() === true)
+           
         });
+        return () => unsub()
     }, [userId])
 
     useEffect(() => {
