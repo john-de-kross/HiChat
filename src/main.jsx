@@ -7,10 +7,12 @@ import UsersState from './Components/UsersState.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    
     <UsersState>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </UsersState>
+    
   </StrictMode>,
 )

@@ -31,12 +31,20 @@ function App() {
   const db = getDatabase();
   const {currentUser, loading} = authState();
 
+  if (loading) {
+    return(
+      <div className='flex justify-center items-center w-full h-screen'>
+        <Lottie className="w-16 h-16" animationData={Animate} loop/>   
+      </div>
+    )  
+    
+  }
+
 
   useEffect(() => {
     const checkConnection = async() => {
+      
       try{
-        
-
         const userId = auth.currentUser.uid;
         const presenceRef = ref(db, `users/${userId}/online`) ;
         const connectedRef = ref(db, '.info/connected');
@@ -47,7 +55,6 @@ function App() {
             console.log("connected")
             
           }else{
-            setIsOnline(false)
             console.log("Not connected")
           }
         })
@@ -61,19 +68,9 @@ function App() {
     
     }
 
-
     checkConnection()
       
   }, []);
-
-  if (loading) {
-    return(
-      <div className='flex justify-center items-center w-full h-screen'>
-        <Lottie className="w-16 h-16" animationData={Animate} loop/>   
-      </div>
-    )  
-    
-  }
 
   return (
     
