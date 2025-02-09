@@ -174,13 +174,26 @@ function MyChat() {
         }
         
 
-        updateMessageState(userId, auth.currentUser.uid)
+        updateMessageState(userId, auth.currentUser.uid);
         
-    }, [isSeen, auth.currentUser.uid, userId, message])
+    }, [isSeen, auth.currentUser.uid, userId, message]);
 
     useEffect(() => {
         console.log(message)
     }, [message])
+
+    const setTime = (time) => {
+        const timeSentInSec = time.sentAt.seconds;
+        const convertTimeInSec = new Date(timeSentInSec * 1000);
+        const minute =  convertTimeInSec.getMinutes() < 10 ? `0${convertTimeInSec.getMinutes()}` : `${convertTimeInSec.getMinutes()}`;
+        const hour = convertTimeInSec.getHours();
+
+        const amPm = hour >= 12 ? "pm" : "pm";
+        const formattedHrs = hour % 12 || 12;
+        return `${formattedHrs}:${minute}${amPm}`
+
+
+    }
 
 
 
@@ -266,13 +279,13 @@ function MyChat() {
                     </div>
                 </div>
             </div>
-            <div ref={scrollRef} className="w-full h-[75vh] overflow-y-auto">
+            <div ref={scrollRef} className="w-full h-[71vh] overflow-y-auto">
                 {message.map((msg) => (
                     <div key={msg.id} className={`text-white flex px-2 ${msg.senderId === auth.currentUser.uid ? 'justify-end' : 'justify-start'}`}>
                         <div className={`px-4 py-2 mt-2 text-base rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-900 text-white' : 'bg-gray-200 text-black'}`}>
                             {msg.message}
                             {msg.seen ? (
-                                <div className="w-5 float-end">
+                                <div className=" float-end">
                                     <svg 
                                     xmlns="http://www.w3.org/2000/svg" 
                                     fill="none" 
@@ -296,7 +309,7 @@ function MyChat() {
                                     viewBox="0 0 24 24" 
                                     strokeWidth={1.5} 
                                     stroke="currentColor" 
-                                    className={`size-6 h-5 ${msg.senderId === auth.currentUser.uid ? 'flex' : 'hidden'}`}>
+                                    className={`size-6 h-5 text-gray-300 ${msg.senderId === auth.currentUser.uid ? 'flex' : 'hidden'}`}>
                                     <path strokeLinecap="round" 
                                     strokeLinejoin="round" 
                                     d="m4.5 12.75 6 6 9-13.5" />
@@ -313,7 +326,7 @@ function MyChat() {
                                     viewBox="0 0 24 24" 
                                     strokeWidth={1.5} 
                                     stroke="currentColor" 
-                                    className={`size-6 h-5 ${msg.senderId === auth.currentUser.uid ? 'flex' : 'hidden'}`}>
+                                    className={`size-6 h-5 text-gray-300 ${msg.senderId === auth.currentUser.uid ? 'flex' : 'hidden'}`}>
                                     <path strokeLinecap="round" 
                                     strokeLinejoin="round" 
                                     d="m4.5 12.75 6 6 9-13.5" />
@@ -325,9 +338,12 @@ function MyChat() {
                             } 
                                 
 
-                            
+                            <div className="text-xs float-end font-thin p-2">
+                                {setTime(msg)}
+                            </div>
 
-                        </div>  
+                        </div> 
+                         
                     </div>
                 ))}
                 

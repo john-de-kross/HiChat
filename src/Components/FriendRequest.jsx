@@ -43,7 +43,7 @@ const getSendersDetails = async(id)=>{
 
 const TimeSent = async(time) =>{
     const currentTimeInSec = Math.floor(Date.now() / 1000);
-    const timeDiff = currentTimeInSec - time.sentAt.seconds;
+    const timeDiff = currentTimeInSec - time.seconds;
 
 
     if (timeDiff < 60){
