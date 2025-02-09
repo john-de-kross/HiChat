@@ -24,7 +24,7 @@ function MyChat() {
     useEffect(() => {
         const userRef = ref(DB, `users/${userId}/online`);
         onValue(userRef, (snap) => {
-            setIsOnline(snap.val() === true)
+            return snap.val() ? setIsOnline(true) : setIsOnline(false);
         });
     }, [userId])
 
