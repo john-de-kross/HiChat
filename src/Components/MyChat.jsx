@@ -200,6 +200,11 @@ function MyChat() {
                                 setDoc(messageDocRef, {typing: true}, {merge: true})
                                 .then(() => console.log('Typing status updated'))   
                                 .catch((err) => console.log("Error updating typing detected", err))
+                            }else{
+                                setDoc(messageDocRef, {typing: false}, {merge: true})
+                                .then(() => console.log('Typing status updated'))   
+                                .catch((err) => console.log("Error updating typing detected", err))
+
                             }
                         }
                     }
@@ -307,7 +312,7 @@ function MyChat() {
                     </div>
                     <div className="flex flex-col py-1">
                         <div>{username}</div>
-                        <div className={`text-xs font-[400] ${!isTyping ? '' : 'hidden'} py-1 ${isOnline? 'text-green-500' : 'text-gray-200'}`}>{isOnline? 'online' : 'offline'}</div>
+                        <div className={`text-xs font-[400] ${isTyping ? 'hidden' : ''} py-1 ${isOnline? 'text-green-500' : 'text-gray-200'}`}>{isOnline? 'online' : 'offline'}</div>
                         <div className={`${isTyping ? 'flex text-green-500 text-base' : 'hidden'}`}>typing...</div>
                     </div>
 
