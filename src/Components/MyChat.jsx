@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { usersId } from "./CirculateId";
-import { getFirestore, doc, getDoc, getDocs, Timestamp, setDoc, addDoc, collection, serverTimestamp, query, orderBy, onSnapshot, snapshotEqual, updateDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, getDocs, Timestamp, setDoc, addDoc, collection, serverTimestamp, query, orderBy, onSnapshot, snapshotEqual, updateDoc, limit } from "firebase/firestore";
 import { mode} from "./UserMode";
 import { messageCarrier } from "./HandleMessage";
 import { auth } from "./Firebase";
@@ -19,6 +19,8 @@ function MyChat() {
     const [message, setMessage] = useState([])
     const isSeen = Object.values(seen)[0];
     const [isOnline, setIsOnline] = useState(false);
+    const inputRef = useRef(null);
+    const [isTyping, setIsTyping] = useState(false)
 
 
     useEffect(() => {
@@ -94,6 +96,7 @@ function MyChat() {
                 seen: false,
                 sentAt: serverTimestamp()
             })
+            detectUserTypingclosUp()
 
             clearText()
             console.log("message sent")
@@ -182,13 +185,70 @@ function MyChat() {
         console.log(message)
     }, [message])
 
+    useEffect(() => {
+        const detectUserTyping = async() => {
+            try{
+                const friendsId = senderId > receiverId
+                ? `${senderId}_${receiverId}`
+                : `${receiverId}_${senderId}`
+                const chatCollection = collection(db, "messages", friendsId, "chats");
+                const messageQuery = query(chatCollection, orderBy("sentAt", "desc"), limit(1));
+                const messageSnapshot = await getDocs(messageQuery);
+
+                if (!messageSnapshot.empty){
+                    const latestMessage = messageSnapshot.docs[0];
+                    const messageDocRef = doc(db, "messages", friendsId, "chats", latestMessage.id);
+                    if (latestMessage.data().receiverId === auth.currentUser.uid){
+                        if (text !== '') {
+                            await setDoc(messageDocRef, {typing: true}, {merge: true});
+                            console.log("Typing detection set in the doc");    
+                        }
+                    }
+                }
+
+            }catch(err){
+                console.log('error caught', err);
+            }
+        }
+        detectUserTyping();
+        return () => {
+            console.log('cleanup occurred!')
+        }
+
+    }, [text]);
+
+    const detectUserTypingclosUp = async() => {
+        try{
+            const friendsId = senderId > receiverId
+            ? `${senderId}_${receiverId}`
+            : `${receiverId}_${senderId}`
+            const chatCollection = collection(db, "messages", friendsId, "chats");
+            const messageQuery = query(chatCollection, orderBy("sentAt", "desc"), limit(1));
+            const messageSnapshot = await getDocs(messageQuery);
+
+            if (!messageSnapshot.empty){
+                const latestMessage = messageSnapshot.docs[0];
+                const messageDocRef = doc(db, "messages", friendsId, "chats", latestMessage.id);
+                if (latestMessage.data().receiverId === auth.currentUser.uid){
+                    await updateDoc(messageDocRef, {typing: false})
+                }
+            }
+
+        }catch(err){
+            console.log('error caught', err);
+        }
+    }
+
+    
+
     const setTime = (time) => {
+        if (!time?.sentAt?.seconds) return "Invalid time";
         const timeSentInSec = time.sentAt.seconds;
         const convertTimeInSec = new Date(timeSentInSec * 1000);
         const minute =  convertTimeInSec.getMinutes() < 10 ? `0${convertTimeInSec.getMinutes()}` : `${convertTimeInSec.getMinutes()}`;
         const hour = convertTimeInSec.getHours();
 
-        const amPm = hour >= 12 ? "pm" : "pm";
+        const amPm = hour >= 12 ? "pm" : "am";
         const formattedHrs = hour % 12 || 12;
         return `${formattedHrs}:${minute}${amPm}`
 
@@ -351,7 +411,7 @@ function MyChat() {
             <div className="fixed px-2 grid grid-cols-[85%_15%]  w-full bottom-2 mt-8">
                 <div className="">
                     <textarea value={text} onChange={handleText} className={`flex py-3 h-12 w-full outline-none resize-none px-2 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-100'} 
-                    rounded-3xl`} type="text" placeholder="Message" ref={messageRef}></textarea>
+                    rounded-3xl`} type="text" placeholder="Message" ref={{messageRef, inputRef}}></textarea>
                 </div>
                 <div className={`flex absolute items-center py-0.5 top-3 right-20 gap-3 ${isDarkMode ? 'text-gray-200' : 'text-gray-950'}`}>
                     <svg
