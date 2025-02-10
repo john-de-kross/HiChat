@@ -96,8 +96,6 @@ function MyChat() {
                 seen: false,
                 sentAt: serverTimestamp()
             })
-            detectUserTypingclosUp()
-
             clearText()
             console.log("message sent")
 
@@ -186,38 +184,41 @@ function MyChat() {
     }, [message])
 
     useEffect(() => {
-        const detectUserTyping = async() => {
+        const detectUserTyping = async(senderId, receiverId) => {
             try{
                 const friendsId = senderId > receiverId
                 ? `${senderId}_${receiverId}`
                 : `${receiverId}_${senderId}`
                 const chatCollection = collection(db, "messages", friendsId, "chats");
                 const messageQuery = query(chatCollection, orderBy("sentAt", "desc"), limit(1));
-                const messageSnapshot = await getDocs(messageQuery);
-
-                if (!messageSnapshot.empty){
-                    const latestMessage = messageSnapshot.docs[0];
-                    const messageDocRef = doc(db, "messages", friendsId, "chats", latestMessage.id);
-                    if (latestMessage.data().receiverId === auth.currentUser.uid){
-                        if (text !== '') {
-                            await setDoc(messageDocRef, {typing: true}, {merge: true});
-                            console.log("Typing detection set in the doc");    
+                const unsub =  onSnapshot(messageQuery, (messageShot) => {
+                    if (!messageShot.empty){
+                        const latestMessage = messageShot.docs[0];
+                        const messageDocRef = doc(db, "messages", friendsId, "chats", latestMessage.id);
+                        if (latestMessage.data().receiverId === auth.currentUser.uid){
+                            if (text !== '') {
+                                setDoc(messageDocRef, {typing: true}, {merge: true})
+                                .then(() => console.log('Typing status updated'))   
+                                .catch((err) => console.log("Error updating typing detected", err))
+                            }
                         }
                     }
-                }
+
+                })
+                return () => unsub()
 
             }catch(err){
                 console.log('error caught', err);
             }
         }
-        detectUserTyping();
+        detectUserTyping(auth.currentUser.uid, userId);
         return () => {
             console.log('cleanup occurred!')
         }
 
     }, [text]);
 
-    const detectUserTypingclosUp = async() => {
+    const detectUserTypingclosUp = async(senderId, receiverId) => {
         try{
             const friendsId = senderId > receiverId
             ? `${senderId}_${receiverId}`
@@ -255,6 +256,29 @@ function MyChat() {
 
     }
 
+    const checkIfUserIsTyping = (senderId, receiverId) =>{
+        const friendsId = senderId > receiverId 
+            ? `${senderId}_${receiverId}` 
+            : `${receiverId}_${senderId}`;
+
+        const messageColl = collection(db, "messages", friendsId, "chats");
+        const messageQuery = query(messageColl, orderBy("sentAt", "desc"), limit(1));
+
+        const unsub = onSnapshot(messageQuery, (snpahot) => {
+            if(!snpahot.empty){
+                const latestMessage = snpahot.docs[0];
+                const typingStatus = latestMessage.data().typing || false
+
+                setIsTyping(typingStatus)
+            }
+        })
+    }
+
+    useEffect(() => {
+        checkIfUserIsTyping(auth.currentUser.uid, userId)
+
+    }, [auth.currentUser.uid, userId])
+
 
 
 
@@ -283,7 +307,8 @@ function MyChat() {
                     </div>
                     <div className="flex flex-col py-1">
                         <div>{username}</div>
-                        <div className={`text-xs font-[400] py-1 ${isOnline? 'text-green-500' : 'text-gray-200'}`}>{isOnline? 'online' : 'offline'}</div>
+                        <div className={`text-xs font-[400] ${!isTyping ? '' : 'hidden'} py-1 ${isOnline? 'text-green-500' : 'text-gray-200'}`}>{isOnline? 'online' : 'offline'}</div>
+                        <div className={`${isTyping ? 'flex text-green-500 text-base' : 'hidden'}`}>typing...</div>
                     </div>
 
                 </div>
@@ -411,7 +436,7 @@ function MyChat() {
             <div className="fixed px-2 grid grid-cols-[85%_15%]  w-full bottom-2 mt-8">
                 <div className="">
                     <textarea value={text} onChange={handleText} className={`flex py-3 h-12 w-full outline-none resize-none px-2 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-100'} 
-                    rounded-3xl`} type="text" placeholder="Message" ref={{messageRef, inputRef}}></textarea>
+                    rounded-3xl`} type="text" placeholder="Message" ref={messageRef}></textarea>
                 </div>
                 <div className={`flex absolute items-center py-0.5 top-3 right-20 gap-3 ${isDarkMode ? 'text-gray-200' : 'text-gray-950'}`}>
                     <svg
