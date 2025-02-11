@@ -182,59 +182,6 @@ function MyChat() {
     useEffect(() => {
         console.log(message)
     }, [message])
-
-    useEffect(() => {
-       
-        try{
-            const friendsId = auth.currentUser.uid > userId
-            ? `${auth.currentUser.uid}_${userId}`
-            : `${userId}_${auth.currentUser.uid}`
-            const chatCollection = collection(db, "messages", friendsId, "chats");
-            const messageQuery = query(chatCollection, orderBy("sentAt", "desc"), limit(1));
-            const unsub =  onSnapshot(messageQuery, (messageShot) => {
-                if (!messageShot.empty){
-                    const latestMessage = messageShot.docs[0];
-                    const messageDocRef = doc(db, "messages", friendsId, "chats", latestMessage.id);
-                    if (latestMessage.data().receiverId === auth.currentUser.uid){
-                        const typingStatus = text !== ''
-                        setDoc(messageDocRef, {typing: typingStatus}, {merge: true})
-                        .then(() => console.log('Typing status updated'))   
-                        .catch((err) => console.log("Error updating typing detected", err))
-                        
-                    }
-                }
-
-            })
-            return () => unsub()
-
-        }catch(err){
-            console.log('error caught', err);
-        }
-
-    }, [text, userId]);
-
-    const detectUserTypingclosUp = async(senderId, receiverId) => {
-        try{
-            const friendsId = senderId > receiverId
-            ? `${senderId}_${receiverId}`
-            : `${receiverId}_${senderId}`
-            const chatCollection = collection(db, "messages", friendsId, "chats");
-            const messageQuery = query(chatCollection, orderBy("sentAt", "desc"), limit(1));
-            const messageSnapshot = await getDocs(messageQuery);
-
-            if (!messageSnapshot.empty){
-                const latestMessage = messageSnapshot.docs[0];
-                const messageDocRef = doc(db, "messages", friendsId, "chats", latestMessage.id);
-                if (latestMessage.data().receiverId === auth.currentUser.uid){
-                    await updateDoc(messageDocRef, {typing: false})
-                }
-            }
-
-        }catch(err){
-            console.log('error caught', err);
-        }
-    }
-
     
 
     const setTime = (time) => {
@@ -250,32 +197,6 @@ function MyChat() {
 
 
     }
-
-    const checkIfUserIsTyping = (senderId, receiverId) =>{
-        const friendsId = senderId > receiverId 
-            ? `${senderId}_${receiverId}` 
-            : `${receiverId}_${senderId}`;
-
-        const messageColl = collection(db, "messages", friendsId, "chats");
-        const messageQuery = query(messageColl, orderBy("sentAt", "desc"), limit(1));
-
-        const unsub = onSnapshot(messageQuery, (snpahot) => {
-            if(!snpahot.empty){
-                const latestMessage = snpahot.docs[0];
-                const typingStatus = latestMessage.data().typing || false
-
-                setIsTyping(typingStatus)
-            }
-        })
-    }
-
-    useEffect(() => {
-        checkIfUserIsTyping(auth.currentUser.uid, userId)
-
-    }, [auth.currentUser.uid, userId])
-
-
-
 
     return ( 
         <div className={`w-full min-h-screen ${isDarkMode ? 'bg-slate-900' : 'bg-slate-200'}`}>
