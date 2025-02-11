@@ -24,6 +24,7 @@ import HandleMessage from './Components/HandleMessage'
 import { useEffect } from 'react'
 import { auth } from './Components/Firebase'
 import { getDatabase, ref, onDisconnect, set, onValue } from "firebase/database";
+import ChatLists from './Components/FriendsChat'
 
 
 
@@ -79,7 +80,10 @@ function App() {
       <UserMode>
         <HandleMessage>
           <Routes>
-            <Route path='/' element={currentUser ? <ChatsOutlets /> : <Navigate to='/login' />} />
+            <Route path='/' element={currentUser ? <ChatsOutlets /> : <Navigate to='/login' />}>
+              <Route index element= {<ChatLists />} />
+              <Route path='chats' element= {<ChatLists />} />
+            </Route>
             <Route path='login' element={<Login />} />
             <Route path='signup' element={<SignUp />}/>
             <Route path='initialize' element={<Initialize />}/>

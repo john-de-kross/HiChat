@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { usersId } from "./CirculateId";
-import { getFirestore, doc, getDoc, getDocs, Timestamp, setDoc, addDoc, collection, serverTimestamp, query, orderBy, onSnapshot, snapshotEqual, updateDoc, limit } from "firebase/firestore";
+import { getFirestore, doc, getDoc, getDocs, Timestamp, setDoc, addDoc, collection, serverTimestamp, query, orderBy, onSnapshot, snapshotEqual, updateDoc, limit, arrayUnion } from "firebase/firestore";
 import { mode} from "./UserMode";
 import { messageCarrier } from "./HandleMessage";
 import { auth } from "./Firebase";
@@ -96,8 +96,33 @@ function MyChat() {
                 seen: false,
                 sentAt: serverTimestamp()
             })
+
+            const senderRef = doc(db, "users", senderId);
+            const receiverRef = doc(db, "users", receiverId);
+
+            await setDoc(senderRef, {
+                latestMessages: {
+                    [receiverId] : {
+                        message,
+                        lastSeenAt: serverTimestamp()
+                    }
+
+                }
+            }, {merge:true});
+
+            await setDoc(receiverRef, {
+                latestMessages: {
+                    [senderId] : {
+                        message,
+                        lastSeenAt: serverTimestamp()
+                    }
+                }
+            }, {merge:true});
+
             clearText()
             console.log("message sent")
+
+
 
         }catch(error){
             console.log("An error occurred while trying to send message", error)

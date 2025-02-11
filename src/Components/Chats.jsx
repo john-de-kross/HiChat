@@ -1,31 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { usersId } from "./CirculateId";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { mode } from "./UserMode";
 import { onSnapshot, getFirestore, doc, collection, setDoc, updateDoc, getDocs, getDoc } from "firebase/firestore";
 import { auth } from "./Firebase";
+import FriendRequest from "./FriendRequest";
 function Chats() {
   const db = getFirestore()
   const {isDarkMode, handleSidebar, isSidebar} = mode()
-  const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef(null)
   const navigate = useNavigate()
-  const searchFocus = () => {
-    setIsFocused(true)
-  }
 
-  const removeSearch = () => {
-    setIsFocused(false)
-  }
-
-  useEffect(() => {
-    if (isFocused && inputRef.current) {
-      inputRef.current.focus()
-    }
-
-  }, [isFocused])
-
-  
+ 
   
   useEffect(() => {
     if(isSidebar){
@@ -38,13 +23,11 @@ function Chats() {
       document.body.style.overflowY = 'auto'
     }
 
-  }, [isSidebar])
-  
+  }, [isSidebar]);
   return (
     <div className={`w-full min-h-screen chat-container ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white'}`}>
-      {!isFocused ? (
-      <>
-        <div className={`flex fixed w-full h-16 z-[1111] justify-between py-2 px-6 ${isDarkMode ? 'text-white' : 'text-black'}`}> 
+
+      <div className={`flex fixed w-full h-16 z-[1111] justify-between py-2 px-6 ${isDarkMode ? 'text-gray-100' : 'text-black'}`}> 
         <div>
             <svg
             onClick={handleSidebar}
@@ -60,15 +43,15 @@ function Chats() {
         <div className="text-lg font-medium">
             <h2>HiChat</h2>
         </div>
-    </div>
-    <div className={`flex py-16 justify-between px-14 border border-t-0 border-x-0 ${isDarkMode ? 'border-y-slate-800' : 'border-y-slate-200'} pb-2`}>
-      <Link className="flex gap-2" to={'chats'}>
+      </div>
+    <div className={`flex py-16 justify-between px-14 border border-t-0 border-x-0 ${isDarkMode ? 'border-y-slate-800' : 'border-y-slate-200'} pb-0`}>
+      <NavLink to={'chats'} className={({isActive}) => `flex gap-2  border-b w-28 ${isDarkMode ? 'border-gray-400' : 'border-slate-800'}`}>
         <img
         className="w-6 h-6" 
         src="/chat.png" 
         alt="" />
         <p className="text-lg font-[500]">chats</p>
-      </Link>
+      </NavLink>
       <Link className="flex gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" 
         fill="none" 
@@ -84,7 +67,7 @@ function Chats() {
       </Link>
     </div>
     <div className="flex relative w-full justify-center py-4">
-          <div className="absolute left-10 py-4">
+          <div className="absolute left-6 py-4">
               <svg xmlns="http://www.w3.org/2000/svg"
               fill="none" 
               viewBox="0 0 24 24" 
@@ -98,15 +81,12 @@ function Chats() {
           </div>
 
           <input  
-          className={`search w-[80%] h-12 ${isDarkMode ? 'bg-slate-600' : 'bg-slate-200'} rounded-2xl outline-none px-9`}
+          className={`search w-[90%] h-12 ${isDarkMode ? 'bg-slate-600' : 'bg-slate-200'} rounded-3xl outline-none px-9`}
           type="text" 
           placeholder="search messages"
-          onFocus={searchFocus}
           />
       </div>
-    <div className="chats text-lg font-[500] flex flex-1 justify-center items-center w-full h-72">
-      <h2>No chats yet. Start a new conversation</h2>
-    </div>
+      <Outlet />
     <div className="fixed bottom-24 right-4"> 
       <div onClick={() => navigate('/friends')} className="flex justify-center items-center font-[500] text-white content w-14 h-14 bg-blue-600 rounded-full">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -114,36 +94,9 @@ function Chats() {
         </svg>
       </div>
     </div>
-  </> 
-      ):
-      (
-        <div className="w-full">
-          <div className="flex justify-center py-2">
-            <svg
-            onClick={removeSearch} 
-            xmlns="http://www.w3.org/2000/svg" 
-            fill="none" viewBox="0 0 24 24" 
-            strokeWidth={1.5} stroke="currentColor" 
-            className="size-6 absolute left-10 mt-[14px] mx-4 stroke-slate-500">
-            <path strokeLinecap="round" 
-            strokeLinejoin="round" 
-            d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-            </svg>
-            <input 
-            ref={inputRef}
-            className={`w-[80%] h-12 rounded-2xl ${isDarkMode ? 'bg-slate-600' : 'bg-slate-100'} outline-none px-14`}
-            type="text" 
-            placeholder="search messages"
-            />
-          </div>
-           
-          
-        </div>
-      )
-      }
-        
-    </div>
-    );
+  </div>
+) 
+      
 }
 
 export default Chats;
