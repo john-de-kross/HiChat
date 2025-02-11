@@ -223,8 +223,7 @@ function MyChat() {
                     </div>
                     <div className="flex flex-col py-1">
                         <div>{username}</div>
-                        <div className={`text-xs font-[400] ${isTyping ? 'hidden' : ''} py-1 ${isOnline? 'text-green-500' : 'text-gray-200'}`}>{isOnline? 'online' : 'offline'}</div>
-                        <div className={`${isTyping ? 'flex text-green-500 text-base' : 'hidden'}`}>typing...</div>
+                        <div className={`text-xs font-[400] py-1 ${isOnline? 'text-green-500' : 'text-gray-200'}`}>{isOnline? 'online' : 'offline'}</div>
                     </div>
 
                 </div>
