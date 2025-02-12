@@ -16,7 +16,6 @@ function ChatLists() {
     const db = getFirestore()
     const [chatFriends, setChatFriends] = useState([]);
     const {isDarkMode} = mode()
-    const [isLoading, setIsLoading] = useState(true);
     const {userId, setUserId} = usersId();
     const {messageState} = messageCarrier();
     const navigate = useNavigate();
@@ -27,8 +26,12 @@ function ChatLists() {
 
         onSnapshot(userRef, async(snapShot) => {
         if (snapShot.exists()) {
-            const docSnapc = snapShot.data();
-            const sortChat = Object.entries(docSnapc.latestMessages);
+            const docSnap = snapShot.data();
+            if (!docSnap.latestMessages || Object.keys(docSnap.latestMessages).length === 0) {
+              setChatFriends([])
+              return; 
+            }
+            const sortChat = Object.entries(docSnap.latestMessages);
             const sortedChat = sortChat.sort((a, b) => b[1].lastSeenAt - a[1].lastSeenAt )
 
             const chatDataWithName = await Promise.all(sortedChat.map(async([friendId, friendData]) => {
@@ -43,7 +46,7 @@ function ChatLists() {
             }))
 
             setChatFriends(chatDataWithName)
-            setIsLoading(false)
+           
 
             
         }
@@ -74,15 +77,6 @@ function ChatLists() {
         const formattedHours = hours % 12 || 12;
         return `${formattedHours}:${minutes}${amPm}`
     }
-
-    if (isLoading) {
-        return(
-          <div className='flex w-full h-screen items-center justify-center '>
-            <Lottie className="w-16 h-16" animationData={Animate} loop/>   
-          </div>
-        )  
-        
-      }
     
     return ( 
         <div className={` w-full py-6 min-h-screen ${isDarkMode ? 'text-white' : 'text-black'}`}>

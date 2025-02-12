@@ -191,7 +191,12 @@ useEffect(() => {
                 </button>
                 <button onClick={() => navigate('/find-friends')} className={`w-24 h-9 rounded-xl text-white ${isDarkMode ? 'bg-purple-950' : 'bg-slate-900'}`}>Suggestions</button>
             </div>
-            {requestDetails.map((user) => (
+            {requestDetails.length === 0 ? (
+                <div className="flex w-full justify-center items-center h-80 text-base font-[500]">
+                    No request received
+                </div>
+            ) : 
+            requestDetails.map((user) => (
                 <div key={user.id} className="grid grid-cols-[20%_60%_20%] py-2 px-2">
                     <div className="profile w-16 h-16 rounded-full bg-slate-50">
                         <img 
