@@ -192,7 +192,7 @@ useEffect(() => {
                 <button onClick={() => navigate('/find-friends')} className={`w-24 h-9 rounded-xl text-white ${isDarkMode ? 'bg-purple-950' : 'bg-slate-900'}`}>Suggestions</button>
             </div>
             {requestDetails.length === 0 ? (
-                <div className="flex w-full justify-center items-center h-80 text-base font-[500]">
+                <div className={`flex w-full justify-center ${isDarkMode ? 'text-gray-50' : 'text-purple-900'} items-center h-80 text-base font-[500]`}>
                     No request received
                 </div>
             ) : 

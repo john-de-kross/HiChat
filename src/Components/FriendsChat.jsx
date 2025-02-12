@@ -79,47 +79,47 @@ function ChatLists() {
     }
     
     return ( 
-        <div className={` w-full py-6 min-h-screen ${isDarkMode ? 'text-white' : 'text-black'}`}>
-      {chatFriends.length === 0 ? (
-        <div className="chats text-base font-[500] flex flex-1 justify-center items-center w-full h-72">
-          No chats yet. Start a conversation
+      <div className={` w-full py-6  ${isDarkMode ? 'text-white' : 'text-black'}`}>
+        {chatFriends.length === 0 ? (
+          <div className="chats text-base font-[500] h-full flex justify-center items-center w-full">
+            No chats yet. Start a conversation
 
-        </div>
-      ): (
-        <div className="">
-          {chatFriends.map((user) => (
-            <div key={user.id} className="grid py-3 px-2 grid-cols-[10%_75%_10%]">
-              <div className="w-full">
-                <img 
-                src="profile.png" 
-                alt="profile" />
-              </div>
-              <div onClick={() => {setUserId(user.id), navigate('/my-chat'), messageState(user)}} className="flex flex-col px-2">
-                <div className="username text-base font-[500]">
-                  {user.username}
+          </div>
+        ): (
+          <div className="">
+            {chatFriends.map((user) => (
+              <div key={user.id} className="grid py-3 px-2 grid-cols-[10%_75%_10%]">
+                <div className="w-full">
+                  <img 
+                  src="profile.png" 
+                  alt="profile" />
                 </div>
-                <div className={`message ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} text-sm px-2`}>
-                  {user.message.length >= 40  ? `${user.message.slice(0, 31)}...` : user.message}
+                <div onClick={() => {setUserId(user.id), navigate('/my-chat'), messageState(user)}} className="flex flex-col px-2">
+                  <div className="username text-base font-[500]">
+                    {user.username}
+                  </div>
+                  <div className={`message ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} text-sm px-2`}>
+                    {user.message.length >= 40  ? `${user.message.slice(0, 31)}...` : user.message}
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <div className="text-xs font-[Ubuntu] pr-6">
+                      {getTime(user)}
+                  </div>
+                  
                 </div>
               </div>
-              <div className="flex flex-col">
-                <div className="text-xs font-[Ubuntu] pr-6">
-                    {getTime(user)}
-                </div>
-                
-              </div>
-            </div>
+              
+            ))}
             
-          ))}
-          
 
-        </div>
-      
-      
-          
+          </div>
+        
+        
+            
 
-      
-      )}
+        
+        )}
     </div>
     
         
