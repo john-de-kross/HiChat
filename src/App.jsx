@@ -32,6 +32,9 @@ function App() {
   const db = getDatabase();
   const {currentUser, loading} = authState();
 
+
+  
+
   if (loading) {
     return(
       <div className='flex justify-center items-center w-full h-screen'>
@@ -40,39 +43,6 @@ function App() {
     )  
     
   }
-
-
-  useEffect(() => {
- 
-    try{
-      const userId = auth.currentUser.uid;
-      const presenceRef = ref(db, `users/${userId}/online`) ;
-      const connectedRef = ref(db, '.info/connected');
-
-      const unsub = onValue(connectedRef, (snap) => {
-        if (snap.val() === true) {
-          set(presenceRef, true)
-          console.log("connected")
-
-
-          onDisconnect(presenceRef).set(false);
-          
-        }else{
-          console.log("Not connected")
-        }
-      })
-
-      return () => unsub()
-    }catch(error){
-      console.log("Error occurreed while trying to set online users", error)
-    }
-        
-    
-    
-
-    
-      
-  }, []);
 
   return (
     
@@ -107,7 +77,6 @@ function App() {
        <Sidebar />
        <Chats />
        <FootBar />
-       <Outlet />
       </> 
     )
   }
@@ -116,7 +85,6 @@ function App() {
     return(
       <>
        <FindFriends />
-       <Outlet />
        <FootBar />
       </>
     )

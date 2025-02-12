@@ -4,11 +4,18 @@ import { mode } from "./UserMode";
 import { onSnapshot, getFirestore, doc, collection, setDoc, updateDoc, getDocs, getDoc } from "firebase/firestore";
 import { auth } from "./Firebase";
 import FriendRequest from "./FriendRequest";
+import { authState } from "./UsersState";
+import Lottie from "lottie-react";
+import Animate from "./Animate.json"
+
+import { getDatabase, ref, onDisconnect, set, onValue } from "firebase/database";
 function Chats() {
+  const DB = getDatabase()
   const db = getFirestore()
   const {isDarkMode, handleSidebar, isSidebar} = mode()
   const inputRef = useRef(null)
   const navigate = useNavigate()
+  const {loading} = authState();
 
  
   
@@ -24,6 +31,41 @@ function Chats() {
     }
 
   }, [isSidebar]);
+
+  useEffect(() => {
+    try{
+      const userId = auth.currentUser.uid;
+      const presenceRef = ref(DB, `users/${userId}/online`) ;
+      const connectedRef = ref(DB, '.info/connected');
+
+      const unsub = onValue(connectedRef, (snap) => {
+        if (snap.val() === true) {
+          set(presenceRef, true);
+          console.log("connected");
+
+
+          onDisconnect(presenceRef).set(false);
+          
+        }else{
+          console.log("Not connected");
+        }
+      })
+
+      return () => unsub()
+    }catch(error){
+      console.log("Error occurreed while trying to set online users", error);
+    }
+             
+  }, []);
+
+  if (loading) {
+    return(
+      <div className='flex justify-center items-center w-full h-screen'>
+        <Lottie className="w-16 h-16" animationData={Animate} loop/>   
+      </div>
+    )  
+    
+  }
   return (
     <div className={`w-full min-h-screen chat-container ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white'}`}>
 
