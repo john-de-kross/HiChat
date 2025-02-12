@@ -3,19 +3,15 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { mode } from "./UserMode";
 import { onSnapshot, getFirestore, doc, collection, setDoc, updateDoc, getDocs, getDoc } from "firebase/firestore";
 import { auth } from "./Firebase";
-import FriendRequest from "./FriendRequest";
-import { authState } from "./UsersState";
-import Lottie from "lottie-react";
-import Animate from "./Animate.json"
 
 import { getDatabase, ref, onDisconnect, set, onValue } from "firebase/database";
-function Chats() {
+function Chats({isLoading}) {
   const DB = getDatabase()
   const db = getFirestore()
   const {isDarkMode, handleSidebar, isSidebar} = mode()
   const inputRef = useRef(null)
   const navigate = useNavigate()
-  const {loading} = authState();
+
 
  
   
@@ -58,18 +54,13 @@ function Chats() {
              
   }, []);
 
-  if (loading) {
-    return(
-      <div className='flex justify-center items-center w-full h-screen'>
-        <Lottie className="w-16 h-16" animationData={Animate} loop/>   
-      </div>
-    )  
-    
-  }
+ 
+
+
   return (
     <div className={`w-full min-h-screen chat-container ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white'}`}>
 
-      <div className={`flex fixed w-full h-16 z-[1111] justify-between py-2 px-6 ${isDarkMode ? 'text-gray-100' : 'text-black'}`}> 
+      <div className={`flex fixed w-full h-16 z-[1111] justify-between py-2 px-6 ${isDarkMode ? 'bg-slate-950 text-gray-100' : 'text-black bg-gray-100'}`}> 
         <div>
             <svg
             onClick={handleSidebar}

@@ -19,9 +19,6 @@ function MyChat() {
     const [message, setMessage] = useState([])
     const isSeen = Object.values(seen)[0];
     const [isOnline, setIsOnline] = useState(false);
-    const inputRef = useRef(null);
-    const [isTyping, setIsTyping] = useState(false)
-
 
     useEffect(() => {
         const userRef = ref(DB, `users/${userId}/online`);
@@ -66,9 +63,7 @@ function MyChat() {
                 messageRef.current.style.height  = ''
                 messageRef.current.style.height = ""
 
-            }
-
-            
+            }    
         }
 
         return () => {
@@ -210,7 +205,7 @@ function MyChat() {
     
 
     const setTime = (time) => {
-        if (!time?.sentAt?.seconds) return "Invalid time";
+        if (!time?.sentAt?.seconds) return <div className="w-4 h-4 rounded-full border-[4px] border-blue-500 border-t-transparent animate-spin"></div>;
         const timeSentInSec = time.sentAt.seconds;
         const convertTimeInSec = new Date(timeSentInSec * 1000);
         const minute =  convertTimeInSec.getMinutes() < 10 ? `0${convertTimeInSec.getMinutes()}` : `${convertTimeInSec.getMinutes()}`;
@@ -307,7 +302,7 @@ function MyChat() {
             <div ref={scrollRef} className="w-full h-[71vh] overflow-y-auto">
                 {message.map((msg) => (
                     <div key={msg.id} className={`text-white flex px-2 ${msg.senderId === auth.currentUser.uid ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`px-4 py-2 mt-2 text-base rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-900 text-white' : 'bg-gray-200 text-black'}`}>
+                        <div className={`px-4 py-2 mt-2 text-base rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-900 text-white' : 'bg-white text-black'}`}>
                             {msg.message}
                             {msg.seen ? (
                                 <div className=" float-end">
