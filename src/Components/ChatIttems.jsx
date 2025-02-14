@@ -6,6 +6,7 @@ function ChatItems({user, setUserId, isDarkMode, messageState, navigate, getTime
     const [count, setCount] = useState({})
 
     useEffect(() => {
+        if (!user?.id) return;
         const userRef = doc(db, "users", user.id)
         const unsub = onSnapshot(userRef, (snapshot) => {
             if (snapshot.exists()) {
@@ -16,8 +17,10 @@ function ChatItems({user, setUserId, isDarkMode, messageState, navigate, getTime
                 }))
                 
             }
-            return () => unsub()
+            
         })
+
+        return () => unsub()
 
 
     }, [user?.id])
@@ -44,8 +47,8 @@ function ChatItems({user, setUserId, isDarkMode, messageState, navigate, getTime
                 <div className="text-xs font-[Ubuntu] pr-6">
                     {getTime(user)}
                 </div>
-                <div className={`w-5 h-5 text-white text-xs bg-blue-500 rounded-full ${count === null ? 'hidden' : 'flex'} justify-center items-center`}>
-                    {count}
+                <div className={`w-5 h-5 text-white text-xs bg-blue-500 rounded-full ${count[user.id] === null ? 'hidden' : 'flex'} justify-center items-center`}>
+                    {count[user.id]}
                 </div>
             </div>
         </div>
