@@ -3,14 +3,17 @@ import React, { useEffect, useState } from "react";
 
 function ChatItems({user, setUserId, isDarkMode, messageState, navigate, getTime}) {
     const db = getFirestore()
-    const [count, setCount] = useState(null)
+    const [count, setCount] = useState({})
 
     useEffect(() => {
         const userRef = doc(db, "users", user.id)
         const unsub = onSnapshot(userRef, (snapshot) => {
             if (snapshot.exists()) {
                 const messageCount = snapshot.data().messageCount || null
-                setCount(messageCount)
+                setCount((prevCount) => ({
+                    ...prevCount,
+                    [user.id] : messageCount
+                }))
                 
             }
             return () => unsub()
