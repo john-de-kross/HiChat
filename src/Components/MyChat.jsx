@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { usersId } from "./CirculateId";
-import { getFirestore, doc, getDoc, getDocs, Timestamp, setDoc, addDoc, collection, serverTimestamp, query, orderBy, onSnapshot, snapshotEqual, updateDoc, limit, arrayUnion } from "firebase/firestore";
+import { getFirestore, doc, getDoc, getDocs, Timestamp, setDoc, addDoc, collection, serverTimestamp, query, orderBy, onSnapshot, snapshotEqual, updateDoc, limit, arrayUnion, increment } from "firebase/firestore";
 import { mode} from "./UserMode";
 import { messageCarrier } from "./HandleMessage";
 import { auth } from "./Firebase";
@@ -105,6 +105,7 @@ function MyChat() {
                 }
             }, {merge:true});
 
+
             await setDoc(receiverRef, {
                 latestMessages: {
                     [senderId] : {
@@ -113,6 +114,10 @@ function MyChat() {
                     }
                 }
             }, {merge:true});
+
+            await updateDoc(senderRef, {
+                messageCount: increment(1)
+            })
 
             clearText()
             console.log("message sent")
@@ -171,13 +176,22 @@ function MyChat() {
                 const messageDoc = await getDocs(messageRef)
 
                 if (!messageDoc.empty) {
+                    const userRef = doc(db, "users", receiverId)
                     const updatePromise = messageDoc.docs.map(async (chat) => {
                         const messageDocRef = doc(db, "messages", friendsId, "chats", chat.id);
                         if (isSeen && chat.data().receiverId === auth.currentUser.uid){
                             await updateDoc(messageDocRef, {
                                 seen: true
                             })
+
+                            await updateDoc(userRef, {
+                                messageCount: 0
+                            })
+
+                            
+
                             console.log('message seen')
+
                         }
                     
                     });  
@@ -205,7 +219,7 @@ function MyChat() {
     
 
     const setTime = (time) => {
-        if (!time?.sentAt?.seconds) return <div className="w-4 h-4 rounded-full border-[4px] border-blue-500 border-t-transparent animate-spin"></div>;
+        if (!time?.sentAt?.seconds) return;
         const timeSentInSec = time.sentAt.seconds;
         const convertTimeInSec = new Date(timeSentInSec * 1000);
         const minute =  convertTimeInSec.getMinutes() < 10 ? `0${convertTimeInSec.getMinutes()}` : `${convertTimeInSec.getMinutes()}`;
