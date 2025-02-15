@@ -82,12 +82,37 @@ function ChatLists() {
       const timeSentInSec = time.lastSeen.seconds;
 
       const convertToMili = new Date(timeSentInSec * 1000);
+      const now = new Date()
       const hours = convertToMili.getHours();
       const minutes = convertToMili.getMinutes() < 10 ? `0${convertToMili.getMinutes()}` : convertToMili.getMinutes();
+      const year = convertToMili.getFullYear();
+      const month = convertToMili.getMonth() + 1;
+      const day = convertToMili.getDate()
+
+
+      const nowYear = now.getFullYear();
+      const nowMonth = now.getMonth() + 1;
+      const nowDay = now.getDate() 
+
+      
 
       const amPm = hours >= 12 ? 'pm' : 'am';
       const formattedHours = hours % 12 || 12;
-      return `${formattedHours}:${minutes}${amPm}`
+
+      if (year === nowYear && month === nowMonth && day === nowDay) {
+        return `${formattedHours}:${minutes}${amPm}`
+        
+      }
+      const yesterday = new Date()
+      yesterday.setDate(now.getDate() - 1)
+      
+      if (year === yesterday.getFullYear() && month === yesterday.getMonth() && day === yesterday.getDate()){
+        return 'yesterday'
+
+      }
+
+      return `${day}/${month}/${year.toString().slice(-2)}`
+
   }
 
     const messageCountRetrieval = (user) => {

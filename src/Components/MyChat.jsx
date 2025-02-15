@@ -5,6 +5,7 @@ import { mode} from "./UserMode";
 import { messageCarrier } from "./HandleMessage";
 import { auth } from "./Firebase";
 import { getDatabase, ref, onDisconnect, set, onValue } from "firebase/database";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -19,6 +20,7 @@ function MyChat() {
     const [message, setMessage] = useState([])
     const isSeen = Object.values(seen)[0];
     const [isOnline, setIsOnline] = useState(false);
+    const navigate = useNavigate()
 
     useEffect(() => {
         const userRef = ref(DB, `users/${userId}/online`);
@@ -238,6 +240,7 @@ function MyChat() {
                 <div className="flex gap-2">
                     <div className="py-2">
                         <svg 
+                        onClick={() => navigate('/')}
                         xmlns="http://www.w3.org/2000/svg" 
                         fill="none" 
                         viewBox="0 0 24 24" 

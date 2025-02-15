@@ -1,20 +1,24 @@
 import { doc, getFirestore, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 
+
 function ChatItems({user, setUserId, isDarkMode, messageState, navigate, getTime}) {
     const db = getFirestore()
-    const [count, setCount] = useState({})
+    const [count, setCount] = useState({});
+    
 
     useEffect(() => {
         if (!user?.id) return;
         const userRef = doc(db, "users", user.id)
         const unsub = onSnapshot(userRef, (snapshot) => {
             if (snapshot.exists()) {
-                const messageCount = snapshot.data().messageCount || null
-                setCount((prevCount) => ({
-                    ...prevCount,
-                    [user.id] : messageCount
-                }))
+                const messageCount = snapshot.data().messageCount || 0
+                setCount((prevCount) => {
+                    return{
+                        ...prevCount,
+                        [user.id] : messageCount
+                    }
+                })
                 
             }
             
@@ -26,8 +30,8 @@ function ChatItems({user, setUserId, isDarkMode, messageState, navigate, getTime
     }, [user?.id])
 
     useEffect(() => {
-        console.log(count)
-    }, [count])
+        console.log(user.id)
+    }, [])
     return ( 
         <div className="grid py-3 px-2 grid-cols-[10%_75%_10%]">
             <div className="w-full">
@@ -47,7 +51,7 @@ function ChatItems({user, setUserId, isDarkMode, messageState, navigate, getTime
                 <div className="text-xs font-[Ubuntu] pr-6">
                     {getTime(user)}
                 </div>
-                <div className={`w-5 h-5 text-white text-xs bg-blue-500 rounded-full ${count[user.id] === null ? 'hidden' : 'flex'} justify-center items-center`}>
+                <div className={`w-5 h-5 text-white text-xs bg-blue-500 rounded-full ${count[user.id] === 0 ? 'hidden' : 'flex'} justify-center items-center`}>
                     {count[user.id]}
                 </div>
             </div>
