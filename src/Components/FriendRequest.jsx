@@ -156,12 +156,6 @@ const declineRequest = async(user) => {
 
 }
 
-useEffect(() => {
-    console.log(requestDetails)
-    console.log(auth.currentUser.uid)
-
-}, [requestDetails])
-
 
     return ( 
         <div className={`w-full min-h-screen ${isDarkMode ? 'bg-slate-900 text-white' : 'text-white'}`}>

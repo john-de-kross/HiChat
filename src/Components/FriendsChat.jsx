@@ -111,22 +111,9 @@ function ChatLists() {
 
       }
 
-      return `${day}/${month}/${year.toString().slice(-2)}`
+      return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year.toString().slice(-2)}`
 
   }
-
-    const messageCountRetrieval = (user) => {
-      if (!user.id) return
-      const userRef = doc(db, "users", user?.id);
-      onSnapshot(userRef, (snapshot) => {
-        if (snapshot.exists()) {
-          const count = snapshot.data().messageCount;
-          console.log(count)
-          return count
-          
-        }
-      })
-    }
 
     if (isLoading) {
       return(

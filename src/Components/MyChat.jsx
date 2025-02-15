@@ -121,7 +121,6 @@ function MyChat() {
                 messageCount: increment(1)
             })
 
-            clearText()
             console.log("message sent")
 
 
@@ -161,11 +160,9 @@ function MyChat() {
     const scrollRef = useRef(null)
     useEffect(() => {
         if (scrollRef.current) {
-            scrollRef.current.scrollTop = scrollRef.current.scrollHeight
-            
+            scrollRef.current.scrollTo = scrollRef.current.scrollHeight    
         }
         
-
     }, [message])
 
     useEffect(() => {
@@ -233,6 +230,9 @@ function MyChat() {
 
 
     }
+
+ 
+
 
     return ( 
         <div className={`w-full min-h-screen ${isDarkMode ? 'bg-slate-900' : 'bg-slate-200'}`}>
@@ -316,7 +316,7 @@ function MyChat() {
                     </div>
                 </div>
             </div>
-            <div ref={scrollRef} className="w-full h-[71vh] overflow-y-auto">
+            <div ref={scrollRef} className="w-full h-[74vh] overflow-y-auto">
                 {message.map((msg) => (
                     <div key={msg.id} className={`text-white flex px-2 ${msg.senderId === auth.currentUser.uid ? 'justify-end' : 'justify-start'}`}>
                         <div className={`px-4 py-2 mt-2 text-base rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-900 text-white' : 'bg-white text-black'}`}>
@@ -419,7 +419,7 @@ function MyChat() {
                 <div className="microphone fixed right-2 bottom-2 ml-3 flex justify-center items-center py-2 w-10 h-10 rounded-full bg-green-600">
                     {text.length > 0 ? (
                         <svg 
-                            onClick={() => handleMessage(text, userId, auth.currentUser.uid)}
+                            onClick={() => {handleMessage(text, userId, auth.currentUser.uid), clearText()}}
                             xmlns="http://www.w3.org/2000/svg" 
                             fill="none" 
                             viewBox="0 0 24 24" 
