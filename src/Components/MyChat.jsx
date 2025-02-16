@@ -20,7 +20,11 @@ function MyChat() {
     const [message, setMessage] = useState([])
     const isSeen = Object.values(seen)[0];
     const [isOnline, setIsOnline] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const msgRef = useRef(null);
+    const isPressedLong = useRef(false);
+    const trackRef = useRef(null);
+    const [longPressed, setLongPressed] = useState(false)
 
     useEffect(() => {
         const userRef = ref(DB, `users/${userId}/online`);
@@ -231,6 +235,47 @@ function MyChat() {
 
     }
 
+    useEffect(() => {
+        const element = msgRef.current;
+
+        const startPress = () => {
+            isPressedLong.current = false;
+            trackRef.current = setTimeout(() => {
+                isPressedLong.current = true;
+                setLongPressed(true)
+                alert("pressed for long")
+
+
+            }, 1000)
+        }
+
+        const cancelPress = () => {
+            clearTimeout(trackRef.current)
+        };
+
+        if (element) {
+            element.addEventListener('mousedown', startPress);
+            element.addEventListener('touchstart', startPress);
+            element.addEventListener('mouseup', cancelPress);
+            element.addEventListener('mouseleave', cancelPress);
+            element.addEventListener('touchend', cancelPress);
+            
+        }
+
+        return () => {
+            if (element) {
+                element.removeEventListener('mousedown', startPress);
+                element.removeListener('touchstart', startPress);
+                element.removeEventListener('mouseup', cancelPress);
+                element.removeEventListener('mouseleave', cancelPress);
+                element.removeEventListener('touchend', cancelPress);
+                
+            }
+
+        }
+
+    }, [])
+
  
 
 
@@ -319,7 +364,7 @@ function MyChat() {
             <div ref={scrollRef} className="w-full h-[74vh] overflow-y-auto">
                 {message.map((msg) => (
                     <div key={msg.id} className={`text-white flex px-2 ${msg.senderId === auth.currentUser.uid ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`px-4 py-2 mt-2 text-base rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-900 text-white' : 'bg-white text-black'}`}>
+                        <div ref={msgRef} className={`px-4 py-2 mt-2 text-base rounded-lg max-w-xs break-words ${msg.senderId === auth.currentUser.uid ? 'bg-blue-900 text-white' : 'bg-white text-black'}`}>
                             {msg.message}
                             {msg.seen ? (
                                 <div className=" float-end">
