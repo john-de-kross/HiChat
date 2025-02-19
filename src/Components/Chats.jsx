@@ -58,9 +58,9 @@ function Chats({isLoading}) {
 
 
   return (
-    <div className={`w-full min-h-screen chat-container ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white'}`}>
+    <div className={`w-full min-h-screen chat-container  ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white'}`}>
 
-      <div className={`flex fixed w-full h-16 z-[1111] justify-between py-2 px-6 ${isDarkMode ? 'bg-slate-950 text-gray-100' : 'text-black bg-gray-100'}`}> 
+      <div className={`flex fixed w-full h-16 z-[1111] justify-between py-2 px-6  ${isDarkMode ? 'bg-slate-950 text-gray-100' : 'text-black bg-gray-100'}`}> 
         <div>
             <svg
             onClick={handleSidebar}
@@ -77,7 +77,7 @@ function Chats({isLoading}) {
             <h2>HiChat</h2>
         </div>
       </div>
-    <div className={`flex py-16 justify-between px-14 border border-t-0 border-x-0 ${isDarkMode ? 'border-y-slate-800' : 'border-y-slate-200'} pb-0`}>
+    <div className={`flex py-16 justify-between px-14 border border-t-0 md:justify-center md:gap-32 border-x-0 ${isDarkMode ? 'border-y-slate-800' : 'border-y-slate-200'} pb-0`}>
       <NavLink to={'chats'} className={({isActive}) => `flex gap-2  border-b w-28 ${isDarkMode ? 'border-gray-400' : 'border-slate-800'}`}>
         <img
         className="w-6 h-6" 

@@ -106,7 +106,7 @@ function ChatLists() {
       const yesterday = new Date()
       yesterday.setDate(now.getDate() - 1)
       
-      if (year === yesterday.getFullYear() && month === yesterday.getMonth() && day === yesterday.getDate()){
+      if (year === yesterday.getFullYear() && month === (yesterday.getMonth() + 1) && day === yesterday.getDate()){
         return 'yesterday'
 
       }
