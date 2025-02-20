@@ -234,7 +234,7 @@ function MyChat() {
 
     return ( 
         <div className={`w-full min-h-screen ${isDarkMode ? 'bg-slate-900' : 'bg-slate-200'}`}>
-            <div className={`fixed w-full top-0 flex justify-between px-2 items-center h-20 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-300'}`}>
+            <div className={`fixed w-full top-0 flex justify-between px-2 z-[1000] items-center h-20 ${isDarkMode ? 'bg-slate-800 text-gray-100' : 'bg-slate-300'}`}>
                 <div className="flex gap-2">
                     <div className="py-2">
                         <svg 
