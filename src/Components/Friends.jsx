@@ -22,7 +22,7 @@ function Friends() {
         const unsubscribe = onSnapshot(doc(db, "users", auth.currentUser.uid), async(snapshot) => {
             const friendsId = snapshot.data().friends || [];
 
-            const friendsData = Promise.all(
+            const friendsData = await Promise.all(
                 friendsId.map(async(id) => {
                     const userRef = doc(db, "users", id)
                     const getUser = await getDoc(userRef);
@@ -34,7 +34,7 @@ function Friends() {
                 })
             )
             .then((friends) => {
-                setFriendCollection(friends.filter(friend => friend !== null))
+                setFriendCollection(friends.filter(friend => friend !== null).sort((a, b) => a.username.localeCompare(b.username)))
                 setIsLoading(false)
             })
         });

@@ -125,7 +125,7 @@ function ChatLists() {
     }
     
     return ( 
-      <div className={` w-full py-6  ${isDarkMode ? 'text-white' : 'text-black'}`}>
+      <div className={` w-full py-6 ${isDarkMode ? 'text-white' : 'text-black'}`}>
         {chatFriends.length === 0 ? (
           <div className="chats text-base font-[500] py-16 flex justify-center items-center w-full">
             No chats yet. Start a conversation

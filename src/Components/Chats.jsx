@@ -58,7 +58,7 @@ function Chats({isLoading}) {
 
 
   return (
-    <div className={`w-full min-h-screen chat-container  ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white'}`}>
+    <div className={`w-full overflow-auto min-h-screen pb-24 chat-container  ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white'}`}>
 
       <div className={`flex fixed w-full h-16 z-[1111] justify-between py-2 px-6  ${isDarkMode ? 'bg-slate-950 text-gray-100' : 'text-black bg-gray-100'}`}> 
         <div>
